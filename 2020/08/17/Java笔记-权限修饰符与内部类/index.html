@@ -4,11 +4,37 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="求满足条件的abc, 刺客世家">
-    <meta name="description" content="求满足条件的abc已知a&amp;gt;b&amp;gt;c,a、b、c为整数，且a+b+c&amp;lt;100，求满足 1/a2+1/b2=1/c2 的a、b、c共有多少组？(2是平方的意思)void main()
-{
-    int a,b,c,n=0;
- ">
+    <meta name="keywords" content="Java笔记--权限修饰符与内部类, 刺客世家">
+    <meta name="description" content="权限修饰符Java中有四种权限修饰符
+
+
+
+
+public
+protected
+(default)
+private
+
+
+
+同一个类
+Yes
+Yes
+Yes
+Yes
+
+
+同一个包
+Yes
+Yes
+Yes
+No
+
+
+不同包子类
+Yes
+Yes
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +42,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>求满足条件的abc | 刺客世家</title>
+    <title>Java笔记--权限修饰符与内部类 | 刺客世家</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -328,12 +354,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">求满足条件的abc</h1>
+                    <h1 class="description center-align post-title">Java笔记--权限修饰符与内部类</h1>
                 </div>
             </div>
         </div>
@@ -450,8 +476,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/C%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81%E7%AC%94%E8%AE%B0/">
-                                <span class="chip bg-color">C语言代码笔记</span>
+                            <a href="/tags/Java%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">Java笔记</span>
                             </a>
                         
                     </div>
@@ -462,8 +488,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/C%E8%AF%AD%E8%A8%80/" class="post-category">
-                                C语言
+                            <a href="/categories/Java/" class="post-category">
+                                Java
                             </a>
                         
                     </div>
@@ -475,7 +501,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-03-05
+                    2020-08-17
                 </div>
                 
 
@@ -492,20 +518,233 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="求满足条件的abc"><a href="#求满足条件的abc" class="headerlink" title="求满足条件的abc"></a>求满足条件的abc</h1><h2 id="已知a-gt-b-gt-c-a、b、c为整数，且a-b-c-lt-100，求满足-1-a2-1-b2-1-c2-的a、b、c共有多少组？-2是平方的意思"><a href="#已知a-gt-b-gt-c-a、b、c为整数，且a-b-c-lt-100，求满足-1-a2-1-b2-1-c2-的a、b、c共有多少组？-2是平方的意思" class="headerlink" title="已知a&gt;b&gt;c,a、b、c为整数，且a+b+c&lt;100，求满足 1/a2+1/b2=1/c2 的a、b、c共有多少组？(2是平方的意思)"></a>已知a&gt;b&gt;c,a、b、c为整数，且a+b+c&lt;100，求满足 1/a2+1/b2=1/c2 的a、b、c共有多少组？(2是平方的意思)</h2><pre><code>void main()
-{
-    int a,b,c,n=0;
-    for(a=3;a&lt;97;a++)
-        for(b=a-1;b&lt;96;b++)
-            for(c=b-1;c&lt;95;c++)
-            {
-                if(a+b+c&lt;100 &amp;&amp; 1.0/(a*a)+1.0/(b*b)==1.0/(c*c))
-                {
-                    printf(&quot;a=%d,b=%d,c=%d\n&quot;,a,b,c);
-                    n++;
-                }
+                <h1 id="权限修饰符"><a href="#权限修饰符" class="headerlink" title="权限修饰符"></a>权限修饰符</h1><p>Java中有四种权限修饰符</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>public</th>
+<th>protected</th>
+<th>(default)</th>
+<th>private</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>同一个类</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>同一个包</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>不同包子类</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>不同包非子类</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>注意事项: (default)并不是关键字”default”, 而是什么都不写。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>如果一个事物内部包含另一个事物，那么这就是一个类内部包含另一个类</p>
+<p>例如身体和心脏的关系。又如汽车和发动机的关系。<br/><br>分类：</p>
+<ol>
+<li>成员内部类</li>
+<li>局部内部类（包含匿名内部类）</li>
+</ol>
+<h3 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h3><p>成员内部类的定义格式:</p>
+<pre><code>修饰符class外部类名称{
+    修饰符class 内部类名称{
+        // ...
+    }
+    // ...
+}</code></pre><p>注意:内用外，随意访问;外用内，需要内部类对象。</p>
+<pre><code>public class Body { //外部类
+
+    public class Heart { //成员内部类
+        //内部类的方法
+        public void beat() {
+            System.out.println(&quot;心脏跳动:蹦蹦蹦! &quot;);
+            System.out.println(&quot;我叫：&quot; + name);//正确写法
+        }
+    }
+
+    //外部类的成员变量
+    private String name;
+    //……省略了Getter，Setter
+
+    //外部类的方法
+    public void methodBody() {
+        System. out. print1n(&quot;外部类的方法&quot; );
+        new Heart().beat();
+}
+
+    }
+}</code></pre><p>如何使用成员内部类?有两种方式:<br/></p>
+<ol>
+<li>间接方式：在外部类的方法当中，使用内部类:然后main只是调用外部类的方法。</li>
+<li>直接方式：公式：<br/><pre><code>类名称对象名= new. 类名称();//正常类
+外部类名称.内部类名称对象名= new 外部类名称(). new内部类名称();//内部类</code></pre></li>
+</ol>
+<p><strong>main函数</strong></p>
+<pre><code>public class Demo01Innerclass{
+    public static void main(String[] args){
+        Body body.new Body(); //外部类的对象
+        //通过外部类的对象，调用外部类的方法，里面间接在使用内部类Heart
+        body . methodBody();
+
+        System.out.print1n(&quot;=================&quot;);
+        //按照公式写，
+        Body.Heart heart = new Body().new Heart();
+        heart.beat();
+
+    }
+}</code></pre><h3 id="同名变量访问"><a href="#同名变量访问" class="headerlink" title="同名变量访问"></a>同名变量访问</h3><p>如果出现了重名现象，那么格式是:外部类名称.this.外部类成员变量名</p>
+<pre><code>//如果出现了重名现象，那么格式是:外部类名称.this.外部类成员变量名
+public class Outer {
+    int num = 10; //外部类的成员变量
+
+    public class Inner /*extends object*/ {
+
+        int num = 20; //内部类的成员变量
+
+        public void methodInner() {
+            int num = 30; //内部类方法的局部变量
+            System.out.println(num);//局部变量，就近原则
+            System.out.println(this.num); //内部类的成员变量
+            System.out.println(Outer.this .num);//外部类的成员变量
+        }
+    }    
+}</code></pre><h4 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h4><p>如果一个类是定义在一个方法内部的，那么这就是一个局部内部类。 “局部”。只有当前所属的方法才能使用它，出了这个方法外面就不能用了。</p>
+<p>定义格式:</p>
+<pre><code>修饰符class 外部类名称{
+    修饰符 返回值类型 外部类方法名称(参数列表){
+        //...
+    }
+}</code></pre><pre><code>public class Outer {
+    public void methodOuter() {
+    class Inner { //局部内部类
+    intnum=10;
+    public void methodInner() {
+        System.out.println(num); // 10
+    }
+
+    Inner inner = new Inner();
+    inner.methodInner();
+    }
+}
+</code></pre><p>小节一下类的权限修饰符:<br/><br>public &gt; protected &gt; (default) &gt; private </p>
+<p>定义一个类的时候，权限修饰符规则:</p>
+<ol>
+<li>外部类: public / (default)</li>
+<li>成员内部类: public / protected / (default) / private</li>
+<li>局部内部类，什么都不能写（只有当前方法本身才能使用）</li>
+</ol>
+<h4 id="注意fainal特性"><a href="#注意fainal特性" class="headerlink" title="注意fainal特性"></a>注意fainal特性</h4><p>局部内部类，如果希望访问所在方法的局部变量，那么这个局部变量必须是【有效final的】。</p>
+<p>备注:从Java 8+开始，只要局部变量事实不变，那么final关键字可以省略。</p>
+<pre><code>public class MyOuter {
+    public void methodOuter(){
+        int num = 10; //所在方法的局部交量默认为final
+        //num = 20;//错误写法
+
+        class MyInner {
+            public void methodInner() {
+                System.out .print1n(num);
             }
-        printf(&quot;满足条件的a、b、c共%d组&quot;,n);
+        }
+    }
+}</code></pre><p>原因:</p>
+<ol>
+<li>new出来的对象在堆内存当中。.</li>
+<li>局部变量是跟着方法走的，在栈内存当中。</li>
+<li>方法运行结束之后，立刻出栈，局部变量就会立刻消失。</li>
+<li>但是new出来的对象会在堆当中持续存在，直到垃圾回收消失。</li>
+</ol>
+<h3 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h3><p>如果接口的实现类(或者是父类的子类)只需要使用==唯一的一次==,那么这种情况下就可以省略掉该类的定义，而改为使用 <strong>【匿名内部类】</strong>。</p>
+<p>匿名内部类的定义格式:</p>
+<pre><code>接口名称 对象名 = new. 接口名称(){
+    // 覆盖重写所有抽象方法
+};</code></pre><p>例如</p>
+<pre><code>public class DemoMain {
+    public static void main(String[] args) {
+    //MyInterface obj = new MyInterfaceImpl();
+    //obj . method();//一般写法
+
+    //MyInterface some = new MyInterface(); //错误写法!
+
+    //使用匿名内部类
+    MyInterface obj = new MyInterface() {
+        @Override
+        public void method() {
+            System.out.println(&quot;匿名内部类实现了方法！&quot;);
+        };
+
+     obj.method();   
+    }
+}
+</code></pre><p><strong>注意：匿名内部类的结尾有分号；</strong></p>
+<h4 id="匿名内部类的注意事项"><a href="#匿名内部类的注意事项" class="headerlink" title="匿名内部类的注意事项"></a>匿名内部类的注意事项</h4><p>对格式进行解析”new接口名称() {…}”进行解析</p>
+<ol>
+<li>new代表创建对象的动作</li>
+<li>接口名称就是匿名内部类需要实现哪个接口</li>
+<li>{…} 这才是匿名内部类的内容</li>
+</ol>
+<p>另外还要注意几点问题：</p>
+<ol>
+<li><strong>匿名内部类</strong>，在创建对象的时候，只能创建唯一一次。<br/><br>如果希望多次创建对象，而且类的内容一样的话， 那么就必须使用单独定义的实现类了。</li>
+<li><strong>匿名对象</strong>。在【调用方法】的时候，只能调用唯一-次。<br/><br>如果希望同一一个对象，调用多次方法，那么必须給对象起个名字。</li>
+<li>匿名内部类是省略了【实现类/子类名称】，但是匿名对象是省略了【对象名称】<br/><br>强调：匿名内部类和匿名对象不是一回事! ! !</li>
+</ol>
+<pre><code>public class DemoMain {
+    public static void main(String[] args) {
+        //使用匿名内部类，但不是匿名对象，对象名称就叫objA
+         MyInterface objA = new MyInterface() {
+            @Override
+            public void method1() {
+                System.out.printin(&quot;匿名内部类实现了方法! 111-A&quot;);
+            }
+            @Override
+            public void method2() {
+                System.out.print1n(&quot;匿名内部类实现了方法! 222-A&quot;);
+            }
+        };
+        objA.method1();
+        objA.method2();
+
+        //使用了匿名内部类，而且省略了对象名称，也是匿名对象
+        new MyInterface() {
+            @Override
+            public void method1() {
+            System.out.print1n(&quot;匿名内部类实现了方法! 111-B&quot;);
+            }
+            @Override
+            public void method2() {
+                System.out.print1n(&quot;匿名内部类实现了方法! 222-8&quot;);
+            }
+        }.method1();
+        //因为匿名对象无法调用第二次方法，所以如果需要调用其中其他的方法
+        //需要再创建一个匿名内部类的匿名对象
+
+    }
 }</code></pre>
             </div>
             <hr/>
@@ -531,7 +770,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://cikeshijia.cn/2020/03/05/%E6%B1%82%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84abc/">https://cikeshijia.cn/2020/03/05/%E6%B1%82%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84abc/</a>
+                    <a href="https://cikeshijia.cn/2020/08/17/Java%E7%AC%94%E8%AE%B0-%E6%9D%83%E9%99%90%E4%BF%AE%E9%A5%B0%E7%AC%A6%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/">https://cikeshijia.cn/2020/08/17/Java%E7%AC%94%E8%AE%B0-%E6%9D%83%E9%99%90%E4%BF%AE%E9%A5%B0%E7%AC%A6%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -569,8 +808,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/C%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81%E7%AC%94%E8%AE%B0/">
-                                    <span class="chip bg-color">C语言代码笔记</span>
+                                <a href="/tags/Java%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">Java笔记</span>
                                 </a>
                             
                         </div>
@@ -736,50 +975,77 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/03/05/%E5%8F%96%E7%90%83%E9%97%AE%E9%A2%98/">
+                <a href="/2020/08/17/Java%E7%AC%94%E8%AE%B0-%E6%9D%83%E9%99%90%E4%BF%AE%E9%A5%B0%E7%AC%A6%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="取球">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Java笔记--权限修饰符与内部类">
                         
-                        <span class="card-title">取球</span>
+                        <span class="card-title">Java笔记--权限修饰符与内部类</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            取球方案有两个红球、三个黄球、四个白球任意取5个球，其中必有一个黄球，编程输出所有可能的方案void main()
-{
-    int a,b,c;//a：红球 b：黄球 c：白球
-    for(a=0;a&lt;=2;a++)
-    
+                            权限修饰符Java中有四种权限修饰符
+
+
+
+
+public
+protected
+(default)
+private
+
+
+
+同一个类
+Yes
+Yes
+Yes
+Yes
+
+
+同一个包
+Yes
+Yes
+Yes
+No
+
+
+不同包子类
+Yes
+Yes
+
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-17
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/C%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    C语言
+                            <a href="/categories/Java/" class="post-category">
+                                    Java
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">C语言代码笔记</span>
+                    <a href="/tags/Java%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">Java笔记</span>
                     </a>
                     
                 </div>
@@ -793,36 +1059,32 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/03/05/765%E7%9B%8F%E7%81%AF%E7%9A%84%E7%81%AF%E5%A1%94/">
+                <a href="/2020/08/17/Java%E7%AC%94%E8%AE%B0-API/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="765盏灯的灯塔">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Java笔记--API">
                         
-                        <span class="card-title">765盏灯的灯塔</span>
+                        <span class="card-title">Java笔记--API</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            765盏灯的灯塔有一个八层高的灯塔，每层所点灯数都等于上一层的两倍，一共765盏灯，求塔底灯数。void main()
-{
-    int i,s,n;//
-    for(i=1,s=1;i&lt;8;i++)
-    {
-       
+                            Java笔记–API 应用程序编程接口Application Program Interface
+概述API(Application Programming Interface)，应用程序编程接口。Java API是—本程序员的字典，是JD
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-17
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/C%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    C语言
+                            <a href="/categories/Java/" class="post-category">
+                                    Java
                                 </a>
                             
                             
@@ -832,8 +1094,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">C语言代码笔记</span>
+                    <a href="/tags/Java%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">Java笔记</span>
                     </a>
                     
                 </div>
