@@ -1,0 +1,1551 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java笔记--基础语法, 刺客世家">
+    <meta name="description" content="java笔记–基础语法
+JDK、JRE与JVM第一个Java程序//这是一个程序第三个单词与文件名必须一样
+public class HelloWorld {
+    //第二行是万年不变的方法，代表main方法
+    //程序的入口，做">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java笔记--基础语法 | 刺客世家</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">刺客世家</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/book" class="waves-effect waves-light">
+      
+      <i class="fas fa-book" style="zoom: 0.6;"></i>
+      
+      <span>Book</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">刺客世家</div>
+        <div class="logo-desc">
+            
+            我陪伴了你多少年，一路上花开花落，起起跌跌！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/book" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-book"></i>
+			
+			Book
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Java笔记--基础语法</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">Java笔记</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java/" class="post-category">
+                                Java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-08-17
+                </div>
+                
+
+                
+
+                
+
+                
+				
+                
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="java笔记–基础语法"><a href="#java笔记–基础语法" class="headerlink" title="java笔记–基础语法"></a>java笔记–基础语法</h1><hr>
+<h2 id="JDK、JRE与JVM"><a href="#JDK、JRE与JVM" class="headerlink" title="JDK、JRE与JVM"></a>JDK、JRE与JVM</h2><h2 id="第一个Java程序"><a href="#第一个Java程序" class="headerlink" title="第一个Java程序"></a>第一个Java程序</h2><pre><code>//这是一个程序第三个单词与文件名必须一样
+public class HelloWorld {
+    //第二行是万年不变的方法，代表main方法
+    //程序的入口，做Java开发一般不会改变
+    public static void main(String[] args){
+        System.out.println(&quot;你好，世界！&quot;);
+    }
+}</code></pre><hr>
+<h2 id="Java-基础关键字与标识符"><a href="#Java-基础关键字与标识符" class="headerlink" title="Java 基础关键字与标识符"></a>Java 基础关键字与标识符</h2><h3 id="关键字的特点："><a href="#关键字的特点：" class="headerlink" title="关键字的特点："></a>关键字的特点：</h3><p>1、完全小写的字母：public Public<br/><br>2、在notpaid++中有特殊颜色<br/></p>
+<h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><p>程序中自己定义的部分，如类名，方法名，变量名等都是标识符<br/>
+1、标识符可以包含26个英文字母（区分大小写），数字（0~9），$（美元符号），_（下划线）<br/>
+2、标识符不能以数字开头<br/>
+3、标识符不能是关键字</p>
+
+<h3 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范:"></a>命名规范:</h3><p>1、类名规范：首字母大写后面每个单词首字母大写（大驼峰式）<br/>
+2、变量名、方法名：首字母小写后面每个单词首字母大写（小驼峰式 ）</p>
+
+<hr>
+<h2 id="常量与变量"><a href="#常量与变量" class="headerlink" title="常量与变量"></a>常量与变量</h2><h3 id="常量："><a href="#常量：" class="headerlink" title="常量："></a>常量：</h3><p>1、字符串常量：凡是用双引号引起来的的常量<br/>
+2、整数常量：直接写上数字，没有小数点<br/>
+3、浮点数常量：直接写上数字，有小数点<br/>
+4、字符常量：只用单引号引起来的单个字符<br/>
+5、布尔常量：只有两种取值，true、false。<br/>
+6、空常量：null，代表没有任何数据（不能用来打印输出）</p>
+
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>程序运行期间，内容可以发生改变的量</p>
+<h4 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h4><p>
+整数型：byte、short、int、long <br/>
+浮点型：float、double <br/>
+字符型：char <br/>
+布尔型：boolean <br/>
+</p>
+
+<h4 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h4><p>字符串、数组、类、接口、lambda</p>
+<p><strong>注意事项：</strong><br/><br>1、字符串不是基本类型而是引用类型<br/><br>2、浮点型可能只是一个近似值，并非精确值<br/><br>3、数据范围与字节数不一定相关，例如float数据范围比long更加广泛，但float是4字节，long是8字节<br/><br>4、浮点数当中默认类型为double类型，如果一定要使用float类型，需要加上一个后缀F；<br/><br>如果是整数，默认为int类型，如果一定要使用long类型，需要加上一个后缀L，推荐使用大写字母后缀。<br/></p>
+<pre><code>System.out.println(100L);</code></pre><h4 id="创建一个变量并且使用的格式"><a href="#创建一个变量并且使用的格式" class="headerlink" title="创建一个变量并且使用的格式"></a>创建一个变量并且使用的格式</h4><ul>
+<li><p>数据类型 变量名称;    //创建了一个变量</br></p>
+</li>
+<li><p>数据名称=数据值;  //赋值，将左边的数据值，赋值交给左边的变量<br>一步到位的格式：</br></p>
+</li>
+<li><p>数据类型 变量名 = 数据值 ; //在创建一个变量的同时，立刻放入指定的数据值</br></p>
+<pre><code>public class Demo02Variable{
+  public static void main(String[] args){
+      //创建一个变量
+      //格式：数据类型 变量名称;
+      int num1;
+      num1 = 10;
+      System.out.println(num1);//打印10
+
+      //改变变量中本来的数字，变成新的数字
+      num1=20;
+      System.out.println(num1);
+
+      //使用一步到位的格式来定义变量
+      //格式：数据类型 变量名 = 数据值;
+      int num2=25;
+      System.out println(num2);//打印25
+
+      num2=35;
+      System.out.printfln(num2);
+
+      System.out.printfln(&quot;*******我是分割线******&quot;);
+
+      byte num3 = 30;//注意右侧数值范围不能超过左侧的数据类型
+      System.out.println(num3);//打印30
+
+      byte num4 = 400;//右侧超出了byte数据范围，错误！
+
+      boolean var1 = true;//布尔型变量
+      var1=false;
+      System.out.println(var1);
+
+      boolen var2 = var1;
+  }
+}</code></pre></li>
+</ul>
+<h4 id="使用变量的注意对象"><a href="#使用变量的注意对象" class="headerlink" title="使用变量的注意对象"></a>使用变量的注意对象</h4><p>1、如果创建多个变量，那么变量之间的名称不可以重复。<br/><br>2、对于float和long类型来说，字母后缀F和L不要丢掉。<br/><br>3、如果使用byte或者short类型的变量，那么右侧的速值不能超过左侧类型的范围。<br/><br>4、没有进行赋值的变量不能直接使用；一定要复赋值后才能使用。<br/><br>5、变量不能超过作用域的范围。<br/><br>【作用域】从定义变量的一行开始；一直到直接所属的大括号结束为止。<br/><br>6、可以通过一个语句来创建多个变量，但是一般情况不推荐这么写。<br/></p>
+<h4 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h4><p>当数据类型不一样时，将会发生数据类型转换。<br/></p>
+<ul>
+<li>自动数据转换（隐式）</li>
+</ul>
+<p>1、特点：代码不需要进行特殊处理，自动完成<br/><br>2、规则：数据范围从小到大。（与字节数不一定相关）<br/></p>
+<pre><code>public class Demo01DataType{
+    public static void main(String[] args){
+        System.out.println(1024);//这就是一个整数，默认就是int类型
+        System.out.printfln(3.14);//这就是一个小数，默就是double类型
+
+        //左边是long类型，右边默认int类型，左右不一样
+        //一个等号代表复制，将右边的int常量，交给左侧的long变量进行存储；
+        //int--&gt;long，符合了数据范围从小到大的要求
+        //这一行代码发生了自动类型转换
+        int num1 = 100;
+        System.out.println(num1);//输出100
+
+        //左边double，右边float类型
+        double num2 = 2.5F;
+        System.out.println(num2);//输出2.5
+
+        //左边float，右边long类型，左右不一样，发生了自动类型转换
+        float num3 = 100L
+        System.out.println(num3);//输出3.0
+    }
+}</code></pre><ul>
+<li>强制数据转换</li>
+</ul>
+<p>1、特点：代码需要进行特殊格式处理，不能自动完成。</br><br>2、格式：范围小的类型 范围小的变量名 = 原本范围大的数据（范围小的类型）原本范围<br/><br>【注意事项】<br/><br>1、强制类型转换一般不推荐使用，因为有可能发生精度损失、数据溢出<br/><br>2、byte/short/char这三种类型都可以发生数学运算，例如加法“+”<br/><br>3、byte/short/char这三种类型在运算时，都会首先提升为int类型，然后再计算<br/><br>4、boolean类型不能发生数据类型转换<br/></p>
+<pre><code>public class Demo02DataType{
+    public static void main(String args){
+        //左边是int类型，右边是long类型，不一样
+        //long--&gt;int，不是从小到大
+        //不能发生自动类型转换！
+        int num = (int) 100L;
+        System.out.println(num);
+    }
+}</code></pre><hr>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>含义</th>
+<th>使用方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>加</td>
+<td>数值：加法；</br>char类型字符和int类型数字：ASCII码或Unicode码相加；</br>字符串（string）：表示字符串连接（任何数据类型和字符串连接都会变成字符串）</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减</td>
+<td>减法运算</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘</td>
+<td>乘法运算</td>
+</tr>
+<tr>
+<td>/</td>
+<td>除</td>
+<td>除法运算，在整数运算中结果取整数</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取模</td>
+<td>取余数</td>
+</tr>
+</tbody></table>
+<h3 id="自增-减运算符"><a href="#自增-减运算符" class="headerlink" title="自增/减运算符"></a>自增/减运算符</h3><p>【基本含义】让一个变量张一个数字1，或者让一个变量降一个数字1。<br/><br>使用方式<br/><br>1、单独使用：不和其他任何操作混合，自己独立成为一个步骤。<br/><br>2、混合使用：和其他操作混合使用。<br/></p>
+<h3 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h3><p>基本赋值运算符：就是一个等号“=”，代表将右侧的数据交给左侧的变量。<br/><br>复合赋值运算符：<br/><br>+=</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+=</td>
+<td>加等于</td>
+</tr>
+<tr>
+<td>-=</td>
+<td>减等于</td>
+</tr>
+<tr>
+<td>*=</td>
+<td>乘等于</td>
+</tr>
+<tr>
+<td>/=</td>
+<td>除等于</td>
+</tr>
+<tr>
+<td>%=</td>
+<td>取模等于</td>
+</tr>
+</tbody></table>
+<ul>
+<li>复合运算符中隐含着一个强制类型转换</li>
+</ul>
+<h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>==</td>
+<td>比较符号两边数据是否相等，相等时结果为true</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>比较符号左边数据是否小于右边数据</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>比较符号左边数据是否大于右边数据</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>比较符号左边数据是否小于等于右边数据</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>比较符号左边数据是否大于等于右边数据</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>比较符号两边数据是否相等，不相等时结果为true</td>
+</tr>
+</tbody></table>
+<pre><code>//比较运算符
+public class Demo01Operator{
+    public static void main(String[] args){
+        System.out.println(10 &gt; 5);
+        int num1 = 10;
+        int num2 = 20;
+        System.out.println(num1 &gt; num2);
+    }
+}</code></pre><p>【注意事项】<br/><br>1、比较运算符的结果一定是一个boolean值，成立就是true，不成立就是false。<br/><br>2、如果进行多次判断，不能连着写。<br/></p>
+<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><p>与（并且）&amp;&amp; 全都时true，才是true；否则就是false<br/><br>或（或者）||至少一个是true，就是true<br/><br>非（取反）！本来是true，变成false；本来是false，变成true<br/></p>
+<p>与“&&”，或“||”，具有短路效果：如果根据左边已经可以判断得到最终结果，那么右边的代码将不再执行，从而节省一定的性能</p>
+1、逻辑运算符只能用于boolean值。
+2、与、或需要左右格斯有一个boolean值，但是取反只要有唯一的一个boolean值即可。
+3、与、或两种运算符如果有多个条件可以连续写。
+
+<h3 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h3><p><strong>需要三个数据才可以进行操作的运算符</strong><br/></p>
+<h4 id="格式："><a href="#格式：" class="headerlink" title="格式："></a>格式：</h4><p>数据类型 变量名 = 条件判断 ? 表达式A : 表达式B;<br/></p>
+<h4 id="流程："><a href="#流程：" class="headerlink" title="流程："></a>流程：</h4><p>首先判断条件是否成立:<br/><br>如果成立为true，那么将表达式A的值赋值给左侧的变量;<br/><br>如果不成立为false，那么将表达式B的值赋值给左侧的变量;<br/><br>二者选其一。<br/></p>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项:"></a>注意事项:</h4><p>1.必须同时保证表达式A和表达式B都符合左侧数据类型的要求。<br/><br>2.三元运算符的结果必须被使用。<br/></p>
+<pre><code>public class Demo100perator {
+    public static void main(string[]args) {
+       int a = 10;
+       int b = 20; 
+
+       //数据类型变量名称=条件判断?表达式A:表达式B;
+       //判断a &gt;b是否成立，如果成立将a的值赋值给max;如果不成立将b的值赋值给max。二者选其一
+
+       int max = a &gt; b ? a : b; //最大值的变量
+       System.out.println(&quot;最大值:&quot; +max); //输出 20
+
+       // int result = 3 &gt; 4 ? 2.5 : 10;//错误写法!
+
+       System.out.println(a &gt; b ? a : b);//正确写法!
+
+       // a&gt; b ? a : b;//错误写法!
+    }
+}
+</code></pre><hr>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>我们在学习运算符的时候，都为每个运算符单独的创建一个新的类和main方法，我们会发现这样编写代码非常的繁琐，而且重复的代码过多。能否避兔这些重复的代码呢，就需要使用方法来实现。</p>
+<ul>
+<li>方法:就是将一个功能抽取出来，把代码单独定义在一个大括号内，形成一个单独的功能。</li>
+</ul>
+<p>当我们需要这个功能的时候，就可以去调用。这样即实现了代码的复用性，也解决了代码冗余的现象。<br/></p>
+<pre><code>public class Demo11Method {
+    public static void main(String[]args){
+        farmer(); //调用农民的方法
+        seller(); //调用小商贩的方法
+        cook(); //调用厨子的方法
+        me(); //调用我自己的方法工
+
+    }
+}
+
+//我
+public static void me(){
+   system.out.println(&quot;吃&quot;); 
+}
+
+
+//小商贩
+public static void seller() {
+    system.out.println(&quot;运输到农贸市场&quot;);
+    System.out.println(&quot;抬高价格&quot;);
+    system.out.println(&quot;吆喝&quot;);
+    System.out.println(&quot;卖给厨子&quot;);
+}
+
+
+//农民伯伯
+public static void farmer(){
+    System.out.println(&quot;播种&quot;);
+    system.out.println(&quot;浇水&quot;);
+    System.out.println(&quot;施肥&quot;);
+    system.out.println(&quot;&quot;除虫&quot;);
+    system.out.println(&quot;收割&quot;);
+    system.out.println(&quot;卖给小商贩&quot;);
+}
+</code></pre><p>定义方法的完整格式:<br/></p>
+<pre><code>修饰符 返回值类型 方法名称(参数类型参数名称，...) 
+    方法体
+    return返回值;
+}
+/*
+修饰符:现阶段的固定写法:public static
+
+返回值类型:也就是方法最终产生的数据结果是什么类型
+方法名称:方法的名字，规则和变量一样，小驼峰
+参数类型:进入方法的数据是什么类型
+参数名称:进入方法的数据对应的变量名称
+    Ps:参数如果有多个，使用逗号进行分隔
+方法体:方法需要做的事情，若干行代码
+return:两个作用，第一停止当前方法，第二将后面的返回值还给调用处
+返回值:也就是方法执行后最终产生的数据结果
+
+注意:return后面的“返回值”，必须和方法名称前面的“返回值类型”，保持对应。
+*/
+</code></pre><p>【注意事项】<br/><br>1、方法定义的先后顺序无所谓。<br/><br>2、方法定义不能产生嵌套包含关系。<br/><br>3、方法定义好了以后，不会执行的，如果要执行，一定要进行方法的调用。<br/><br><strong>如何调用方法，格式：方法名称();</strong></p>
+<h3 id="方法的重载"><a href="#方法的重载" class="headerlink" title="方法的重载"></a>方法的重载</h3><p>对于功能类似的方法来说，因为方法不一样，却要记住那么多不同的方法名称，太麻烦。<br/></p>
+<p>方法的重载（OverLoad）：多个方法的名称一样，但是参数列表不一样。<br/><br>好处：只需要记住一个方法名称就可以实现类似的功能。<br/><br><strong>方法重载与下列因素有关：</strong></p>
+<ul>
+<li>参数个数不同<br/></li>
+<li>参数类型不同<br/></li>
+<li>参数的多类型顺序不同<br/></li>
+</ul>
+<p><strong>方法重载与下列因素无关：</strong></p>
+<ul>
+<li>与参数的名称无关</li>
+<li>与方法的返回值类型无关</li>
+</ul>
+<pre><code>public class Demo01MethodOverlode {
+    public static void main(String[] args) {
+        System.out.println(sum(10,20));
+        System.out.println(sum(10,20,30));
+        System.out.println(sum(10,20,30,40));
+    }
+
+    public static int sum(int a,int b)
+    {
+        System.out.println(&quot;有两个参数的方法执行！&quot;);
+        return a+b;
+    }
+
+    public static int sum(int a,int b,int c)
+    {
+        System.out.println(&quot;有三个参数的方法执行！&quot;);
+        return a+b+c;
+    }
+    public static int sum(int a,int b,int c,int d)
+    {
+        System.out.println(&quot;有四个参数的方法执行！&quot;);
+        return a+b+c+d;
+    }
+}
+</code></pre><hr>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>数组的初始化:在内存当中创建一个数组，并且向其中赋子—些默认值。<br>两种常见的初始化方式:</p>
+<ul>
+<li>动态初始化（指定长度）:在创建数组的时候，直按指定数组当中的数据元素个数</li>
+<li>静态初始化（指定内容）:在创建数组的时候，不直接指定数据个数多少，而是直接将具体的数据内容进行指定。</li>
+</ul>
+<h3 id="动态切始化数组的格式"><a href="#动态切始化数组的格式" class="headerlink" title="动态切始化数组的格式:"></a>动态切始化数组的格式:</h3><pre><code>数据类型 [] 数组名称 = new 数据类型 [数组长度];</code></pre><p>解析含义:<br/><br>左侧数据类型:也就是数组当中保存的数据，全都是统一的什么类型<br/><br>左恻的中括号，代差我是—个数组<br/><br>左彻数组茗称:给数组取一个名字<br/><br>右彻的new:代表创建数组的动作<br/><br>右侧蛟据类型:必须和左边的致据类型保持一致<br/><br>右侧中括号的长度:也就是数组当中，到底可以保存多少个数据，是一个int数字<br/></p>
+<pre><code>public class Demoe1Array {
+
+    public :tatic.void main(stringl]args)i
+        //创建一个数组，里面可以存放300个int数据
+        //格式:数据共型数组名称 = new 数据类型[数组长度];
+        int [] arrayA = new int[300];
+}</code></pre><h3 id="静态初始化基本格式"><a href="#静态初始化基本格式" class="headerlink" title="静态初始化基本格式:"></a>静态初始化基本格式:</h3><pre><code>/*数据类型 [] 数组名称 = new 数据类型[] {元素1，元素2,……};*/
+
+public class Demo02Array {
+    public static void main(String[] args) {
+        //直接创建一个数组，里面装的全都是int数字，具体为: 5、15、25
+        int[] arrayA = new int[] { 5, 15, 25 };
+        //创建一个数组，用来装字符串: &quot;Hello&quot;、 &quot;World&quot;、 &quot;Java&#39;
+        String[] arrayB = new String[] { &quot;He11o&quot;， &quot;World&quot;, &quot;Java&quot; };
+    }
+}
+</code></pre><p>【注意事项】<br/><br>虽然静态初始化没有直接告诉长度，但是根据大括号里面的元素具体内容，也可以自动推算出来长度。</p>
+<p><strong>使用静态初始化数组的时候，格式还可以省略一下。</strong><br/><br>标准格式:<br/><br>    数据类型[] 数组名称= new 数据类型[] {元素1,元素2，… };<br/><br>省略格式:<br/><br>    数据类型[] 数组名称= {元素1,元素2, … };<br/></p>
+<p>【注意事项】</p>
+<ul>
+<li>静态初始化没有直接指定长度，但是仍然会自动推算得到长度。</li>
+<li>静态初始化标准格式可以拆分成为两个步骤。</li>
+<li>动态初始化也可以拆分成为两个步骤。</li>
+<li>静态初始化一旦使用省略格式，就不能拆分成为两个步骤了。</li>
+</ul>
+<p>【使用建议】<br/><br>如果不确定数组当中的具体内容，用动态初始化;否则，已经确定了具体的内容，用静态初始化。<br/></p>
+<pre><code>public class Demo03Array {
+    public static void main(String[] args) {
+        //省略格式的静态初始化
+        int[] arrayA = { 10，20，30 };
+        //静态初始化的标准格式，可以拆分成为两个步骤
+        int[] arrayB;
+        arrayB = new int[] { 11, 21, 31 };
+        //动态初始化也可以拆分成为两个步骤
+        int[] arrayC;
+        arrayC = new int[5] ;
+        }
+
+}</code></pre><p>动态初始化时，其中元素会自动拥有一个默认值<br/><br>整形数据：0<br/><br>浮点型数据：0.0<br/><br>字符型数据：’\u0000’<br/><br>布尔类型：false<br/><br>引用类型：null</p>
+<p>【注意事项】<br/><br>静态初始化其实也有默认值，只不过立马被替换成了大括号里面的具体值而已。</p>
+<h3 id="Java的内存需要划分5个部分"><a href="#Java的内存需要划分5个部分" class="headerlink" title="Java的内存需要划分5个部分"></a>Java的内存需要划分5个部分</h3><h4 id="栈（stack）：存放的都是方法中的局部变量"><a href="#栈（stack）：存放的都是方法中的局部变量" class="headerlink" title="栈（stack）：存放的都是方法中的局部变量"></a>栈（stack）：存放的都是方法中的局部变量</h4><p><strong>==方法的运行一定要在栈当中运行。==</strong></p>
+<p>局部变量：方法的参数，或着是方法{}内部的变量<br>作用域：一旦超出作用域，立刻从栈内存中消失</p>
+<h4 id="堆（Heap）-凡是NEW出来的东西都在堆当中"><a href="#堆（Heap）-凡是NEW出来的东西都在堆当中" class="headerlink" title="堆（Heap）:==凡是NEW出来的东西都在堆当中=="></a>堆（Heap）:==凡是NEW出来的东西都在堆当中==</h4><p>堆内存里面的东西都有一个地址值：16进制<br/></p>
+<p>堆内存里面的数据都有默认值，规则：<br/></p>
+<ul>
+<li>如果是整数 默认为0</li>
+<li>如果是浮点数 默认为0.0</li>
+<li>如果是字符 默认为 ‘\u0000’</li>
+<li>如果是布尔  默认为false</li>
+<li>如果是引用类型 默认为null</li>
+</ul>
+<h4 id="方法区（MethodArea）存属-class相关信息，包含方法的信息。"><a href="#方法区（MethodArea）存属-class相关信息，包含方法的信息。" class="headerlink" title="方法区（MethodArea）存属.class相关信息，包含方法的信息。"></a>方法区（MethodArea）存属.class相关信息，包含方法的信息。</h4><h4 id="本地方法栈（Native-Method-Stack）：与操作系统相关。"><a href="#本地方法栈（Native-Method-Stack）：与操作系统相关。" class="headerlink" title="本地方法栈（Native Method Stack）：与操作系统相关。"></a>本地方法栈（Native Method Stack）：与操作系统相关。</h4><h4 id="寄存器：与CPU相关。"><a href="#寄存器：与CPU相关。" class="headerlink" title="寄存器：与CPU相关。"></a>寄存器：与CPU相关。</h4><h3 id="如何获得数组长度"><a href="#如何获得数组长度" class="headerlink" title="如何获得数组长度"></a>如何获得数组长度</h3><p>格式：<strong>数组名称.length</strong><br/><br>将会得一个int数字，代表数组长度</p>
+<h3 id="数组一旦创建-程序运行期间长度不可改变"><a href="#数组一旦创建-程序运行期间长度不可改变" class="headerlink" title="数组一旦创建,程序运行期间长度不可改变"></a>数组一旦创建,程序运行期间长度不可改变</h3><h3 id="数组可以作为方法的参数"><a href="#数组可以作为方法的参数" class="headerlink" title="数组可以作为方法的参数"></a>数组可以作为方法的参数</h3><p>当调用方法的时候，向方法的小括号进行传参，传递进去的其实是数组的地址值。<br/></p>
+<h3 id="数组作为返回值"><a href="#数组作为返回值" class="headerlink" title="数组作为返回值"></a>数组作为返回值</h3><p>一个方法可以有多个参数但是只有0~1个返回值，不能有多个返回值，如果希望一个方法中产生了多个结果数据进行返回，怎么办？<br/><br>解决方法：使用一个数组作为返回值类型即可。</p>
+<pre><code>public class Demo03ArrayReturn {
+    public static void main(String[] args) {
+        int x=50,y=30,z=20;
+        int[] result = calculate(x,y,z);
+        System.out.println(result[0]);
+        System.out.println(result[1]);
+    }
+    public static int [] calculate(int a,int b,int c){
+        int sum=a+b+c;//总和
+        int avg=sum/3;//平均数
+        //两个数都希望进行返回
+        int[] array=new int [] {sum,avg};
+        return array;
+    }
+}
+</code></pre>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://cikeshijia.cn" rel="external nofollow noreferrer">刺客世家</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://cikeshijia.cn/2020/08/17/javabijijichuyufa/">https://cikeshijia.cn/2020/08/17/javabijijichuyufa/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://cikeshijia.cn" target="_blank">刺客世家</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Java%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">Java笔记</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/08/17/javabijileiyuduixiang/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Java笔记--类与对象">
+                        
+                        <span class="card-title">Java笔记--类与对象</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Java笔记–类与对象面向过程：当要实现一个功能的时候，每一个具体步骤都要亲历亲为，详细处理每一个细节。面向对象：当实现一个功能不关心具体步骤，而是我一个已经具有该功能的人来帮我做事。
+类：一组相关属性和关系行为的集合，可以看成是一类事物的
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">Java笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/03/31/cyuyanwenjiandeyongfa/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="C语言文件的用法">
+                        
+                        <span class="card-title">C语言文件的用法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本篇博客主要简述C语言的文件类型的各个函数，以及基本的用法。这些函数都是包括在头文件stdlib.h里面。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-31
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C%E8%AF%AD%E8%A8%80/" class="post-category">
+                                    C语言
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">C语言学习笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 刺客世家<br />'
+            + '文章作者: 刺客世家<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者"刺客世家"所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="https://cikeshijia.cn" target="_blank">刺客世家</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2019";
+                    var startMonth = "12";
+                    var startDate = "11";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/17718193653" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2794344637@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2794344637" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2794344637" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+	<script type="text/javascript"> var OriginTitile = document.title, st; 
+	document.addEventListener("visibilitychange", function () 
+		{ document.hidden ? (document.title = "Σ(っ °Д °;)っ喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+	</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
