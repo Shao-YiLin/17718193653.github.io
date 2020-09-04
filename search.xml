@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Java笔记--权限修饰符与内部类</title>
+      <link href="/2020/08/17/javabijiquanxianxiushifuyuneibulei/"/>
+      <url>/2020/08/17/javabijiquanxianxiushifuyuneibulei/</url>
+      
+        <content type="html"><![CDATA[<h1 id="权限修饰符"><a href="#权限修饰符" class="headerlink" title="权限修饰符"></a>权限修饰符</h1><p>Java中有四种权限修饰符</p><table><thead><tr><th></th><th>public</th><th>protected</th><th>(default)</th><th>private</th></tr></thead><tbody><tr><td>同一个类</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr><tr><td>同一个包</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr><tr><td>不同包子类</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr><tr><td>不同包非子类</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr><tr><td>注意事项: (default)并不是关键字”default”, 而是什么都不写。</td><td></td><td></td><td></td><td></td></tr></tbody></table><h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>如果一个事物内部包含另一个事物，那么这就是一个类内部包含另一个类</p><p>例如身体和心脏的关系。又如汽车和发动机的关系。<br/><br>分类：</p><ol><li>成员内部类</li><li>局部内部类（包含匿名内部类）</li></ol><h3 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h3><p>成员内部类的定义格式:</p><pre><code>修饰符class外部类名称{    修饰符class 内部类名称{        // ...    }    // ...}</code></pre><p>注意:内用外，随意访问;外用内，需要内部类对象。</p><pre><code>public class Body { //外部类    public class Heart { //成员内部类        //内部类的方法        public void beat() {            System.out.println(&quot;心脏跳动:蹦蹦蹦! &quot;);            System.out.println(&quot;我叫：&quot; + name);//正确写法        }    }    //外部类的成员变量    private String name;    //……省略了Getter，Setter    //外部类的方法    public void methodBody() {        System. out. print1n(&quot;外部类的方法&quot; );        new Heart().beat();}    }}</code></pre><p>如何使用成员内部类?有两种方式:<br/></p><ol><li>间接方式：在外部类的方法当中，使用内部类:然后main只是调用外部类的方法。</li><li>直接方式：公式：<br/><pre><code>类名称对象名= new. 类名称();//正常类外部类名称.内部类名称对象名= new 外部类名称(). new内部类名称();//内部类</code></pre></li></ol><p><strong>main函数</strong></p><pre><code>public class Demo01Innerclass{    public static void main(String[] args){        Body body.new Body(); //外部类的对象        //通过外部类的对象，调用外部类的方法，里面间接在使用内部类Heart        body . methodBody();        System.out.print1n(&quot;=================&quot;);        //按照公式写，        Body.Heart heart = new Body().new Heart();        heart.beat();    }}</code></pre><h3 id="同名变量访问"><a href="#同名变量访问" class="headerlink" title="同名变量访问"></a>同名变量访问</h3><p>如果出现了重名现象，那么格式是:外部类名称.this.外部类成员变量名</p><pre><code>//如果出现了重名现象，那么格式是:外部类名称.this.外部类成员变量名public class Outer {    int num = 10; //外部类的成员变量    public class Inner /*extends object*/ {        int num = 20; //内部类的成员变量        public void methodInner() {            int num = 30; //内部类方法的局部变量            System.out.println(num);//局部变量，就近原则            System.out.println(this.num); //内部类的成员变量            System.out.println(Outer.this .num);//外部类的成员变量        }    }    }</code></pre><h4 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h4><p>如果一个类是定义在一个方法内部的，那么这就是一个局部内部类。 “局部”。只有当前所属的方法才能使用它，出了这个方法外面就不能用了。</p><p>定义格式:</p><pre><code>修饰符class 外部类名称{    修饰符 返回值类型 外部类方法名称(参数列表){        //...    }}</code></pre><pre><code>public class Outer {    public void methodOuter() {    class Inner { //局部内部类    intnum=10;    public void methodInner() {        System.out.println(num); // 10    }    Inner inner = new Inner();    inner.methodInner();    }}</code></pre><p>小节一下类的权限修饰符:<br/><br>public &gt; protected &gt; (default) &gt; private </p><p>定义一个类的时候，权限修饰符规则:</p><ol><li>外部类: public / (default)</li><li>成员内部类: public / protected / (default) / private</li><li>局部内部类，什么都不能写（只有当前方法本身才能使用）</li></ol><h4 id="注意fainal特性"><a href="#注意fainal特性" class="headerlink" title="注意fainal特性"></a>注意fainal特性</h4><p>局部内部类，如果希望访问所在方法的局部变量，那么这个局部变量必须是【有效final的】。</p><p>备注:从Java 8+开始，只要局部变量事实不变，那么final关键字可以省略。</p><pre><code>public class MyOuter {    public void methodOuter(){        int num = 10; //所在方法的局部交量默认为final        //num = 20;//错误写法        class MyInner {            public void methodInner() {                System.out .print1n(num);            }        }    }}</code></pre><p>原因:</p><ol><li>new出来的对象在堆内存当中。.</li><li>局部变量是跟着方法走的，在栈内存当中。</li><li>方法运行结束之后，立刻出栈，局部变量就会立刻消失。</li><li>但是new出来的对象会在堆当中持续存在，直到垃圾回收消失。</li></ol><h3 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h3><p>如果接口的实现类(或者是父类的子类)只需要使用==唯一的一次==,那么这种情况下就可以省略掉该类的定义，而改为使用 <strong>【匿名内部类】</strong>。</p><p>匿名内部类的定义格式:</p><pre><code>接口名称 对象名 = new. 接口名称(){    // 覆盖重写所有抽象方法};</code></pre><p>例如</p><pre><code>public class DemoMain {    public static void main(String[] args) {    //MyInterface obj = new MyInterfaceImpl();    //obj . method();//一般写法    //MyInterface some = new MyInterface(); //错误写法!    //使用匿名内部类    MyInterface obj = new MyInterface() {        @Override        public void method() {            System.out.println(&quot;匿名内部类实现了方法！&quot;);        };     obj.method();       }}</code></pre><p><strong>注意：匿名内部类的结尾有分号；</strong></p><h4 id="匿名内部类的注意事项"><a href="#匿名内部类的注意事项" class="headerlink" title="匿名内部类的注意事项"></a>匿名内部类的注意事项</h4><p>对格式进行解析”new接口名称() {…}”进行解析</p><ol><li>new代表创建对象的动作</li><li>接口名称就是匿名内部类需要实现哪个接口</li><li>{…} 这才是匿名内部类的内容</li></ol><p>另外还要注意几点问题：</p><ol><li><strong>匿名内部类</strong>，在创建对象的时候，只能创建唯一一次。<br/><br>如果希望多次创建对象，而且类的内容一样的话， 那么就必须使用单独定义的实现类了。</li><li><strong>匿名对象</strong>。在【调用方法】的时候，只能调用唯一-次。<br/><br>如果希望同一一个对象，调用多次方法，那么必须給对象起个名字。</li><li>匿名内部类是省略了【实现类/子类名称】，但是匿名对象是省略了【对象名称】<br/><br>强调：匿名内部类和匿名对象不是一回事! ! !</li></ol><pre><code>public class DemoMain {    public static void main(String[] args) {        //使用匿名内部类，但不是匿名对象，对象名称就叫objA         MyInterface objA = new MyInterface() {            @Override            public void method1() {                System.out.printin(&quot;匿名内部类实现了方法! 111-A&quot;);            }            @Override            public void method2() {                System.out.print1n(&quot;匿名内部类实现了方法! 222-A&quot;);            }        };        objA.method1();        objA.method2();        //使用了匿名内部类，而且省略了对象名称，也是匿名对象        new MyInterface() {            @Override            public void method1() {            System.out.print1n(&quot;匿名内部类实现了方法! 111-B&quot;);            }            @Override            public void method2() {                System.out.print1n(&quot;匿名内部类实现了方法! 222-8&quot;);            }        }.method1();        //因为匿名对象无法调用第二次方法，所以如果需要调用其中其他的方法        //需要再创建一个匿名内部类的匿名对象    }}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java笔记--API</title>
+      <link href="/2020/08/17/javabijiapi/"/>
+      <url>/2020/08/17/javabijiapi/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Java笔记–API-应用程序编程接口"><a href="#Java笔记–API-应用程序编程接口" class="headerlink" title="Java笔记–API 应用程序编程接口"></a>Java笔记–API 应用程序编程接口</h1><p>Application Program Interface</p><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>API(Application Programming Interface)，应用程序编程接口。Java API是—本程序员的字典，是JDK中提供给我们使用的类的说明文档。这些类将底层的代码实现封装了起来，我们不需要关心这些类是如何实现的，只需要学习这些类如何使用即可。所以我们可以通过查询API的方式，来学习Java提供的类，并得知如何使用它们。</p><hr><h2 id="Scanner类"><a href="#Scanner类" class="headerlink" title="Scanner类"></a>Scanner类</h2><p>Scanner类是一个基本的文本扫描器，可以读出键盘输入的数据。</p><pre><code>import java.util.Scanner;//1、导包/*Scanner类的功能：可以实现键盘输入数据，到程序当中。引用类型的一般使用步骤1.导包import 包路径.名称如果需要使用的目标类和当前类位于同一个包下，则可以省略不写。只有java.lang包下的内容不需要导包，其他的包都需要import语句。2、创建类名称 对象名 = new 类目名称();3、使用对象.成员方法名()获取键盘输入的一个int数字：int num = sc.nextInt();获取键盘输入的一个字符串：String str1 = sc.next();*/public class Demo01Scanner {    public static void main(String[] args) {        String str = &quot;123&quot;;//java.lang不需要导包        //System.in代表从键盘进行输入        Scanner sc = new Scanner(System.in);        //获取从键盘输入的int数字        int num = sc.nextInt();        System.out.println(&quot;输入的数字是：&quot;+num);        //获取键盘输入的一个字符串        String str1 = sc.next();        System.out.println(&quot;输入的字符串是：&quot;+str1);    }}</code></pre><h3 id="匿名对象"><a href="#匿名对象" class="headerlink" title="匿名对象"></a>匿名对象</h3><p>创建对象标准格式：<br/><br>类名称 对象名 = new 类名称();<br/></p><p>匿名对象就是只有右边的对象，没有左边的名字和赋值运算符：<br/><br>new 类名称();<br/><br>【注意事项】匿名对象只能使用唯一的一次，下次再用不得不再创建一个新对象。<br/><br>【使用建议】如果有一个对象确定只需要使用唯一的一次，就可以使用匿名对象。<br/></p><pre><code>public class Demo02Anonymous {    public static void main(String[] args) {        //左边的one就是对象的名字        Person one = new Person();        one.name = &quot;小小&quot;;        one.showName();//我叫：小小        System.out.println(&quot;================&quot;);        //匿名对象        new Person().name = &quot;大大&quot;;        new Person().showName();//我叫：null    }}//Person类public class Person {    String name;    public void showName(){        System.out.println(&quot;我叫：&quot;+name);    }}</code></pre><h4 id="使用匿名对象作为函数的参数和返回值"><a href="#使用匿名对象作为函数的参数和返回值" class="headerlink" title="使用匿名对象作为函数的参数和返回值"></a>使用匿名对象作为函数的参数和返回值</h4><pre><code>import java.util.Scanner;public class Demo02Anonymous_2 {    public static void main(String[] args) {        /*        //普通方式        Scanner sc = new Scanner(System.in);        int num = sc.nextInt();        System.out.println(&quot;输入的是：&quot;+num);        //匿名对象的方式        int number = new Scanner(System.in).nextInt();        System.out.println(number);        */        //使用一般写法 传入参数        Scanner sc = new Scanner(System.in);        methodParam(sc);        System.out.println(&quot;******************&quot;);        //使用匿名方法传递参数        methodParam(new Scanner(System.in));        Scanner sc1 = methodReturn();        int num = sc1.nextInt();        System.out.println(&quot;输入的是：&quot;+num);    }//参数类型为Scanner    public static void methodParam(Scanner sc){        int num = sc.nextInt();        System.out.println(&quot;输入的是：&quot;+num);    }//返回值类型为Scanner的类    public static Scanner methodReturn(){        return new Scanner(System.in);    }}</code></pre><h2 id="Random类"><a href="#Random类" class="headerlink" title="Random类"></a>Random类</h2><p>Random类用来生成随机数字。使用起来也是三个步骤</p><p>1、导包<br/><br>import java.until.Random<br/><br>2、创建<br/><br>Random r = new Random();<br/><br>3、使用<br/><br>获取一个随机的int数字（范围是int所有范围，有正负两种）<br/><br>int num = r.nextInt();<br/><br>获取一个随机的int数字（参数代表范围，左闭右开区间）<br/><br>int num = r.nextInt(3);<br/><br>实际上代表的含义是[0,3)，也就是0~2。<br/></p><pre><code>import java.util.Random;public class Demo01Random {    public static void main(String[] args) {        Random r =new Random();        int num = r.nextInt();        System.out.println(&quot;随机数为：&quot;+num);    }}</code></pre><hr><h2 id="对象数组"><a href="#对象数组" class="headerlink" title="对象数组"></a>对象数组</h2><pre><code>/*【题目】定义一个数组，用来存放3个Person对象。数组有一个缺点：一旦创建程序运行期间长度不可发生改变。*/public class Demo01Array {    public static void main(String[] args) {         //首先创建一个长度为3的数组        Person[] array =new Person[3];        Person one = new Person(&quot;迪丽热巴&quot;,18);        Person two = new Person(&quot;古力娜扎&quot;,28);        Person three = new Person(&quot;哈妮克孜&quot;,38);        array[0]=one;//地址值        array[1]=two;        array[2]=three;        System.out.println(array[1].getName());    }}</code></pre><h3 id="ArrayList集合类"><a href="#ArrayList集合类" class="headerlink" title="==ArrayList集合类=="></a>==ArrayList集合类==</h3><p>数组的长度不可以发生改变。但是ArrayList集合的长度是可以随意变化的</p><p>对于ArrayList来说有一个<E>代表泛型。<br/><br>泛型：也就是装在集合中的所有元素都是什么类型<br/><br>【注意】泛型只能是应用类型不能是基本类型<br/></p><p>【注意事项】<br/></p><ul><li>对于ArrayList集合来说，直接打印得到的不是地址值，而是内容。</li><li>如果内容为空，得到的是中括号：[ ]</li></ul><pre><code>import java.util.ArrayList;public class Demo02ArrayList {    public static void main(String[] args) {        //创建了一个ArrayList集合，集合的名称是list，里面装的全都是String类型的数据        //备注：从JDK1.7开始，右侧的尖括号内部可以不写内容，但是&lt;&gt;本身还是要写上的        ArrayList&lt;String&gt; list =new ArrayList&lt;&gt;();        System.out.println(list);        //向集合中添加一些数据，需要用到add方法        list.add(&quot;赵丽颖&quot;);        System.out.println(list);        list.add(&quot;迪丽热巴&quot;);        list.add(&quot;古力娜扎&quot;);        list.add(&quot;马尔扎哈&quot;);        System.out.println(list);    }}</code></pre><h4 id="ArrayList当中常用的方法有："><a href="#ArrayList当中常用的方法有：" class="headerlink" title="ArrayList当中常用的方法有："></a>ArrayList当中常用的方法有：</h4><p><strong>public boolean add(E e):</strong> 向集合当中添加元素，参数类型和泛型一致。<br/><br>对于ArrayList集合来说，add添加动作一定是成功的，所以返回值可用可不用。<br/><br>但是对于其他集合来说add添加动作不一定成功。<br/></p><p><strong>public E get(int index):</strong> 从集合当中获取元素，参数是索引编号返回值就是对应位置的元素。</p><p><strong>public E remove(int index):</strong> 从集合中删除元素，参数是索引编号，返回值就是被删除掉的元素。</p><p><strong>public int size( ):</strong> 获取集合的尺寸长度，返回值是集合中包含的元素个数。</p><pre><code>import java.util.ArrayList;public class Demo03ArrayListMethod {    public static void main(String[] args) {        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();        System.out.println(list);//[]        //向集合中添加元素：add        boolean success = list.add(&quot;柳岩&quot;);        System.out.println(list);//柳岩        System.out.println(&quot;添加动作是否成功：&quot;+success);//tru        list.add(&quot;高圆圆&quot;);        list.add(&quot;蔡徐坤&quot;);        list.add(&quot;李小璐&quot;);        list.add(&quot;贾乃亮&quot;);        System.out.println(list);        //从集合中获取元素，get.索引值从0开始        String name = list.get(2);        System.out.println(&quot;第二号索引位置：&quot;+name);        //从集合中删除元素，remove.索引从0开始        String whoRemove = list.remove(4);        System.out.println(whoRemove+&quot;被绿了&quot;);        System.out.println(list);        //获取集合的长度尺寸，也就是其中的元素个数        int size = list.size();        System.out.println(&quot;集合大小：&quot;+size);    }}</code></pre><h4 id="遍历集合"><a href="#遍历集合" class="headerlink" title="遍历集合"></a>遍历集合</h4><pre><code>import java.util.ArrayList;public class Demo04ArrayListEach {    public static void main(String[] args) {        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();        list.add(&quot;迪丽热巴&quot;);        list.add(&quot;古力娜扎&quot;);        list.add(&quot;玛玛哈哈&quot;);        //遍历集合        for (int i = 0; i &lt;list.size() ; i++) {            System.out.println(list.get(i));        }    }}</code></pre><h4 id="基本类型与包装类型"><a href="#基本类型与包装类型" class="headerlink" title="基本类型与包装类型"></a>基本类型与包装类型</h4><p>如果希望相机和Arraylist当中存储基本类型，必须使用基本类型对应的”包装类“。</p><p>基本类型 包装类型(引用类型，包装类都位于java.long包下)</p><table><thead><tr><th>基本类型</th><th>包装类型</th><th>注意</th></tr></thead><tbody><tr><td>byte</td><td>Byte</td><td></td></tr><tr><td>short</td><td>Short</td><td></td></tr><tr><td>int</td><td>Integer</td><td>【特殊】</td></tr><tr><td>long</td><td>Long</td><td></td></tr><tr><td>float</td><td>Float</td><td></td></tr><tr><td>double</td><td>Double</td><td></td></tr><tr><td>char</td><td>Character</td><td>【特殊】</td></tr><tr><td>boolean</td><td>Boolean</td><td></td></tr></tbody></table><ul><li>从JDK1.5+开始，支持自动装箱、自动拆箱。</li></ul><p>自动装箱:基本类型–&gt;包装类型<br>自动拆箱:包装类型–&gt;基本类型</p><pre><code>import java.util.ArrayList;public class Demo05ArrayListBasic {    public static void main(String[] args) {        ArrayList&lt;String&gt; listA = new ArrayList&lt;&gt;();        //错误写法：泛型只能是引用类型，不能使用基本类型        //ArrayList&lt;int&gt; listB = new ArrayList&lt;&gt;();        ArrayList&lt;Integer&gt; listC = new ArrayList&lt;&gt;();        listC.add(10);        listC.add(20);        System.out.println(listC);        int A = listC.get(1);        System.out.println(A);    }}</code></pre><hr><h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>java. Lang. String类代表字符串。<br/></p><p>API当中说: Java程序中的所有字符串字面值(如”abc” )都作为此类的实例实现。<br/></p><p>其实就是说:程序当中所有的双引号字符串，都是String类的对象。(就算没有new, 也照样是。)</p><p>【字符串的特点】<br/></p><ol><li>字符串的内容永不可变。 [重点]</li><li>正是因为字符串不可改变，所以字符串是可以共享使用的。</li><li>字符串效果上相当于是char[]字符数组，但是底层原理是byte[]字节数组。</li></ol><h3 id="创建字符串的常见3-1种方式。"><a href="#创建字符串的常见3-1种方式。" class="headerlink" title="创建字符串的常见3+1种方式。"></a>创建字符串的常见3+1种方式。</h3><p><strong>三种构造方法:</strong><br/></p><ul><li>public String( ): 创建一个空白字符串，不含有任何内容。</li><li>public String(char[] array): 根据字符数组的内容，来创建对应的字符串。</li><li>public. String(byte[] array): 根据字节数组的内容，来创建对应的字符串。</li></ul><p><strong>一种直接创建:</strong><br/><br>注意：直接写上双引号就是字符串对象。</p><pre><code>public class Demo01String {    public static void main(String[] args) {        //使用空参构造        String str1 = new String(); //小括号留空，说明字符串什么内容都没有T        System. out. println(&quot;第1个字符串:&quot;+ str1);        //根据字符数组创建字符串        char[] charArray = { &#39;A&#39;, &#39;B&#39;, &#39;C&#39; };        String str2 = new String(charArray) ;        System. out. println(&quot;第2个字符串:&quot;+ str2);        //根据字节数组创建字符串        byte[] byteArray = { 97, 98, 99 };        String str3 = new String(byteArray) ;        System. out . println(&quot;第3个字符串:&quot; + str3);        //直接创建        String str4 = &quot;Hello&quot;;        System.out.println(&quot;第4个字符串:&quot; + str4);    }}</code></pre><h3 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h3><p>双引号直接定义的在常量池当中，new的对象不在常量池当中</p><pre><code>/*字符串常量池:程序当中直接写.上的双引号字符串，就在字符串常量池中。对于基本类型来说，==是进行数值的比较。对于引用类型来说，==是进行【地址值】的比较。*/public class Demo02StringPool {    public static void main(String[] args) {        String str1 = &quot;abc&quot;;        String str2 = &quot;abc&quot;;        char[] charArray = {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;};        String str3 = new String(charArray);        System.out.println(str1 == str2);//true        System.out.println(str1 == str3);//false        System.out.println(str2 == str3);//false    }}</code></pre><p>双引号直接定义的对象在堆中先生成存储空间，再在“常量池空间”中存储，二者的初始化值相同，则指向常量池中相同的地址值。<br/><br>由于new的对象不在常量池当中，而是在堆中新开辟了一块区域，所以二者的地址值不同。</p><h3 id="字符串中的常用方法"><a href="#字符串中的常用方法" class="headerlink" title="字符串中的常用方法"></a>字符串中的常用方法</h3><h4 id="字符串比较方法"><a href="#字符串比较方法" class="headerlink" title="字符串比较方法"></a>字符串比较方法</h4><p>== 是对象的地址值比较，如果确实需要字符串的内容比较，可以使用两个方法：</p><p><strong>==public boolean equals(Object obj);==</strong><br/><br>参数可以是任何对象，只有参数是一个字符串并且内容相同的才会给一个true,否则返回false</p><p>【注意事项】</p><ol><li>任何对象都能用object进行接收。</li><li>equals方法具有对称性，也就是a. equals(b)和b. equals(a)效果- 样。</li><li>如果比较双方一个常量一个变量，推荐把常量字符串写在前面。</li></ol><p><strong>推荐:</strong> “abc”. equals(str) <br/><br><strong>不推荐:</strong> str. equals( “abc”)</p><p><strong>==public boolean equalsIgnoreCase(String str);==</strong> <br/><br>忽略大小写，进行内容比较。</p><pre><code>package cn.cikeshijia.Demo02;public class Demo01StringEquals {    public static void main(String[] args) {        String str1 = &quot;abc&quot;;        String str2 = &quot;abc&quot;;        char[] ch = {&#39;a&#39;,&#39;b&#39;,&#39;c&#39;};        String str3 = new String(ch);        System.out.println(str1.equals(str2));//true        System.out.println(str2.equals(str3));//true        System.out.println(str3.equals(&quot;abc&quot;));//true        System.out.println(&quot;abc&quot;.equals(str2));//true        String str4 =&quot;ABC&quot;;        System.out.println(str1.equals(str4)); // false        System.out.println(&quot;==============&quot;);        String str5 = null;        System.out.println(&quot;abc&quot; . equals(str5)); //推荐:false        //System.out.println(str5. equals(&quot;abc&quot;)); //不推荐:报错，空指针异常NullPointerException        System.out.println(&quot;==============&quot;);        String strA = &quot;Java&quot; ;        String strB = &quot;java&quot; ;        System.out.println(strA. equals(strB)); // false,严格区分大小写        System.out.println(strA. equalsIgnoreCase(strB)); // true, 忽略大小写        //注意，只有英文字母区分大小写，其他都不区分大小写        System. out . println(&quot;abc一123&quot; . equalsIgnoreCase(  &quot;abc壹123&quot;)); // false    }}</code></pre><h4 id="字符串获取方法"><a href="#字符串获取方法" class="headerlink" title="字符串获取方法"></a>字符串获取方法</h4><p><strong>public int length():</strong><br/> 获取字符串当中含有的字符个数，拿到字符串长度。<br/><br><strong>public String concat(String str):</strong><br/><br>将当前字符串和参数字符串拼接成为返回值新的字符串。<br/><br><strong>public char charAt(int index):</strong><br/><br>获取指定索引位置的单个字符。(索引从0开始)<br/><br><strong>public int indexOf(String str):</strong><br/><br>查找参数字符串在本字符串当中首次出现的索引位置,如果没有返回-1值。<br/></p><pre><code>public class Demo02StringGet {    public static void main(String[] args) {        //获取字符串的长度        int length = &quot;jasfdiasfoijuwoerfjvb&quot;.length();        System.out.println(&quot;字符串的长度是：&quot; + length);        //拼接字符串        String str1 = &quot;Hello&quot;;        String str2 = &quot;World&quot;;        String str3 = str1.concat(str2);        System.out.println(&quot;str1:&quot;+str1);//Hello        System.out.println(&quot;str2:&quot;+str2);//World        System.out.println(&quot;str3:&quot;+str3);//HelloWorld.新字符串        System.out.println(&quot;====================&quot;);        //获取指定位置索引的单个字符        char ch = &quot;Hello&quot;.charAt(2);        System.out.println(&quot;在2号索引位置的字符是：&quot;+ch);        System.out.println(&quot;===================&quot;);        //查找参数字符串在本来字符串当中出现的第-次索引位置        //如果根本没有，返回-1值        String original = &quot;Hel1oWorldHelloWorld&quot; ;        int index = original. indexOf(&quot;llo&quot;);        System. out. println(&quot;第一次索引值是:&quot;+ index); // 2        System.out.println(&quot;HelloWorld&quot;.indexOf(&quot;abc&quot;));    }}</code></pre><h4 id="字符串截取方法"><a href="#字符串截取方法" class="headerlink" title="字符串截取方法"></a>字符串截取方法</h4><p><strong>public String substring(int index):</strong><br/><br>截取从参数位置一直到字符串末尾, 返回新字符串。<br/><br><strong>public String substring(int begin, int end):</strong><br/><br>截取从begin开始， 一直到end结束，中间的字符串。<br/><br>【备注】[begin,end), 包含左边，不包含右边。</p><pre><code>public class Demo03Substring {    public static void main(String[] args) {        String str1 = &quot;HelloWorld&quot; ;        String str2 = str1. substring(5);        System.out.println(str1); // HelloWorld,原封不动        System.out.println(str2); // World, 新字符串        System.out.println(&quot;============&quot;);        String str3 = str1. substring(4,7);        System.out.println(str3);//oWo        System.out.println(&quot;============&quot;);        //下面这种写法，字符串的内容仍然是没有改变的        //下面有两个字符串，&quot;Hello&quot;, &quot;Java&quot;        // strA当 中保存的是地址值。        //本来地址值是Hello的ex666,        //后来地址值变成了Java的0x999        String strA = &quot;He11o&quot;;        System. out. println(strA); // Hello        strA = &quot;Java&quot;;        System. out . println(strA); // Java    }}</code></pre><h4 id="字符串转换方法"><a href="#字符串转换方法" class="headerlink" title="字符串转换方法"></a>字符串转换方法</h4><p>String当中与转换相关的常用方法有:</p><p><strong>public char[] toCharArray():</strong><br/> 将当前字符串拆分成为字符数组作为返回值。<br/><br><strong>public byte[] getBytes():</strong><br/> 获得当前字符串底层的字节数组。<br/><br><strong>public. String replace(CharSequence oldstring,. CharSequence newString):</strong><br/><br>将所有出现的老字符串替换成为新的字符串，返回替换之后的结果新字符串。<br/></p><pre><code>public class Demo04StringConvert {    public static void main(String[] args) {        //转换成为字符数组        char[] chars = &quot;He11o&quot;. toCharArray() ;        System. out. println(chars[0]); // H        System. out . println(chars.length); // 5        System. out . println(&quot;=============&quot;);        //转换成为字节数组        byte[] bytes = &quot;abc&quot; . getBytes();        for (int i = 0; i &lt; bytes. length; i++) {            System.out. println(bytes[i]);        }        System. out . println(&quot;=============&quot;);        //字符串的内容替换        String str1 = &quot;How do you do?&quot;;        String str2 = str1. replace( &quot;o&quot;,&quot;*&quot;);        System. out . println(str1); // How do you do?        System. out. println(str2); // H*w d* y*u d*?        System. out . println(&quot;============&quot;);        String lang1 = &quot;会不会玩儿呀!你大爷的!你大爷的!你大爷的! ! ! &quot;;        String lang2 = lang1 . replace(&quot;你大爷的&quot;,&quot;****&quot;);        System. out . println(lang2); //会不会玩儿呀! ******** *** ! !    }}</code></pre><h4 id="字符串分割方法"><a href="#字符串分割方法" class="headerlink" title="字符串分割方法"></a>字符串分割方法</h4><p>分割字符串的方法:<br/></p><p><strong>public String[] split(String regex):</strong><br/> 按照参数的规则，将字符串切分成若干部分。<br/><br>注意事项:<br/></p><ul><li><p>split方法的参数其实是一个“正则表达式”，今后学习。</p></li><li><p>今天要注意:如果按照英文句点“.”进行切分，必须写”\.” (两个反斜杠)</p><pre><code>public class Demo05StringSplit {  public static void main(String[] args) {      String str1 = &quot;aaa,bbb,ccc&quot;;      String[] array1 = str1.split(&quot;,&quot;);      for (int i = 0; i &lt; array1.length;i++){          System.out.println(array1[i]);      }      System.out.println(&quot;===========&quot;);      String str2 = &quot;aaa bbb ccc&quot;;      String[] array2 = str2.split(&quot; &quot;);      for (int i = 0; i &lt; array2.length; i++) {          System.out. println(array2[i]);      }      System. out. println(&quot;============&quot;);      String str3 = &quot;XXX.YYY .ZZZ&quot; ;      String[] array3 = str3.split(&quot;\\.&quot;);      System. out . println(array3.length); // 3      for (int i = 0; i &lt; array3.length; i++) {          System.out.println(array3[i]);      }  }}</code></pre></li></ul><p>```</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java笔记--类与对象</title>
+      <link href="/2020/08/17/javabijileiyuduixiang/"/>
+      <url>/2020/08/17/javabijileiyuduixiang/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Java笔记–类与对象"><a href="#Java笔记–类与对象" class="headerlink" title="Java笔记–类与对象"></a>Java笔记–类与对象</h1><p>面向过程：当要实现一个功能的时候，每一个具体步骤都要亲历亲为，详细处理每一个细节。<br/><br>面向对象：当实现一个功能不关心具体步骤，而是我一个已经具有该功能的人来帮我做事。</p><p>类：一组相关属性和关系行为的集合，可以看成是一类事物的模板，使用事务的属性特征和行为特征来描述该类事务</p><ul><li>属性：该事务的状态信息/特征描述信息。</li><li>行为：该事务能够做什么。</li></ul><h2 id="类与对象的关系"><a href="#类与对象的关系" class="headerlink" title="类与对象的关系"></a>类与对象的关系</h2><ul><li>类是对一类事物的描述，是抽象的。</li><li>对象是一类实物的实例，是具体的。</li><li>类是对象的模板，对象是类的实体。</li></ul><h2 id="类的定义"><a href="#类的定义" class="headerlink" title="类的定义"></a>类的定义</h2><p>定义一个类用来模拟”学生“事物，其中就有两个组成成分：<br/><br>属性（是什么）：<br/><br>    姓名<br/><br>    年龄<br/><br>行为（能做什么）：<br/><br>    吃饭<br/><br>    睡觉<br/><br>    学习<br/><br>对应到java的类当中：<br/><br>    成员变量（属性）：<br/><br>        String name//姓名<br/><br>        int age//年龄<br/><br>    成员方法（行为）：//没有static<br/><br>        public void eat () {};<br/><br>        public void sleep() {}；<br/><br>        public void study() {}；<br/><br>    【注意事项】<br/><br>    1、成员变量是直接定义在类当中的，在方法外边。<br/><br>    2、成员方法不要写static关键字。</p><pre><code>public class Student {    //成员变量    String name;//方法外定义的变量    int age;    //成员方法    public void eat(){        System.out.println(&quot;吃饭饭！&quot;);    }    public void sleep(){        System.out.println(&quot;睡觉觉！&quot;);    }    public void study(){        System.out.println(&quot;学习！&quot;);    }}</code></pre><p><strong>通常情况下，一个类并不能直接使用，需要根据类创建一个对象才能使用。</strong><br/><br>1、导包：指出需要使用的类在什么位置。<br/><br>import 包名称.类名称<br/><br>import cn.cikeshijia.Demo02.Student<br/><br>对于和当前类属于同一个包的情况，可以省略导包语句不写。<br/></p><p>2、创建，格式<br/><br>类名称 对象名 = new 类名称();//对象名可以看作变量名<br/><br>Student stu = new Student();//根据Student类创建了一个stu的对象<br/></p><p>3、使用:分两种情况<br/><br>使用成员变量：对象名.成员变量名<br/><br>使用成员方法 ：对象名.成员方法名（参数）<br/><br>（也就是想用谁，就用对象名.谁）<br/></p><p>【注意事项】<br/><br>==如果成员变量没有进行赋值==，那么将有一个默认值，规则和数组一样。</p><pre><code>//1、导包//我需要的Student类，和我自己位于同一个包下，所以额可以省略导包语句不写import cn.cikeshijia.Demo02.Student;public class Demo02Student {    public static void main(String[] args) {        //2、创建        //类名称 对象名 = new 类名称();        Student stu =new Student();        //3、使用        //对象名.成员变量名        System.out.println(stu.name);        System.out.println(stu.age);        stu.name = &quot;鞠婧祎&quot;;        stu.age = 29;        System.out.println(stu.name);        System.out.println(stu.age);        System.out.println(&quot;===========&quot;);        //对象名。成员方法名()        stu.eat();        stu.sleep();        stu.study();    }}</code></pre><h2 id="面向对象的三大特征：封装、继承、多态"><a href="#面向对象的三大特征：封装、继承、多态" class="headerlink" title="面向对象的三大特征：封装、继承、多态"></a>面向对象的三大特征：封装、继承、多态</h2><h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>封装性在java当中的体现。<br/><br>1、方法就是一种封装<br/><br>2、关键字Privote也是一种封装<br/></p><p><strong>用private关键字将需要保护的成员变量进行修饰</strong></p><p>一旦使用了private关键字进行修饰，那么本类中当然可以随意访问。<br/><br>但是！超出了本类范围之外就不能随意访问了。<br/></p><p>间接访问private成员变量，就是定义一对儿getter/setter方法。<br/><br>在方法中可以对输入/输出数据进行处理。<br/><br>必须叫setxxx或者是getxxx命名规则<br/></p><ul><li>对于getxxx来说，不能有参数，返回值类型和成员变量对应</li><li>对于setxxx来说，不能有返回值，参数类型和成员变量对应</li></ul><h4 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h4><p>当方法的局部变量和类的成员变量重名的时候，根据“就近原则”，优先使用局部变量。<br/><br>当需要访问本类中的成员变量，需要使用格式：<br>this.成员变量名<br/><br>++通过谁调用的方法，谁就是this++</p><h4 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h4><p>构造方法是专门用来创建对象的方法，当我们通过关键字new来创建对象的时候其实就是在构造方法。</p><pre><code>//格式public 类名称(参数类型 参数名称){    方法体}</code></pre><p>【注意事项】<br/><br>1、构造方法名称必须与所在类名称完全一样，就连大小写也要一样。<br/><br>2、构造方不要写返回值类型，连void都不写。<br/><br>3、构造方法不能return一个具体的返回值。<br/><br>4、如果没有编写任何构造方法，那么编译器将会默认赠送一个构造方法，没有参数、方法体，什么都不做。<br>5、一旦编写了至少一个构造方法，那么编译器将不在赠送。<br>6、构造方法也是可以重载的。<br>重载：方法名称相同，参数列表不同。</p><h4 id="一个标准类"><a href="#一个标准类" class="headerlink" title="一个标准类"></a>一个标准类</h4><p>一个标准的类通常要拥有下面四个组成部分：<br/><br>1、所有的成员变量都要用 ==<strong>private</strong>== 关键字修饰<br/><br>2、为每一个成员变量编写一对儿 ==<strong>getter/setter</strong>== 方法<br/><br>3、编写一个<strong>无参数</strong>的构造方法<br/><br>4、编写一个<strong>全参数</strong>的构造方法<br/></p><p>一个标准的类也叫做<strong>Java Bean</strong>。</p><p><strong>Student类</strong></p><pre><code>/*一个标准的类通常要拥有下面四个组成部分：1、所有的成员变量都要用private关键字修饰2、为每一个成员变量编写一对儿getter/setter方法3、编写一个无参数的构造方法4、编写一个全参数的构造方法一个标准的类也叫做Java Bean*/public class Student {    private String name;//姓名    private int age;//年龄    public Student() {//无参构造函数    }    public Student(String name, int age) {//全参构造函数        this.name = name;        this.age = age;    }    public String getName() {        return name;    }    public void setName(String name) {        this.name = name;    }    public int getAge() {        return age;    }    public void setAge(int age) {        this.age = age;    }}</code></pre><p><strong>主函数</strong></p><pre><code>public class Demo03Student {    public static void main(String[] args) {        Student stu1 =new Student();//创建        stu1.setName(&quot;迪丽热巴&quot;);        stu1.setAge(18);        System.out.println(&quot;姓名：&quot;+stu1.getName()+&quot;。年龄：&quot;+ stu1.getAge());        System.out.println(&quot;===========华丽的分割线=========&quot;);        Student stu2 = new Student(&quot;古力娜扎&quot;,20);        System.out.println(&quot;姓名：&quot;+stu2.getName()+&quot;。年龄：&quot;+ stu2.getAge());        stu2.setAge(21);        System.out.println(&quot;姓名：&quot;+stu2.getName()+&quot;。年龄：&quot;+ stu2.getAge());    }}</code></pre><hr><h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p><strong>继承是多态的前提，没有继承就没有多态。</strong></p><p>继承主要解决的问题就是共性抽取<br/><br>父类（基类、超类）<br/><br>子类（派生类）<br/></p><h4 id="继承关系当中的特点"><a href="#继承关系当中的特点" class="headerlink" title="继承关系当中的特点:"></a>继承关系当中的特点:</h4><ol><li>子类可以拥有父类的“内容”</li><li>子类还可以拥有自己专有的内容。</li></ol><p>在继承的关系中，“子类就是一个父类”。也就是说，子类可以被当作父类看待<br/><br>例如父类是员工，子类是讲师，那么讲师就是一个“员工”。关系：is-a。</p><h4 id="定义方法"><a href="#定义方法" class="headerlink" title="定义方法"></a>定义方法</h4><pre><code>//定义父类格式：（一个普通的类定义）public class 父类名称{    //……}//定义子类格式：public class 子类名称 extends 父类名称{    //……}</code></pre><h4 id="多个变量重名时，变量调用"><a href="#多个变量重名时，变量调用" class="headerlink" title="多个变量重名时，变量调用"></a>多个变量重名时，变量调用</h4><p>在父子类的继承关系当中，如果成员变量==重名==，则创建子类对象时，访问有两种方式:</p><ul><li>直接通过子类对象访问成员变量:<br>等号左边是谁，就优先用谁，没有则向上找。</li><li>间接通过成员方法访问成员变量:<br>该方法属于谁， 就优先用谁，没有则向上找。</li></ul><pre><code>/*局部变量:       直接写成员变量名本类的成员变量: this.成员变量名父类的成员变量: super. 成员变量名*/</code></pre><h4 id="访问成员方法的规则"><a href="#访问成员方法的规则" class="headerlink" title="访问成员方法的规则:"></a>访问成员方法的规则:</h4><p>在父子类的继承关系当中，创建子类对象，访问成员方法的规则:<br><strong>创建的对象是谁，就优先用谁，如果没有则向上找。</strong></p><p>【注意事项】<br/><br>++无论是成员方法还是成员变量，如果没有都是向上找父类，绝对不会向下找子类的。++</p><h3 id="重写-Override"><a href="#重写-Override" class="headerlink" title="重写(Override)"></a>重写(Override)</h3><p>概念:在继承关系当中，方法的名称一样，参数列表也一样。</p><p><strong>重写(Override)</strong> : 方法的名称一样，参数列表【也一样】。覆盖/覆写<br/><br><strong>重载(Overload)</strong> : 方法的名称一样，参数列表【不一样】。</p><p><strong>方法的覆盖重写特点:</strong><br/><br>创建的是子类对象，则优先用子类方法。</p><p><strong>方法覆盖重写的注意事项:</strong><br/></p><ol><li><p>==必须保证父子类之间方法的名称相同，参数列表也相同。==<br/><br>@Override:写在方法前面，用来检测是不是有效的正确覆盖重写。<br/><br>这个注解就算不写，只要满足要求，也是正确的方法覆盖重写。</p></li><li><p>==子类方法的返回值必须【小于等于】父类方法的返回值范围。==<br/></p></li></ol><p><strong>小扩展提示:</strong> java. lang. object类是所有类的公共最高父类(祖宗类)，<br>java. lang.String就是object的子类。</p><ol start="3"><li>==子类方法的权限必须【大于等于【父类方法的权限修饰符。==<br/></li></ol><p><strong>小扩展提示:</strong> public &gt; protected &gt; (default) &gt; private <br/><br><strong>备注:</strong> (default)不是关键字default，而是什么都不写，留空。</p><h4 id="覆盖重写的应用"><a href="#覆盖重写的应用" class="headerlink" title="覆盖重写的应用"></a>覆盖重写的应用</h4><p>对于方法的重写，需要新功能，又不能舍弃旧功能。定义一个子类方法，将需要的新的方法加入，并引用子类方法。super.旧方法( );</p><h4 id="构造方法-1"><a href="#构造方法-1" class="headerlink" title="构造方法"></a>构造方法</h4><p>继承关系中，父子类构造方法的访问特点:</p><ol><li>子类构造方法当中有一个默认隐含的“super()”调用，所以一定是先调用的父类构造，后执行的子类构造。</li><li>子类构造可以通过super关键字来调用父类重载构造。</li><li>super的父类构造调用，必须是子类构造方法的第一个语句。 不能一个子类构造调用多次super构造。</li></ol><p><strong>总结:</strong><br>子类必须调用父类构造方法，不写则赠送super();写了则用写的指定的super调用，super只能有一个，还必须是第一个。</p><h4 id="super关键字的用法有三种"><a href="#super关键字的用法有三种" class="headerlink" title="super关键字的用法有三种:"></a>super关键字的用法有三种:</h4><ol><li>在子类的成员方法中，访问父类的成员变量。</li><li>在子类的成员方法中，访问父类的成员方法。</li><li>在子类的构造方法中，访问父类的构造方法。</li></ol><h4 id="this关键字的用法有三种"><a href="#this关键字的用法有三种" class="headerlink" title="this关键字的用法有三种:"></a>this关键字的用法有三种:</h4><ol><li>在本类的成员方法中，访问本类的成员变量。</li><li>在本类的成员方法中，访问本类的另- -个成员方法。</li><li>在本类的构造方法中，访问本类的另一个构造方法。</li></ol><p>==在第三种用法当中要注意:==<br/><br><strong>A. this(… )调用也必须是构造方法的第一个语句， 唯一一个 。</strong><br/><br><strong>B. super和this两种构造调用，不能同时使用。</strong><br/></p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ol><li><strong>Java语言是==单继承==的。</strong><br/><br>一个类的直接父类只能有唯一一个。<br/></li><li><strong>Java语言可以==多级继承==。</strong><br/><br>我有一个父亲，我父亲还有一个父亲，也就是爷爷。<br/><br>java.lang.object:Java中的祖宗类。<br/></li><li><strong>一个子类的直接父类是唯一的，但是一个父类可以拥有很多个子类。</strong><br/><br>可以有很多个兄弟姐妹，生二胎。</li></ol><h4 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h4><p><strong>==抽象方法:==</strong> 就是加上abstract关键字，然后去掉大括号，直接分号结束。<br/><br><strong>==抽象类:==</strong> 抽象方法所在的类，必须是抽象类才行。在class之前写上abstract即可。</p><h5 id="如何使用抽象类和抽象方法"><a href="#如何使用抽象类和抽象方法" class="headerlink" title="如何使用抽象类和抽象方法:"></a>如何使用抽象类和抽象方法:</h5><ol><li>不能直接创建new抽象类对象。</li><li>必须用一个子类来继承抽象父类。</li><li>子类必须覆盖重写抽象父类当中所有的抽象方法。<br/></li></ol><p><strong>覆盖重写(实现):</strong> 子类去掉抽象方法的abstract关键字，然后补上方法体大括号。<br>4. 创建子类对象进行使用。</p><pre><code>public abstract class Animal {    //这是一个抽象方法，代表吃东西，但是具体吃什么(大括号的内容)不确定。    public abstract void eat()；    //这是普通的成员方法    public void normalMethod() {    }public class Cat extends Animal {    @Override    public void eat(){        System. . out. println( &quot;猫吃鱼&quot;);    }</code></pre><h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><p>关于抽象类的使用，以下为语法上要注意的细节，虽然条目较多,但若理解了抽象的本质，无需死记硬背。</p><ol><li>抽象类<strong>不能创建对象</strong>，如果创建，编译无法通过而报错。只能创建其非抽象子类的对象。<br/></li></ol><p><strong>理解:</strong> 假设创建了抽象类的对象，调用抽象的方法，而抽象方法没有具体的方法体,没有意义。</p><ol start="2"><li>抽象类中，可以有构造方法，是供子类创建对象时，初始化父类成员使用的。<br/></li></ol><p><strong>理解:</strong> 子类的构造方法中，有默认的super(),需要访问父类构造方法。</p><ol start="3"><li>抽象类中,不一定包含抽象方法,但是有抽象方法的类必定是抽象类。<br/></li></ol><p><strong>理解:</strong> 未包含抽象方法的抽象类，目的就是不想让调用者创建该类对象，通常用于某些特殊的类结构设计。</p><ol start="4"><li>抽象类的子类，必须重写抽象父类中==所有的==抽象方法，否则，编译无法通过而报错。除非该子类也是抽象类。<br/></li></ol><p><strong>理解:</strong> 假设不重写所有抽象方法,则类中可能包含抽象方法。那么创建对象后,调用抽象的方法，没有意义。</p><hr><h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>代码当中体现多态性，其实就是一句话。父类引用指向子类对象。</p><p>继承是多态的前提。<br/><br>多态指：一个方法有多种状态。</p><p>格式:</p><pre><code>父类名称 对象名= new子类名称();</code></pre><p>或者:</p><pre><code>接口名称对象名= new实现类名称();</code></pre><p>此时就是将子类对象当作父类进行使用<br/></p><h4 id="访问成员对象"><a href="#访问成员对象" class="headerlink" title="访问成员对象"></a>访问成员对象</h4><p>访问成员变量的两种方式:</p><ol><li>直接通过对象名称访间成员变量，<strong>看等号左边是谁，优先用谁，没有则向上找</strong></li><li>间接通过成员方法访问成员变量，<strong>看该方法属于谁，优先用谁，没有则向上找</strong></li></ol><h4 id="访问成员方法"><a href="#访问成员方法" class="headerlink" title="访问成员方法"></a>访问成员方法</h4><p>在多态的代码中，成员方法的访问规则是：<br/><br><strong>看new的是谁，就优先用谁，没有则向上找</strong></p><p>口诀：编译看左边，运行看右边</p><ul><li>在编译时，看父类方法，如果父类方法没有，就会报错。在运行时，看子类方法，运行子类方法里面有的对象。</li><li>也就是说，只有子类里面对父类重写的方法才有用。<br>注：成员变量编译看左边，运行还看左边。</li></ul><h4 id="使用多态的好处"><a href="#使用多态的好处" class="headerlink" title="使用多态的好处"></a>使用多态的好处</h4><pre><code>//如果不用多态，只用子类，那么写法是:Teacher one = new Teacher();one.work();//讲课Assistant two = new Assistant(;two.work();//辅导</code></pre><p>我现在唯—要做的事情，就是调用work方法，其他的功<br>能不关心。</p><pre><code>//如果使用多态的写法，对比一下:Employee one = new Teacher();one.work();//讲课Employee two = new Assistant();two.work()://辅导</code></pre><p>好处:无论右边new的时候换成哪个子类对象，等号左边调用方法都不会变化。</p><h4 id="对象的-向上转型"><a href="#对象的-向上转型" class="headerlink" title="对象的 ++向上转型++"></a>对象的 ++向上转型++</h4><p>对象的向上转型，其实就是多态写法；格式：</p><pre><code>父类名称 对象名 = new 子类名称();</code></pre><p>含义：右侧创建了一个子类对象，把他当作父类来看待使用。</p><pre><code>Animal animal = new Cat();//创建了一只猫当做动物看待</code></pre><p>【注意事项】<strong>==向上转型一定是安全的==</strong>。从小范围转向了大范围，从小范围的猫，向上转换成为更大范围的动物。</p><p>类似于：</p><pre><code>double number = 100;//int--&gt;double自动类型转换。</code></pre><p>向上转型一定是安全的，没有问题的，正确的。但是也有一个 <strong>弊端:</strong> 对象—旦向上转型为父类，那么就无法调用子类原本特有的内容。<br/><br>解决方案：用对象的向下转型【还原】</p><h4 id="对象的-向下转型"><a href="#对象的-向下转型" class="headerlink" title="对象的 ++向下转型++"></a>对象的 ++向下转型++</h4><p>对象的向下转型，其实是一个【还原】的动作。</p><p>格式:</p><pre><code>子类名称 对象名 = (子类名称) 父类对象;</code></pre><p>含意:将父类对象，【还原】成为本来的子类对象。</p><pre><code>Animal animal = new Cat();//本来是猫，向上转型成为动物Cat cat = (Cat) animal://本来是猫，已经被当做动物了，还原回来成为本来的猫</code></pre><p>注意事项:<br/><br>a. 必须保证对象本来创建的时候，就是猫，才能向下转型成为猫。<br/><br>b. 如果对象创建的时候本来不是猫，现在非要向下转型成为猫，就会报错(编译不会报错，运行会出现异常[ClassCastException])。</p><p>类似于：</p><pre><code>int number = (int)10.0;//int--&gt;double自动类型转换。int number = (int)10.5;//不可以，精度损失</code></pre><h3 id="instanceof关键字"><a href="#instanceof关键字" class="headerlink" title="instanceof关键字"></a>instanceof关键字</h3><p>如何才能知道一个父类引用的对象，本来是什么子类?<br>格式<br>对家instanceof类型<br>这将会得到一个booLear值结果，也就是判断前面的对象能不能当做后面类型的实例。</p><pre><code>public class Demoe2Instanceof {    public static void main(String[] args){        Animal animal = new  Cat();//本来是一只猫        animal.eat();//猫吃鱼        //如果希望掉用子类特有方法，需要向下转型        //判断一下交类引用animat本来是不是Dog        if(animal instanceof Dog) {            Dog dog = (Dog)animal;            dog.watchHouse();        }        //判断一下animaL本来是不是cat        if (animal instanceof Cat) {            cat cat = (cat)animal;            cat.catchMouse();        }    }}</code></pre><p><strong>向下转型一定要进行instanceof判断</strong>以免出错</p><hr><h2 id="静态字段与静态方法（利用static关键字）"><a href="#静态字段与静态方法（利用static关键字）" class="headerlink" title="静态字段与静态方法（利用static关键字）"></a>静态字段与静态方法（利用static关键字）</h2><p>如果一个成员变量使用了static关键字，那么这个变量不再属于对象自己，而是属于所在的类。多个对象共享同一份数据。</p><pre><code>public class Demo01StaticField {    public static void main(String[] args) {        Student one = new Student(&quot;郭靖&quot; , 19);        one.room = &quot;101教室&quot;;        System.out.println(&quot;姓名:&quot;+ one.getName() +                &quot;, 年龄:&quot; + one.getAge() + &quot;, 教室:&quot;+one.room +                &quot;，学号：&quot; + one.getId());        Student two = new Student(&quot;黄蓉&quot;,16);        System.out.println(&quot;姓名:&quot;+ two.getName() +                &quot;, 年龄:&quot; + two.getAge() + &quot;, 教室:&quot;+one.room +                &quot;，学号：&quot; + two.getId());    }}</code></pre><p><strong>Student类</strong></p><pre><code>public class Student {    private int id;//学号    private String name;//姓名    private int age;//年龄    static String room;//教室    private static int idCounter = 0;//学号计数器，每当new了一个新对象的时候计数器++    public Student() {        this.id = ++idCounter;    }    public Student(String name, int age) {        this.name = name;        this.age = age;        this.id = ++idCounter;    }    public int getId() {        return id;    }    public void setId(int id) {        this.id = id;    }    public String getName() {        return name;    }    public void setName(String name) {        this.name = name;    }    public int getAge() {        return age;    }    public void setAge(int age) {        this.age = age;    }}</code></pre><h3 id="static修饰成员"><a href="#static修饰成员" class="headerlink" title="static修饰成员"></a>static修饰成员</h3><p>一旦使用static修饰成员方法，那么这就成为了静态方法。静态方法不属于对象，而是属于类的。<br/><br>如果没有static关键字，那么必须首先创建对象，然后通过对象才能使用它。<br/><br>如果有了static关键字，那么不需要创建对象，直接就能通过类名称来使用它。<br/></p><p>无论是成员变量，还是成员方法。如果有了static,都推荐==使用类名称进行调用==。<br/></p><ul><li>静态变量:类名称.静态变量</li><li>静态方法:类名称.静态方法()</li></ul><p>【注意事项】<br/></p><ol><li>静态不能直接访问非静态。<br>原因:因为在内存当中是[先]有的静态内容，[后] 有的非静态内容。<br/><br>“先人不知道后人，但是后人知道先人。”</li><li>静态方法当中不能用this.<br/><br>原因: this代表当前对象， 通过谁调用的方法，谁就是当前对象。<br/></li></ol><pre><code>public class Demo02StaticMethod {    public static void main(String[] args) {        MyClass obj = new MyClass(); //首先创建对象        //然后才能使用没有static关键字的内容        obj.method();        //对于静态方法来说，可以通过对象名进行调用，也可以直接通过类名称来调用。        obj.methodStatic(); //正确，不推荐，这种写法在编译之后也会被javac翻译成为“类名称.静态方法名”        MyClass . methodStatic(); //正确，推荐        //对于本来当中的静态方法，可以省略类名称        myMethod();        Demo02StaticMethod.myMethod(); //完全等效    }    public static void myMethod() {        System. out. println(&quot;自己的方法! &quot;);    }}</code></pre><p><strong>MyClass类</strong></p><pre><code>public class MyClass {    int num; //成员变量    static int numStatic; //静态变量    //成员方法    public void method() {        System. out . println(&quot;这是一个成员方法。 &quot;);    //成员方法可以访问成员变量        System. out . println(num);    //成员方法可以访问静态变量        System. out . println(numStatic);    }    //静态方法    public static void methodStatic() {        System. out. println(&quot;这是一个静态方法。&quot;);        //静态方法可以访问静态变量        System. out. println(numStatic);        //静态不能直接访问非静态[重点]//      System. out. println(num); //错误写法!        //静态方法中不能使用this关键字。//      System. out.println(this); //错误写法!    }}</code></pre><h3 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h3><p>静态代码块的格式是:</p><pre><code>public class 类名称{    static {        //静态代码块的内容    }}</code></pre><p><strong>特点</strong>:当第一次用到本类时，静态代码块执行 <strong>==唯一==</strong> 的一次。<br/><br>静态内容总是优先于非静态，所以静态代码块==比构造方法先执行==。</p><p>静态代码块的典型用途:<br>++用来一次性地对静态成员变量进行赋值。++</p><pre><code>public class Demo04Static {    public static void main(String[] args) {        Person one = new Person();        Person two = new Person();    }}</code></pre><p><strong>Person类</strong></p><pre><code>public class Person {    static{        System.out.println(&quot;静态代码块执行！&quot;);    }    public Person() {        System.out.println(&quot;构造方法执行! &quot;);    }}</code></pre><h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><p>finaL关键字代表最终的、不可改变的。<br>常见四种用法:</p><ol><li>可以用来修饰—个类</li><li>可以用来修饰—个方法</li><li>还可以用来修饰一个局部变量</li><li>还可以用来修饰一个成员变量</li></ol><h3 id="1-可以用来修饰—个类"><a href="#1-可以用来修饰—个类" class="headerlink" title="1. 可以用来修饰—个类"></a>1. 可以用来修饰—个类</h3><p>当finaL关键字用来修饰一个类的时候，格式:</p><pre><code>public finaL cLass 类名称{    //...}</code></pre><p>含义:当前这个类不能有任何的子类。（太监类〕<br/><br>注意：一个类如集是final的，那么其中所有的成员方法都无法进行覆盖重写（因为没儿子)</p><pre><code>public final class MyClass f*extends object*/ {</code></pre><h3 id="2-可以用来修饰—个方法"><a href="#2-可以用来修饰—个方法" class="headerlink" title="2. 可以用来修饰—个方法"></a>2. 可以用来修饰—个方法</h3><p>当final关键字用来修饰一个方法的时候，这个方法就是最终方法，也就是不能被覆盖重写。<br>格式:</p><pre><code>修饰符finol 返回值类型 方法名称(参数列表）{    //方法体}</code></pre><p>【江意事项】<br/><br>对于类、方法来说，abstract关键字和final关键字不能同时使用，因为矛盾。</p><h3 id="3-还可以用来修饰一个局部变量"><a href="#3-还可以用来修饰一个局部变量" class="headerlink" title="3. 还可以用来修饰一个局部变量"></a>3. 还可以用来修饰一个局部变量</h3><p>一旦使用finaL用来修饰局部变量，那么这个变量就不能进行更改。</p><ul><li><p>“一次赋值，终生不变”</p></li><li><p>定义的实体存储地址不发生改变。</p><pre><code>pubiic class DemoFinal {  public static void main(String[] args) {      int num1 = 10;      System.out.println(num1);//10      num1 = 20;      System.out.println(num1); //20      //一旦使用final用来修饰局部变量，那么这个变量就不能进行更改。      //“一次赋值，终生不变”      final int num2 = 20;      System.out.println(num2); //20//        num2 =25;//错误写祛!不能改变!//        nun2 = 20; //错误写法!      //正确写法!只要保证有唯——次赋值即可      final int num3;      num3 = 30;      //对于基本类型来说，不可变说的是变量当中的数据不可改变      //对于引用类型来说，不可变说的是变童当中的地址值不可改变</code></pre></li></ul><p>}</p><pre><code>### 4. 可以用来修饰一个成员变量对于成员变量来说，如果使用final关键字修饰，那么这个变量也照样是不可变。1. 由于成员变量具有默认值，所以用了final之后必须手动赋值，不会再给默认值了。2. 对于final的成员变量，要么使用直接赋值，要么通过构造方法赋值。二者选其一。3. 必须保证类当中所有重载的构造方法，都最终会对final的成员变量进行赋值。</code></pre><p>public class Person {</p><pre><code>private final String name /* =“鹿晗&quot; */；//方法一public Person(){    name = &quot;关晓彤&quot;;}public Person(String name) {    this.name = name;}public String getName() {    return name;}//public void setName(String name) {//    this.name = name;//}</code></pre><p>}</p><pre><code></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java笔记--基础语法</title>
+      <link href="/2020/08/17/javabijijichuyufa/"/>
+      <url>/2020/08/17/javabijijichuyufa/</url>
+      
+        <content type="html"><![CDATA[<h1 id="java笔记–基础语法"><a href="#java笔记–基础语法" class="headerlink" title="java笔记–基础语法"></a>java笔记–基础语法</h1><hr><h2 id="JDK、JRE与JVM"><a href="#JDK、JRE与JVM" class="headerlink" title="JDK、JRE与JVM"></a>JDK、JRE与JVM</h2><h2 id="第一个Java程序"><a href="#第一个Java程序" class="headerlink" title="第一个Java程序"></a>第一个Java程序</h2><pre><code>//这是一个程序第三个单词与文件名必须一样public class HelloWorld {    //第二行是万年不变的方法，代表main方法    //程序的入口，做Java开发一般不会改变    public static void main(String[] args){        System.out.println(&quot;你好，世界！&quot;);    }}</code></pre><hr><h2 id="Java-基础关键字与标识符"><a href="#Java-基础关键字与标识符" class="headerlink" title="Java 基础关键字与标识符"></a>Java 基础关键字与标识符</h2><h3 id="关键字的特点："><a href="#关键字的特点：" class="headerlink" title="关键字的特点："></a>关键字的特点：</h3><p>1、完全小写的字母：public Public<br/><br>2、在notpaid++中有特殊颜色<br/></p><h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><p>程序中自己定义的部分，如类名，方法名，变量名等都是标识符<br/>1、标识符可以包含26个英文字母（区分大小写），数字（0~9），$（美元符号），_（下划线）<br/>2、标识符不能以数字开头<br/>3、标识符不能是关键字</p><h3 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范:"></a>命名规范:</h3><p>1、类名规范：首字母大写后面每个单词首字母大写（大驼峰式）<br/>2、变量名、方法名：首字母小写后面每个单词首字母大写（小驼峰式 ）</p><hr><h2 id="常量与变量"><a href="#常量与变量" class="headerlink" title="常量与变量"></a>常量与变量</h2><h3 id="常量："><a href="#常量：" class="headerlink" title="常量："></a>常量：</h3><p>1、字符串常量：凡是用双引号引起来的的常量<br/>2、整数常量：直接写上数字，没有小数点<br/>3、浮点数常量：直接写上数字，有小数点<br/>4、字符常量：只用单引号引起来的单个字符<br/>5、布尔常量：只有两种取值，true、false。<br/>6、空常量：null，代表没有任何数据（不能用来打印输出）</p><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>程序运行期间，内容可以发生改变的量</p><h4 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h4><p>整数型：byte、short、int、long <br/>浮点型：float、double <br/>字符型：char <br/>布尔型：boolean <br/></p><h4 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h4><p>字符串、数组、类、接口、lambda</p><p><strong>注意事项：</strong><br/><br>1、字符串不是基本类型而是引用类型<br/><br>2、浮点型可能只是一个近似值，并非精确值<br/><br>3、数据范围与字节数不一定相关，例如float数据范围比long更加广泛，但float是4字节，long是8字节<br/><br>4、浮点数当中默认类型为double类型，如果一定要使用float类型，需要加上一个后缀F；<br/><br>如果是整数，默认为int类型，如果一定要使用long类型，需要加上一个后缀L，推荐使用大写字母后缀。<br/></p><pre><code>System.out.println(100L);</code></pre><h4 id="创建一个变量并且使用的格式"><a href="#创建一个变量并且使用的格式" class="headerlink" title="创建一个变量并且使用的格式"></a>创建一个变量并且使用的格式</h4><ul><li><p>数据类型 变量名称;    //创建了一个变量</br></p></li><li><p>数据名称=数据值;  //赋值，将左边的数据值，赋值交给左边的变量<br>一步到位的格式：</br></p></li><li><p>数据类型 变量名 = 数据值 ; //在创建一个变量的同时，立刻放入指定的数据值</br></p><pre><code>public class Demo02Variable{  public static void main(String[] args){      //创建一个变量      //格式：数据类型 变量名称;      int num1;      num1 = 10;      System.out.println(num1);//打印10      //改变变量中本来的数字，变成新的数字      num1=20;      System.out.println(num1);      //使用一步到位的格式来定义变量      //格式：数据类型 变量名 = 数据值;      int num2=25;      System.out println(num2);//打印25      num2=35;      System.out.printfln(num2);      System.out.printfln(&quot;*******我是分割线******&quot;);      byte num3 = 30;//注意右侧数值范围不能超过左侧的数据类型      System.out.println(num3);//打印30      byte num4 = 400;//右侧超出了byte数据范围，错误！      boolean var1 = true;//布尔型变量      var1=false;      System.out.println(var1);      boolen var2 = var1;  }}</code></pre></li></ul><h4 id="使用变量的注意对象"><a href="#使用变量的注意对象" class="headerlink" title="使用变量的注意对象"></a>使用变量的注意对象</h4><p>1、如果创建多个变量，那么变量之间的名称不可以重复。<br/><br>2、对于float和long类型来说，字母后缀F和L不要丢掉。<br/><br>3、如果使用byte或者short类型的变量，那么右侧的速值不能超过左侧类型的范围。<br/><br>4、没有进行赋值的变量不能直接使用；一定要复赋值后才能使用。<br/><br>5、变量不能超过作用域的范围。<br/><br>【作用域】从定义变量的一行开始；一直到直接所属的大括号结束为止。<br/><br>6、可以通过一个语句来创建多个变量，但是一般情况不推荐这么写。<br/></p><h4 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h4><p>当数据类型不一样时，将会发生数据类型转换。<br/></p><ul><li>自动数据转换（隐式）</li></ul><p>1、特点：代码不需要进行特殊处理，自动完成<br/><br>2、规则：数据范围从小到大。（与字节数不一定相关）<br/></p><pre><code>public class Demo01DataType{    public static void main(String[] args){        System.out.println(1024);//这就是一个整数，默认就是int类型        System.out.printfln(3.14);//这就是一个小数，默就是double类型        //左边是long类型，右边默认int类型，左右不一样        //一个等号代表复制，将右边的int常量，交给左侧的long变量进行存储；        //int--&gt;long，符合了数据范围从小到大的要求        //这一行代码发生了自动类型转换        int num1 = 100;        System.out.println(num1);//输出100        //左边double，右边float类型        double num2 = 2.5F;        System.out.println(num2);//输出2.5        //左边float，右边long类型，左右不一样，发生了自动类型转换        float num3 = 100L        System.out.println(num3);//输出3.0    }}</code></pre><ul><li>强制数据转换</li></ul><p>1、特点：代码需要进行特殊格式处理，不能自动完成。</br><br>2、格式：范围小的类型 范围小的变量名 = 原本范围大的数据（范围小的类型）原本范围<br/><br>【注意事项】<br/><br>1、强制类型转换一般不推荐使用，因为有可能发生精度损失、数据溢出<br/><br>2、byte/short/char这三种类型都可以发生数学运算，例如加法“+”<br/><br>3、byte/short/char这三种类型在运算时，都会首先提升为int类型，然后再计算<br/><br>4、boolean类型不能发生数据类型转换<br/></p><pre><code>public class Demo02DataType{    public static void main(String args){        //左边是int类型，右边是long类型，不一样        //long--&gt;int，不是从小到大        //不能发生自动类型转换！        int num = (int) 100L;        System.out.println(num);    }}</code></pre><hr><h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3><table><thead><tr><th>运算符</th><th>含义</th><th>使用方法</th></tr></thead><tbody><tr><td>+</td><td>加</td><td>数值：加法；</br>char类型字符和int类型数字：ASCII码或Unicode码相加；</br>字符串（string）：表示字符串连接（任何数据类型和字符串连接都会变成字符串）</td></tr><tr><td>-</td><td>减</td><td>减法运算</td></tr><tr><td>*</td><td>乘</td><td>乘法运算</td></tr><tr><td>/</td><td>除</td><td>除法运算，在整数运算中结果取整数</td></tr><tr><td>%</td><td>取模</td><td>取余数</td></tr></tbody></table><h3 id="自增-减运算符"><a href="#自增-减运算符" class="headerlink" title="自增/减运算符"></a>自增/减运算符</h3><p>【基本含义】让一个变量张一个数字1，或者让一个变量降一个数字1。<br/><br>使用方式<br/><br>1、单独使用：不和其他任何操作混合，自己独立成为一个步骤。<br/><br>2、混合使用：和其他操作混合使用。<br/></p><h3 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h3><p>基本赋值运算符：就是一个等号“=”，代表将右侧的数据交给左侧的变量。<br/><br>复合赋值运算符：<br/><br>+=</p><table><thead><tr><th>运算符</th><th>含义</th></tr></thead><tbody><tr><td>+=</td><td>加等于</td></tr><tr><td>-=</td><td>减等于</td></tr><tr><td>*=</td><td>乘等于</td></tr><tr><td>/=</td><td>除等于</td></tr><tr><td>%=</td><td>取模等于</td></tr></tbody></table><ul><li>复合运算符中隐含着一个强制类型转换</li></ul><h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><table><thead><tr><th>运算符</th><th>含义</th></tr></thead><tbody><tr><td>==</td><td>比较符号两边数据是否相等，相等时结果为true</td></tr><tr><td>&lt;</td><td>比较符号左边数据是否小于右边数据</td></tr><tr><td>&gt;</td><td>比较符号左边数据是否大于右边数据</td></tr><tr><td>&lt;=</td><td>比较符号左边数据是否小于等于右边数据</td></tr><tr><td>&gt;=</td><td>比较符号左边数据是否大于等于右边数据</td></tr><tr><td>!=</td><td>比较符号两边数据是否相等，不相等时结果为true</td></tr></tbody></table><pre><code>//比较运算符public class Demo01Operator{    public static void main(String[] args){        System.out.println(10 &gt; 5);        int num1 = 10;        int num2 = 20;        System.out.println(num1 &gt; num2);    }}</code></pre><p>【注意事项】<br/><br>1、比较运算符的结果一定是一个boolean值，成立就是true，不成立就是false。<br/><br>2、如果进行多次判断，不能连着写。<br/></p><h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><p>与（并且）&amp;&amp; 全都时true，才是true；否则就是false<br/><br>或（或者）||至少一个是true，就是true<br/><br>非（取反）！本来是true，变成false；本来是false，变成true<br/></p><p>与“&&”，或“||”，具有短路效果：如果根据左边已经可以判断得到最终结果，那么右边的代码将不再执行，从而节省一定的性能</p>1、逻辑运算符只能用于boolean值。2、与、或需要左右格斯有一个boolean值，但是取反只要有唯一的一个boolean值即可。3、与、或两种运算符如果有多个条件可以连续写。<h3 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h3><p><strong>需要三个数据才可以进行操作的运算符</strong><br/></p><h4 id="格式："><a href="#格式：" class="headerlink" title="格式："></a>格式：</h4><p>数据类型 变量名 = 条件判断 ? 表达式A : 表达式B;<br/></p><h4 id="流程："><a href="#流程：" class="headerlink" title="流程："></a>流程：</h4><p>首先判断条件是否成立:<br/><br>如果成立为true，那么将表达式A的值赋值给左侧的变量;<br/><br>如果不成立为false，那么将表达式B的值赋值给左侧的变量;<br/><br>二者选其一。<br/></p><h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项:"></a>注意事项:</h4><p>1.必须同时保证表达式A和表达式B都符合左侧数据类型的要求。<br/><br>2.三元运算符的结果必须被使用。<br/></p><pre><code>public class Demo100perator {    public static void main(string[]args) {       int a = 10;       int b = 20;        //数据类型变量名称=条件判断?表达式A:表达式B;       //判断a &gt;b是否成立，如果成立将a的值赋值给max;如果不成立将b的值赋值给max。二者选其一       int max = a &gt; b ? a : b; //最大值的变量       System.out.println(&quot;最大值:&quot; +max); //输出 20       // int result = 3 &gt; 4 ? 2.5 : 10;//错误写法!       System.out.println(a &gt; b ? a : b);//正确写法!       // a&gt; b ? a : b;//错误写法!    }}</code></pre><hr><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>我们在学习运算符的时候，都为每个运算符单独的创建一个新的类和main方法，我们会发现这样编写代码非常的繁琐，而且重复的代码过多。能否避兔这些重复的代码呢，就需要使用方法来实现。</p><ul><li>方法:就是将一个功能抽取出来，把代码单独定义在一个大括号内，形成一个单独的功能。</li></ul><p>当我们需要这个功能的时候，就可以去调用。这样即实现了代码的复用性，也解决了代码冗余的现象。<br/></p><pre><code>public class Demo11Method {    public static void main(String[]args){        farmer(); //调用农民的方法        seller(); //调用小商贩的方法        cook(); //调用厨子的方法        me(); //调用我自己的方法工    }}//我public static void me(){   system.out.println(&quot;吃&quot;); }//小商贩public static void seller() {    system.out.println(&quot;运输到农贸市场&quot;);    System.out.println(&quot;抬高价格&quot;);    system.out.println(&quot;吆喝&quot;);    System.out.println(&quot;卖给厨子&quot;);}//农民伯伯public static void farmer(){    System.out.println(&quot;播种&quot;);    system.out.println(&quot;浇水&quot;);    System.out.println(&quot;施肥&quot;);    system.out.println(&quot;&quot;除虫&quot;);    system.out.println(&quot;收割&quot;);    system.out.println(&quot;卖给小商贩&quot;);}</code></pre><p>定义方法的完整格式:<br/></p><pre><code>修饰符 返回值类型 方法名称(参数类型参数名称，...)     方法体    return返回值;}/*修饰符:现阶段的固定写法:public static返回值类型:也就是方法最终产生的数据结果是什么类型方法名称:方法的名字，规则和变量一样，小驼峰参数类型:进入方法的数据是什么类型参数名称:进入方法的数据对应的变量名称    Ps:参数如果有多个，使用逗号进行分隔方法体:方法需要做的事情，若干行代码return:两个作用，第一停止当前方法，第二将后面的返回值还给调用处返回值:也就是方法执行后最终产生的数据结果注意:return后面的“返回值”，必须和方法名称前面的“返回值类型”，保持对应。*/</code></pre><p>【注意事项】<br/><br>1、方法定义的先后顺序无所谓。<br/><br>2、方法定义不能产生嵌套包含关系。<br/><br>3、方法定义好了以后，不会执行的，如果要执行，一定要进行方法的调用。<br/><br><strong>如何调用方法，格式：方法名称();</strong></p><h3 id="方法的重载"><a href="#方法的重载" class="headerlink" title="方法的重载"></a>方法的重载</h3><p>对于功能类似的方法来说，因为方法不一样，却要记住那么多不同的方法名称，太麻烦。<br/></p><p>方法的重载（OverLoad）：多个方法的名称一样，但是参数列表不一样。<br/><br>好处：只需要记住一个方法名称就可以实现类似的功能。<br/><br><strong>方法重载与下列因素有关：</strong></p><ul><li>参数个数不同<br/></li><li>参数类型不同<br/></li><li>参数的多类型顺序不同<br/></li></ul><p><strong>方法重载与下列因素无关：</strong></p><ul><li>与参数的名称无关</li><li>与方法的返回值类型无关</li></ul><pre><code>public class Demo01MethodOverlode {    public static void main(String[] args) {        System.out.println(sum(10,20));        System.out.println(sum(10,20,30));        System.out.println(sum(10,20,30,40));    }    public static int sum(int a,int b)    {        System.out.println(&quot;有两个参数的方法执行！&quot;);        return a+b;    }    public static int sum(int a,int b,int c)    {        System.out.println(&quot;有三个参数的方法执行！&quot;);        return a+b+c;    }    public static int sum(int a,int b,int c,int d)    {        System.out.println(&quot;有四个参数的方法执行！&quot;);        return a+b+c+d;    }}</code></pre><hr><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>数组的初始化:在内存当中创建一个数组，并且向其中赋子—些默认值。<br>两种常见的初始化方式:</p><ul><li>动态初始化（指定长度）:在创建数组的时候，直按指定数组当中的数据元素个数</li><li>静态初始化（指定内容）:在创建数组的时候，不直接指定数据个数多少，而是直接将具体的数据内容进行指定。</li></ul><h3 id="动态切始化数组的格式"><a href="#动态切始化数组的格式" class="headerlink" title="动态切始化数组的格式:"></a>动态切始化数组的格式:</h3><pre><code>数据类型 [] 数组名称 = new 数据类型 [数组长度];</code></pre><p>解析含义:<br/><br>左侧数据类型:也就是数组当中保存的数据，全都是统一的什么类型<br/><br>左恻的中括号，代差我是—个数组<br/><br>左彻数组茗称:给数组取一个名字<br/><br>右彻的new:代表创建数组的动作<br/><br>右侧蛟据类型:必须和左边的致据类型保持一致<br/><br>右侧中括号的长度:也就是数组当中，到底可以保存多少个数据，是一个int数字<br/></p><pre><code>public class Demoe1Array {    public :tatic.void main(stringl]args)i        //创建一个数组，里面可以存放300个int数据        //格式:数据共型数组名称 = new 数据类型[数组长度];        int [] arrayA = new int[300];}</code></pre><h3 id="静态初始化基本格式"><a href="#静态初始化基本格式" class="headerlink" title="静态初始化基本格式:"></a>静态初始化基本格式:</h3><pre><code>/*数据类型 [] 数组名称 = new 数据类型[] {元素1，元素2,……};*/public class Demo02Array {    public static void main(String[] args) {        //直接创建一个数组，里面装的全都是int数字，具体为: 5、15、25        int[] arrayA = new int[] { 5, 15, 25 };        //创建一个数组，用来装字符串: &quot;Hello&quot;、 &quot;World&quot;、 &quot;Java&#39;        String[] arrayB = new String[] { &quot;He11o&quot;， &quot;World&quot;, &quot;Java&quot; };    }}</code></pre><p>【注意事项】<br/><br>虽然静态初始化没有直接告诉长度，但是根据大括号里面的元素具体内容，也可以自动推算出来长度。</p><p><strong>使用静态初始化数组的时候，格式还可以省略一下。</strong><br/><br>标准格式:<br/><br>    数据类型[] 数组名称= new 数据类型[] {元素1,元素2，… };<br/><br>省略格式:<br/><br>    数据类型[] 数组名称= {元素1,元素2, … };<br/></p><p>【注意事项】</p><ul><li>静态初始化没有直接指定长度，但是仍然会自动推算得到长度。</li><li>静态初始化标准格式可以拆分成为两个步骤。</li><li>动态初始化也可以拆分成为两个步骤。</li><li>静态初始化一旦使用省略格式，就不能拆分成为两个步骤了。</li></ul><p>【使用建议】<br/><br>如果不确定数组当中的具体内容，用动态初始化;否则，已经确定了具体的内容，用静态初始化。<br/></p><pre><code>public class Demo03Array {    public static void main(String[] args) {        //省略格式的静态初始化        int[] arrayA = { 10，20，30 };        //静态初始化的标准格式，可以拆分成为两个步骤        int[] arrayB;        arrayB = new int[] { 11, 21, 31 };        //动态初始化也可以拆分成为两个步骤        int[] arrayC;        arrayC = new int[5] ;        }}</code></pre><p>动态初始化时，其中元素会自动拥有一个默认值<br/><br>整形数据：0<br/><br>浮点型数据：0.0<br/><br>字符型数据：’\u0000’<br/><br>布尔类型：false<br/><br>引用类型：null</p><p>【注意事项】<br/><br>静态初始化其实也有默认值，只不过立马被替换成了大括号里面的具体值而已。</p><h3 id="Java的内存需要划分5个部分"><a href="#Java的内存需要划分5个部分" class="headerlink" title="Java的内存需要划分5个部分"></a>Java的内存需要划分5个部分</h3><h4 id="栈（stack）：存放的都是方法中的局部变量"><a href="#栈（stack）：存放的都是方法中的局部变量" class="headerlink" title="栈（stack）：存放的都是方法中的局部变量"></a>栈（stack）：存放的都是方法中的局部变量</h4><p><strong>==方法的运行一定要在栈当中运行。==</strong></p><p>局部变量：方法的参数，或着是方法{}内部的变量<br>作用域：一旦超出作用域，立刻从栈内存中消失</p><h4 id="堆（Heap）-凡是NEW出来的东西都在堆当中"><a href="#堆（Heap）-凡是NEW出来的东西都在堆当中" class="headerlink" title="堆（Heap）:==凡是NEW出来的东西都在堆当中=="></a>堆（Heap）:==凡是NEW出来的东西都在堆当中==</h4><p>堆内存里面的东西都有一个地址值：16进制<br/></p><p>堆内存里面的数据都有默认值，规则：<br/></p><ul><li>如果是整数 默认为0</li><li>如果是浮点数 默认为0.0</li><li>如果是字符 默认为 ‘\u0000’</li><li>如果是布尔  默认为false</li><li>如果是引用类型 默认为null</li></ul><h4 id="方法区（MethodArea）存属-class相关信息，包含方法的信息。"><a href="#方法区（MethodArea）存属-class相关信息，包含方法的信息。" class="headerlink" title="方法区（MethodArea）存属.class相关信息，包含方法的信息。"></a>方法区（MethodArea）存属.class相关信息，包含方法的信息。</h4><h4 id="本地方法栈（Native-Method-Stack）：与操作系统相关。"><a href="#本地方法栈（Native-Method-Stack）：与操作系统相关。" class="headerlink" title="本地方法栈（Native Method Stack）：与操作系统相关。"></a>本地方法栈（Native Method Stack）：与操作系统相关。</h4><h4 id="寄存器：与CPU相关。"><a href="#寄存器：与CPU相关。" class="headerlink" title="寄存器：与CPU相关。"></a>寄存器：与CPU相关。</h4><h3 id="如何获得数组长度"><a href="#如何获得数组长度" class="headerlink" title="如何获得数组长度"></a>如何获得数组长度</h3><p>格式：<strong>数组名称.length</strong><br/><br>将会得一个int数字，代表数组长度</p><h3 id="数组一旦创建-程序运行期间长度不可改变"><a href="#数组一旦创建-程序运行期间长度不可改变" class="headerlink" title="数组一旦创建,程序运行期间长度不可改变"></a>数组一旦创建,程序运行期间长度不可改变</h3><h3 id="数组可以作为方法的参数"><a href="#数组可以作为方法的参数" class="headerlink" title="数组可以作为方法的参数"></a>数组可以作为方法的参数</h3><p>当调用方法的时候，向方法的小括号进行传参，传递进去的其实是数组的地址值。<br/></p><h3 id="数组作为返回值"><a href="#数组作为返回值" class="headerlink" title="数组作为返回值"></a>数组作为返回值</h3><p>一个方法可以有多个参数但是只有0~1个返回值，不能有多个返回值，如果希望一个方法中产生了多个结果数据进行返回，怎么办？<br/><br>解决方法：使用一个数组作为返回值类型即可。</p><pre><code>public class Demo03ArrayReturn {    public static void main(String[] args) {        int x=50,y=30,z=20;        int[] result = calculate(x,y,z);        System.out.println(result[0]);        System.out.println(result[1]);    }    public static int [] calculate(int a,int b,int c){        int sum=a+b+c;//总和        int avg=sum/3;//平均数        //两个数都希望进行返回        int[] array=new int [] {sum,avg};        return array;    }}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C语言文件的用法</title>
+      <link href="/2020/03/31/cyuyanwenjiandeyongfa/"/>
+      <url>/2020/03/31/cyuyanwenjiandeyongfa/</url>
+      
+        <content type="html"><![CDATA[<h1 id="C语言文件类型"><a href="#C语言文件类型" class="headerlink" title="C语言文件类型"></a>C语言文件类型</h1><hr><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul><li>在Ｃ语言中用一个指针变量指向一个文件，这个指针称为文件指针。通过文件指针就可<br>对它所指的文件进行各种操作<br>FILE * 指针变量标识符；<br>例如：<pre><code>FILE *fp；</code></pre></li></ul><hr><h2 id="文件的打开与关闭"><a href="#文件的打开与关闭" class="headerlink" title="文件的打开与关闭"></a>文件的打开与关闭</h2><h3 id="fopen-函数"><a href="#fopen-函数" class="headerlink" title="fopen 函数"></a>fopen 函数</h3><ul><li>用来打开一个文件，其调用的一般形式为：</li></ul><p><strong>文件指针名=fopen(文件名,使用文件方式);</strong></p><table><thead><tr><th align="center">文件使用方式</th><th align="center">意义</th></tr></thead><tbody><tr><td align="center">“r”</td><td align="center">只读的方式打开一个文本文件，只允许读数据</td></tr><tr><td align="center">“w”</td><td align="center">只写的方式打开或建立一个文本文件，只允许写数据</td></tr><tr><td align="center">“a”</td><td align="center">追加的方式打开一个文本文件，并在文件末尾写数据</td></tr><tr><td align="center">“rb”</td><td align="center">只读的方式打开一个二进制文件，只允许读数据</td></tr><tr><td align="center">“wb”</td><td align="center">只写的方式打开或建立一个二进制文件，只允许写数据</td></tr><tr><td align="center">“ab”</td><td align="center">追加的方式打开一个二进制文件，并在文件末尾写数据</td></tr><tr><td align="center">“r+”</td><td align="center">读写的方式打开一个文本文件，允许读和写</td></tr><tr><td align="center">“w+”</td><td align="center">读写的方式打开或建立一个文本文件，允许读写</td></tr><tr><td align="center">“a+”</td><td align="center">读写的方式打开一个文本文件，允许读，或在文件末追加数据</td></tr><tr><td align="center">“rb+”</td><td align="center">读写的方式打开一个二进制文件，允许读和写</td></tr><tr><td align="center">“wb+”</td><td align="center">读写的方式打开或建立一个二进制文件，允许读和写</td></tr><tr><td align="center">“ab+”</td><td align="center">读写的方式打开一个二进制文件，允许读，或在文件末追加数据</td></tr></tbody></table><h3 id="fclose-函数"><a href="#fclose-函数" class="headerlink" title="fclose 函数"></a>fclose 函数</h3><ul><li>文件一旦使用完毕，应用关闭文件函数把文件关闭，以避免文件的数据丢失等错误。</li></ul><p>调用的一般形式是：<br><strong>fclose(文件指针)；</strong></p><pre><code>close(*fp);</code></pre><hr><h2 id="文件的读写"><a href="#文件的读写" class="headerlink" title="文件的读写"></a>文件的读写</h2><p>对文件的读和写是最常用的文件操作。在Ｃ语言中提供了多种文件读写的函数：</p><ul><li>字符串读写函数：fgets 和 fputs</li><li>数据块读写函数：freed 和 fwrite</li><li>格式化读写函数：fscanf 和 fprinf<br>下面分别予以介绍。使用以上函数都要求包含头文件 stdio.h。</li></ul><h3 id="读字符函数-fgetc"><a href="#读字符函数-fgetc" class="headerlink" title="读字符函数 fgetc"></a>读字符函数 fgetc</h3><p>fgetc 函数的功能是从指定的文件中读一个字符，函数调用的形式为：<br>字符变量=fgetc(文件指针)；</p><h3 id="写字符函数-fputc"><a href="#写字符函数-fputc" class="headerlink" title="写字符函数 fputc"></a>写字符函数 fputc</h3><p>fputc 函数的功能是把一个字符写入指定的文件中，函数调用的形式为：<br>fputc(字符量，文件指针)；</p><h3 id="读字符串函数-fgets"><a href="#读字符串函数-fgets" class="headerlink" title="读字符串函数 fgets"></a>读字符串函数 fgets</h3><p>函数的功能是从指定的文件中读一个字符串到字符数组中，函数调用的形式为：<br>fgets(字符数组名,n,文件指针);<br>其中的 n 是一个正整数。表示从文件中读出的字符串不超过 n-1 个字符。在读入的最<br>后一个字符后加上串结束标志’\0’。</p><h3 id="写字符串函数-fputs"><a href="#写字符串函数-fputs" class="headerlink" title="写字符串函数 fputs"></a>写字符串函数 fputs</h3><p>fputs 函数的功能是向指定的文件写入一个字符串，其调用形式为：<br>fputs(字符串,文件指针);<br>其中字符串可以是字符串常量，也可以是字符数组名，或指针变量，</p><h3 id="数据块读写函数fread-和fwtrite"><a href="#数据块读写函数fread-和fwtrite" class="headerlink" title="数据块读写函数fread 和fwtrite"></a>数据块读写函数fread 和fwtrite</h3><p>Ｃ语言还提供了用于整块数据的读写函数。可用来读写一组数据，如一个数组元素，一<br>个结构变量的值等。<br>读数据块函数调用的一般形式为：</p><pre><code>fread(buffer,size,count,fp);</code></pre><p>写数据块函数调用的一般形式为：</p><pre><code>fwrite(buffer,size,count,fp);</code></pre><p>其中:</p><ul><li>buffer 是一个指针，在 fread 函数中，它表示存放输入数据的首地址。在 fwrite 函数中，它表示存放输出数据的首地址。</li><li>size 表示数据块的字节数。</li><li>count 表示要读写的数据块块数。</li><li>fp 表示文件指针。<h3 id="格式化读写函数fscanf-和fprintf"><a href="#格式化读写函数fscanf-和fprintf" class="headerlink" title="格式化读写函数fscanf 和fprintf"></a>格式化读写函数fscanf 和fprintf</h3>fscanf 函数，fprintf 函数与前面使用的 scanf 和 printf 函数的功能相似，都是格式化读写函数。两者的区别在于 fscanf 函数和 fprintf 函数的读写对象不是键盘和显示器，而是磁盘文件。<br>这两个函数的调用格式为：<pre><code>fscanf(文件指针,格式字符串,输入表列);fprintf(文件指针,格式字符串,输出表列);</code></pre>例如：<pre><code>fscanf(fp,&quot;%d%s&quot;,&amp;i,s);fprintf(fp,&quot;%d%c&quot;,j,ch);</code></pre></li></ul><hr><h2 id="文件定位"><a href="#文件定位" class="headerlink" title="文件定位"></a>文件定位</h2><p>移动文件内部位置指针的函数主要有两个，即 rewind 函数和 fseek 函数。</p><h3 id="rewind-函数"><a href="#rewind-函数" class="headerlink" title="rewind 函数"></a>rewind 函数</h3><p>它的功能是把文件内部的位置指针移到文件首，其调用形式为：<br>rewind(文件指针);</p><h3 id="fseek-函数"><a href="#fseek-函数" class="headerlink" title="fseek 函数"></a>fseek 函数</h3><p>用来移动文件内部位置指针，其调用形式为：<br>fseek(文件指针,位移量,起始点);<br>其中：</p><ul><li>“文件指针”指向被移动的文件。</li><li>“位移量”表示移动的字节数，要求位移量是 long 型数据，以便在文件长度大于 64KB 时不会出错。当用常量表示位移量时，要求加后缀“L”。</li><li>“起始点”表示从何处开始计算位移量，规定的起始点有三种：文件首，当前位置和文件尾。<br>其表示方法如下表：</li></ul><table><thead><tr><th align="center">起始点</th><th align="center">符号表示</th><th align="center">数字表示</th></tr></thead><tbody><tr><td align="center">文件首</td><td align="center">SEEK_SET</td><td align="center">0</td></tr><tr><td align="center">当前位置</td><td align="center">SEEK_CUR</td><td align="center">1</td></tr><tr><td align="center">文件末尾</td><td align="center">SEEK_END</td><td align="center">2</td></tr></tbody></table><hr><h2 id="文件的随机读写"><a href="#文件的随机读写" class="headerlink" title="文件的随机读写"></a>文件的随机读写</h2><p>在移动位置指针之后，即可用前面介绍的任一种读写函数进行读写。由于一般是读写一<br>个数据据块，因此常用 fread 和 fwrite 函数。</p><hr><h2 id="文件检测函数"><a href="#文件检测函数" class="headerlink" title="文件检测函数"></a>文件检测函数</h2><h3 id="文件结束检测函数-feof"><a href="#文件结束检测函数-feof" class="headerlink" title="文件结束检测函数:feof"></a>文件结束检测函数:feof</h3><p>调用格式：<br>feof(文件指针);<br>功能：判断文件是否处于文件结束位置，如文件结束，则返回值为 1，否则为 0。</p><h3 id="读写文件出错检测函数-ferror"><a href="#读写文件出错检测函数-ferror" class="headerlink" title="读写文件出错检测函数:ferror"></a>读写文件出错检测函数:ferror</h3><p>函数调用格式：<br>ferror(文件指针);<br>功能：检查文件在用各种输入输出函数进行读写时是否出错。如 ferror 返回值为 0 表示未出错，否则表示有错。</p><h3 id="文件出错标志和文件结束标志置-0-函数-clearerr"><a href="#文件出错标志和文件结束标志置-0-函数-clearerr" class="headerlink" title="文件出错标志和文件结束标志置 0 函数:clearerr"></a>文件出错标志和文件结束标志置 0 函数:clearerr</h3><p>函数调用格式：<br>clearerr(文件指针);<br>功能：本函数用于清除出错标志和文件结束标志，使它们为 0 值。</p><hr><h2 id="附录："><a href="#附录：" class="headerlink" title="附录："></a>附录：</h2><pre><code>#include&lt;stdio.h&gt;#include&lt;string.h&gt;#include&lt;stdlib.h&gt;#define Size 10/*********二进制方式向文件读写一组数据***********    * fread(buffer,size,count,fp);    * fwrite(buffer,size,count,fp);    buffer：是一个地址，存放从文件读入的数据的存储区的地址    size：  读写的字节数（读出数据类型的空间）    count： 读写的数据量    fp：    指向文件的指针*************************************************/struct students{    char name[5];    int age;    int number;}stu[Size];void main (){    FILE *fp;    int i;    printf(&quot;please input 10 student&#39;s data:\n&quot;);    for(i=0;i&lt;Size;i++)        scanf(&quot;%s %d %d&quot;,stu[i].name,&amp;stu[i].age,&amp;stu[i].number);    if((fp=fopen(&quot;student data.txt&quot;,&quot;wb&quot;))==NULL)        exit(0);    for(i=0;i&lt;Size;i++)    {        if(fwrite(&amp;stu[i],sizeof(struct students),1,fp)!=1)            puts(&quot;sonething wrong!&quot;);    }    fclose(fp);}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言学习笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>古典问题：兔子总数</title>
+      <link href="/2020/03/05/gudianwentituzizongshu/"/>
+      <url>/2020/03/05/gudianwentituzizongshu/</url>
+      
+        <content type="html"><![CDATA[<h1 id="兔子总数"><a href="#兔子总数" class="headerlink" title="兔子总数"></a>兔子总数</h1><h2 id="题目：有一对兔子，从出生第3个月起每个月都生一对兔子，小兔子长到第3月后每个月又生一对兔子。假设所有兔子都不死，编程求第20个月总数为多少？"><a href="#题目：有一对兔子，从出生第3个月起每个月都生一对兔子，小兔子长到第3月后每个月又生一对兔子。假设所有兔子都不死，编程求第20个月总数为多少？" class="headerlink" title="题目：有一对兔子，从出生第3个月起每个月都生一对兔子，小兔子长到第3月后每个月又生一对兔子。假设所有兔子都不死，编程求第20个月总数为多少？"></a>题目：有一对兔子，从出生第3个月起每个月都生一对兔子，小兔子长到第3月后每个月又生一对兔子。假设所有兔子都不死，编程求第20个月总数为多少？</h2><p>难点：从第3月起，能生小兔子的大兔子每个月都要生一对兔子。</p><h3>分析:</h3><h4><table><thead><tr><th align="center">月 份</th><th align="center">小兔子</th><th align="center">中兔子</th><th align="center">大兔子</th><th align="center">兔子总数</th></tr></thead><tbody><tr><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">1</td></tr><tr><td align="center">2</td><td align="center">0</td><td align="center">1</td><td align="center">0</td><td align="center">1</td></tr><tr><td align="center">3</td><td align="center">1</td><td align="center">0</td><td align="center">1</td><td align="center">2</td></tr><tr><td align="center">4</td><td align="center">1</td><td align="center">1</td><td align="center">1</td><td align="center">3</td></tr><tr><td align="center">5</td><td align="center">2</td><td align="center">1</td><td align="center">2</td><td align="center">5</td></tr><tr><td align="center">6</td><td align="center">3</td><td align="center">2</td><td align="center">3</td><td align="center">8</td></tr><tr><td align="center">7</td><td align="center">5</td><td align="center">3</td><td align="center">5</td><td align="center">13</td></tr><tr><td align="center">8</td><td align="center">8</td><td align="center">5</td><td align="center">8</td><td align="center">21</td></tr><tr><td align="center">9</td><td align="center">13</td><td align="center">8</td><td align="center">13</td><td align="center">34</td></tr><tr><td align="center">10</td><td align="center">21</td><td align="center">2</td><td align="center">21</td><td align="center">55</td></tr><tr><td align="center">11</td><td align="center">34</td><td align="center">2</td><td align="center">34</td><td align="center">89</td></tr></tbody></table><ul><li><p>此时可找出规律：每个月总数是前两个月总数之和</p></h4>## 方法一<p>  从第三个月开始计算。前面两个月兔子数量确定（n1;n2），后面每个月的兔子数量等于前两个月兔子数量之和。前一个月的兔子数n2;前两个月的兔子数n1;所以从第三个月开始(n)，兔子数量为n=n1+n2。此后前两个月的数目进行更新向后移动一月，方便下一个循环。</p>```void main (){  int i,n,n1=1,n2=1;  for(i=3;i<=20;i++)  {      n=n1+n2;//本月兔子的数目（第三月开始）      n1=n2;//n1指向后移一位      n2=n;//n2指向后移一位      printf("第%2d个月兔子总数为%4d个\n",i,n);  }  printf("第20个月兔子总数为%d个",n);}```## 方法二从第一个月开始循环，将第一个月的数量先存储起来k=f1，在将后面两个月的兔子数量更新。后面第一个月的兔子数改变为后面第二个月f1=f2，后面第二个月的兔子数为前两个月之和f2=f2+k(f1未改变时的值)。```#include <stdio.h>int main(){   long f1=1,f2=1,k;  int i;  for(i=1;i<=20;i++ )  {      k=f1;//第i个月的兔子个数      f1=f2;//后面一个月的兔子个数      f2=k+f2;//后面二个月的兔子个数      printf("第%2d月有%4ld只兔子；\n", i,k);  }}```## 方法三每个循环处理两个月。每次更新，第一个月是前两个月之和f1+f2，第二个月也是前两个月之和f2=f2+f1(此时f1已经改变)```int main( ){  long f1=1,f2=1;  int i;  //每次循环确定2个月的兔子个数  for(i=1;i<=10;i++)  {      printf("第%2d月有%4ld只兔子；\n第%2d月有%4ld只兔子；\n",2*i-1,f1,2*i,f2);      f1=f1+f2;//第2n-1个月兔子数      f2=f2+f1;//第2n个月兔子数  }}```## 运行结果![](/兔子总数/.png)</li><li><p>规律：每个月总数是前两个月总数之和</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>回文数</title>
+      <link href="/2020/03/05/huiwenshu/"/>
+      <url>/2020/03/05/huiwenshu/</url>
+      
+        <content type="html"><![CDATA[<h1 id="回文数"><a href="#回文数" class="headerlink" title="回文数"></a>回文数</h1><h2 id="统计并输出-10000-99999-之间所有的回文数个数（回文数只从左到右与从右到左都一样的正整数，如94340）。"><a href="#统计并输出-10000-99999-之间所有的回文数个数（回文数只从左到右与从右到左都一样的正整数，如94340）。" class="headerlink" title="统计并输出 10000~99999 之间所有的回文数个数（回文数只从左到右与从右到左都一样的正整数，如94340）。"></a>统计并输出 10000~99999 之间所有的回文数个数（回文数只从左到右与从右到左都一样的正整数，如94340）。</h2><pre><code>void main (){    long i,c;    for(i=10000,c=0;i&lt;=99999;i++)    if(i%10==1%1000 &amp;&amp; i/10%10==i/1000%10)        c++;    printf(&quot;%ld&quot;,c);}</code></pre><p>注意：int型数据的范围时-32767~32768，达不到99999.所以要用long型数据。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>求？中的数</title>
+      <link href="/2020/03/05/qiuzhongdeshu/"/>
+      <url>/2020/03/05/qiuzhongdeshu/</url>
+      
+        <content type="html"><![CDATA[<h1 id="求？中的数"><a href="#求？中的数" class="headerlink" title="求？中的数"></a>求？中的数</h1><h2 id="算式：8-times-？？和-9-times-？？中-？？代表两位数，8-times-？？的结果为两位数，9-times-？？的结果为3位数。编程求？？代表的两位数，及809-times-？？后的结果。"><a href="#算式：8-times-？？和-9-times-？？中-？？代表两位数，8-times-？？的结果为两位数，9-times-？？的结果为3位数。编程求？？代表的两位数，及809-times-？？后的结果。" class="headerlink" title="算式：8$\times$？？和 9$\times$？？中 ？？代表两位数，8$\times$？？的结果为两位数，9$\times$？？的结果为3位数。编程求？？代表的两位数，及809$\times$？？后的结果。"></a>算式：8$\times$？？和 9$\times$？？中 ？？代表两位数，8$\times$？？的结果为两位数，9$\times$？？的结果为3位数。编程求？？代表的两位数，及809$\times$？？后的结果。</h2><pre><code>void main(){    int i;    for (i=10;i&lt;100;i++)        if(8*i&gt;=10&amp;&amp;8*i&lt;100&amp;&amp;9*i&gt;=100&amp;&amp;9*i&lt;1000)            printf(&quot;%d,%d&quot;,i,809*i);    }</code></pre><p><img src="/%E6%B1%82%EF%BC%9F%E4%B8%AD%E7%9A%84%E6%95%B0/20200305080006289.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>小球弹跳</title>
+      <link href="/2020/03/05/xiaoqiudantiao/"/>
+      <url>/2020/03/05/xiaoqiudantiao/</url>
+      
+        <content type="html"><![CDATA[<h1 id="小球弹跳"><a href="#小球弹跳" class="headerlink" title="小球弹跳"></a>小球弹跳</h1><h2 id="一球从100米高度自由落下，每次落地后反跳回原高度的一半时再落下——编程求它在第10次落地时共经过多少米。"><a href="#一球从100米高度自由落下，每次落地后反跳回原高度的一半时再落下——编程求它在第10次落地时共经过多少米。" class="headerlink" title="一球从100米高度自由落下，每次落地后反跳回原高度的一半时再落下——编程求它在第10次落地时共经过多少米。"></a>一球从100米高度自由落下，每次落地后反跳回原高度的一半时再落下——编程求它在第10次落地时共经过多少米。</h2><p><img src="/%E5%B0%8F%E7%90%83%E5%BC%B9%E8%B7%B3/20200305073351109.png" alt=""><br>第一次落地明显与其他不相同</p><pre><code>void main(){    float h=100,s=100;//s:第一次高度已经加进去    int i;    for(i=2;i&lt;=10;i++)    {        h/=2;//高度为一半        s+=2*h;//落地后又弹起    }    printf(&quot;共经过%f米&quot;,s);}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>整除余一</title>
+      <link href="/2020/03/05/zhengchuyuyi/"/>
+      <url>/2020/03/05/zhengchuyuyi/</url>
+      
+        <content type="html"><![CDATA[<h1 id="整除余一"><a href="#整除余一" class="headerlink" title="整除余一"></a>整除余一</h1><h2 id="输出1-200中能被2、3、5除余1的前10个整数"><a href="#输出1-200中能被2、3、5除余1的前10个整数" class="headerlink" title="输出1~200中能被2、3、5除余1的前10个整数"></a>输出1~200中能被2、3、5除余1的前10个整数</h2><pre><code>void main(){    int i,n=0;    for(i=1;i&lt;=200 &amp;&amp; n&lt;=10;i++)    {        if(i%2==1 &amp;&amp; i%3==1 &amp;&amp; i%5==1)            {                printf(&quot;%4d,&quot;,i);                n++;            }    }}</code></pre><p><img src="/%E6%95%B4%E9%99%A4%E4%BD%99%E4%B8%80/20200305072726188.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>取球</title>
+      <link href="/2020/03/05/quqiuwenti/"/>
+      <url>/2020/03/05/quqiuwenti/</url>
+      
+        <content type="html"><![CDATA[<h1 id="取球方案"><a href="#取球方案" class="headerlink" title="取球方案"></a>取球方案</h1><h2 id="有两个红球、三个黄球、四个白球任意取5个球，其中必有一个黄球，编程输出所有可能的方案"><a href="#有两个红球、三个黄球、四个白球任意取5个球，其中必有一个黄球，编程输出所有可能的方案" class="headerlink" title="有两个红球、三个黄球、四个白球任意取5个球，其中必有一个黄球，编程输出所有可能的方案"></a>有两个红球、三个黄球、四个白球任意取5个球，其中必有一个黄球，编程输出所有可能的方案</h2><pre><code>void main(){    int a,b,c;//a：红球 b：黄球 c：白球    for(a=0;a&lt;=2;a++)        for(b=1;b&lt;=3;b++)            for(c=0;c&lt;=4;c++)            {                if(a+b+c==5)                printf(&quot;红球%d个，黄球%d个，白球%d个\n&quot;,a,b,c);            }}</code></pre><p><img src="/%E5%8F%96%E7%90%83/20200305071423186.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>求满足条件的abc</title>
+      <link href="/2020/03/05/qiumanzutiaojiandeabc/"/>
+      <url>/2020/03/05/qiumanzutiaojiandeabc/</url>
+      
+        <content type="html"><![CDATA[<h1 id="求满足条件的abc"><a href="#求满足条件的abc" class="headerlink" title="求满足条件的abc"></a>求满足条件的abc</h1><h2 id="已知a-gt-b-gt-c-a、b、c为整数，且a-b-c-lt-100，求满足-1-a2-1-b2-1-c2-的a、b、c共有多少组？-2是平方的意思"><a href="#已知a-gt-b-gt-c-a、b、c为整数，且a-b-c-lt-100，求满足-1-a2-1-b2-1-c2-的a、b、c共有多少组？-2是平方的意思" class="headerlink" title="已知a&gt;b&gt;c,a、b、c为整数，且a+b+c&lt;100，求满足 1/a2+1/b2=1/c2 的a、b、c共有多少组？(2是平方的意思)"></a>已知a&gt;b&gt;c,a、b、c为整数，且a+b+c&lt;100，求满足 1/a2+1/b2=1/c2 的a、b、c共有多少组？(2是平方的意思)</h2><pre><code>void main(){    int a,b,c,n=0;    for(a=3;a&lt;97;a++)        for(b=a-1;b&lt;96;b++)            for(c=b-1;c&lt;95;c++)            {                if(a+b+c&lt;100 &amp;&amp; 1.0/(a*a)+1.0/(b*b)==1.0/(c*c))                {                    printf(&quot;a=%d,b=%d,c=%d\n&quot;,a,b,c);                    n++;                }            }        printf(&quot;满足条件的a、b、c共%d组&quot;,n);}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>765盏灯的灯塔</title>
+      <link href="/2020/03/05/765zhandengdedengta/"/>
+      <url>/2020/03/05/765zhandengdedengta/</url>
+      
+        <content type="html"><![CDATA[<h1 id="765盏灯的灯塔"><a href="#765盏灯的灯塔" class="headerlink" title="765盏灯的灯塔"></a>765盏灯的灯塔</h1><h2 id="有一个八层高的灯塔，每层所点灯数都等于上一层的两倍，一共765盏灯，求塔底灯数。"><a href="#有一个八层高的灯塔，每层所点灯数都等于上一层的两倍，一共765盏灯，求塔底灯数。" class="headerlink" title="有一个八层高的灯塔，每层所点灯数都等于上一层的两倍，一共765盏灯，求塔底灯数。"></a>有一个八层高的灯塔，每层所点灯数都等于上一层的两倍，一共765盏灯，求塔底灯数。</h2><pre><code>void main(){    int i,s,n;//    for(i=1,s=1;i&lt;8;i++)    {        x*=2;        s+=x;        }    n=765/s;    printf(&quot;第一层有%d盏灯\n&quot;,n);}</code></pre><p><img src="/765%E7%9B%8F%E7%81%AF%E7%9A%84%E7%81%AF%E5%A1%94/20200305012524963.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数列求和问题</title>
+      <link href="/2020/03/05/shulieqiuhewenti/"/>
+      <url>/2020/03/05/shulieqiuhewenti/</url>
+      
+        <content type="html"><![CDATA[<h1 id="数列求和"><a href="#数列求和" class="headerlink" title="数列求和"></a>数列求和</h1><h2 id="有数列2-3、4-5、6-9、10-15……求此数列前30项和"><a href="#有数列2-3、4-5、6-9、10-15……求此数列前30项和" class="headerlink" title="有数列2/3、4/5、6/9、10/15……求此数列前30项和"></a>有数列2/3、4/5、6/9、10/15……求此数列前30项和</h2><pre><code>void main(){    float fenzi,fenmu,i,sum=0,fenzi1;    for(i=0,fenzi=2,fenmu=3;i&lt;30;i++)    {        sum+=fenzi/fenmu;        fenzi1=fenzi;//前一项分子存储        fenzi=fenmu+1;//分子数值更新        fenmu=fenzi1+fenmu;//分母等于前一项的分子加分母    }    printf(&quot;数列前30项和为：%f&quot;,sum);}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>百钱百鸡问题</title>
+      <link href="/2020/01/08/baiqianbaijiwenti/"/>
+      <url>/2020/01/08/baiqianbaijiwenti/</url>
+      
+        <content type="html"><![CDATA[<h1 id="百钱百鸡问题"><a href="#百钱百鸡问题" class="headerlink" title="百钱百鸡问题"></a>百钱百鸡问题</h1><h2 id="用100元钱卖100只鸡，公鸡每只5元，母鸡每只3元，小鸡每3只1元，要求每种鸡至少买一只。试编程求各种鸡各买多少只"><a href="#用100元钱卖100只鸡，公鸡每只5元，母鸡每只3元，小鸡每3只1元，要求每种鸡至少买一只。试编程求各种鸡各买多少只" class="headerlink" title="用100元钱卖100只鸡，公鸡每只5元，母鸡每只3元，小鸡每3只1元，要求每种鸡至少买一只。试编程求各种鸡各买多少只"></a>用100元钱卖100只鸡，公鸡每只5元，母鸡每只3元，小鸡每3只1元，要求每种鸡至少买一只。试编程求各种鸡各买多少只</h2><pre><code>/***************百钱百鸡问题********************    * 用100元钱卖100只鸡，公鸡每只5元，母鸡每只3元，      小鸡每3只1元，要求每种鸡至少买一只。      试编程求各种鸡各买多少只*************************************************/void main (){    int x,y,z;//分别带代表公鸡、母鸡和小鸡    for(x=1;x&lt;=19;x++)//公鸡最多19只（还有小鸡和母鸡）        for(y=1;y&lt;=31;y++)//母鸡最多31只        {            z=100-x-y;            if(5*x+3*y+z/3==100&amp;&amp;z%3==0)//小鸡个数要是3的倍数，防止钱有剩余                printf(&quot;公鸡有%d只，母鸡有%d只，小鸡有%d只；\n&quot;,x,y,z);        }}</code></pre><p>运行结果：<br><img src="/%E7%99%BE%E9%92%B1%E7%99%BE%E9%B8%A1%E9%97%AE%E9%A2%98/20200108055516500.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>排序综合</title>
+      <link href="/2020/01/05/paixuzonghe/"/>
+      <url>/2020/01/05/paixuzonghe/</url>
+      
+        <content type="html"><![CDATA[<h1 id="排序综合"><a href="#排序综合" class="headerlink" title="排序综合"></a>排序综合</h1><p>选择、冒泡、插入3种排序方法，通过不同的定义来选择使用的排序方法</p><pre><code>#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;string.h&gt;//#define xuanze//#define maopao#define charu#ifdef xuanze void select_sort (int a[], int n)//选择排序{   int i,j,min,k,t;    for (i=1; i&lt;n; i++)    {   min=a[i-1];        k=i-1;        for(j=i; j&lt;n; j++)            if(a[j]&lt;min)            {   min=a[j]; //最小值                      k=j;//最值的下标                  }        t=a[i-1];        a[i-1]=a[k];        a[k]=t;    }    for (i=0; i&lt;n; i++)        printf(&quot;%d\t&quot;,a[i]);    printf(&quot;\n&quot;);}#endif#ifdef maopao//冒泡排序void select_sort(int a[],int n){ int i,j,t;    for(i=1;i&lt;n;i++)//排序趟数        for(j=0;j&lt;n-1;j++)            if(a[j]&gt;a[j+1])            {                t=a[j];                a[j]=a[j+1];                a[j+1]=t;            }    for (i=0; i&lt;n; i++)        printf(&quot;%d\t&quot;,a[i]);    printf(&quot;\n&quot;);    }#endif#ifdef charu//插入排序void select_sort(int a[] , int n){int i, j;    for(i=1;i&lt;n; i++)    {a[0]=a[i+1] ;        for(j=i;a[j]&gt;a[0];j--)            a[j+1]=a[j];        a[j+1]=a[0];    }     for (i=0; i&lt;n+1; i++)        printf(&quot;%d\t&quot;,a[i]);    printf(&quot;\n&quot;);}#endifvoid main(){    int sz[]={0,49,27,38,13,76,97,65,50};    select_sort(sz,8);    system(&quot;pause&quot;);}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>求1000以内最大完数</title>
+      <link href="/2020/01/05/qiu1000yineizuidawanshu/"/>
+      <url>/2020/01/05/qiu1000yineizuidawanshu/</url>
+      
+        <content type="html"><![CDATA[<h1 id="求1000以内最大完数"><a href="#求1000以内最大完数" class="headerlink" title="求1000以内最大完数"></a>求1000以内最大完数</h1><p>一个数如果恰好等于它的真因子之和，这个数就称为“完数”。<br>例如：6的真因子为1、2、3，而6=1+2+3，因此6是“完数”。</p><pre><code>#include&lt;stdio.h&gt;void main(){    int i,j,s=0,k=0;    for(i=1;i&lt;=1000;i++)//外循环遍历1000以内的数    {        for(j=1;j&lt;i;j++)//寻找真因子            if(i%j==0)                s+=j;        if(s==i)//满足完数条件            k=s;//存储最新(大)的完数        s=0;//给s重新赋值    }    printf(&quot;1000以内最大的完数是：%d\n&quot;,k);}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言代码笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HEXO 使用填坑</title>
+      <link href="/2019/12/19/hexotiankengwenjian/"/>
+      <url>/2019/12/19/hexotiankengwenjian/</url>
+      
+        <content type="html"><![CDATA[<h1 id="HEXO-使用填坑"><a href="#HEXO-使用填坑" class="headerlink" title="HEXO 使用填坑"></a>HEXO 使用填坑</h1><p>在使用hexo搭建博客之后，我就迫不及待地写起博，想将它充实起来。<strong>但是！！！</strong>万万没想到的是，刚填完了搭建博客遇到的坑，又被写博客拉了下去。刚写就出现错误 （Ծ‸Ծ） 我还怎么写下去？？？<br>于是乎这篇博客就诞生啦，主要是记录博主用Hexo写博客时踩到的坑和填坑的过程</p><h2 id="1、”-”冒号后面一定要加空格！！！"><a href="#1、”-”冒号后面一定要加空格！！！" class="headerlink" title="1、”:”冒号后面一定要加空格！！！"></a>1、”:”冒号后面一定要加空格！！！</h2><ul><li>报错内容<pre><code>ERROR Process failed:xxx.mdYAMLException: can not read a block mapping entry; a multiline key may not be an implicit key at line x, column x:</code></pre>反正这句话很长,但是会提示在哪一行，那一列，哪一个文件里面</li><li>报错原因<pre><code>tags:HEXO</code></pre></li><li>解决过程<br>最前面注释中的内容tags是我后来手动加的，冒号后面要加空格；值得一提的是，就算冒号后面没有内容，也要加空格！！</li></ul><hr><h2 id="2、不要把-和-放在一起写！不要把-和-放在一起写！-不要把-和-放在一起写！"><a href="#2、不要把-和-放在一起写！不要把-和-放在一起写！-不要把-和-放在一起写！" class="headerlink" title="2、不要把{和{放在一起写！不要把{和{放在一起写！ 不要把{和{放在一起写！"></a>2、不要把<code>{和{</code>放在一起写！不要把<code>{和{</code>放在一起写！ 不要把<code>{和{</code>放在一起写！</h2><p>重要的事情说三遍</p><ul><li>报错内容<pre><code>FATAL Something&#39;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.htmlNunjucks Error:  [Line * * *, Column * * * ] expected variable end=====               Context Dump               =====end  ....</code></pre></li></ul><ul><li>报错原因</li></ul><p><code>int a[3][4]={ {1,3},{4,5},{7,8,9},{ } };int a[][4]={ {1,3},{4,5},{7,8,9},{ } };</code></p><pre><code>经过查阅后发现， hexo 的文章渲染使用的是 `Nunjucks` ，因为在使用`mathjax`公式，造成了`{ {`重叠，而它会在生成文章时将那几个大括号识别成自己的语法，这样就会报错。。</code></pre><ul><li>解决方法<br>不能一起用就不一起用好了啊！仔细看我的大括号之间都是用空格隔开的✧٩(ˊωˋ*)و✧</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> HEXO </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C语言数组与字符串</title>
+      <link href="/2019/12/18/cyuyanshuzuyuzifuchuan/"/>
+      <url>/2019/12/18/cyuyanshuzuyuzifuchuan/</url>
+      
+        <content type="html"><![CDATA[<h1 id="C语言数组与字符串"><a href="#C语言数组与字符串" class="headerlink" title="C语言数组与字符串"></a>C语言数组与字符串</h1><p>学习笔记</p><h2 id="一、数组"><a href="#一、数组" class="headerlink" title="一、数组"></a>一、数组</h2><h3 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h3><hr><h4 id="数组定义"><a href="#数组定义" class="headerlink" title="数组定义"></a>数组定义</h4><p>定义的一般形式为<br><strong>类型说明符 数组名[常量表达式]</strong><br>注意：C语言不允许对数组的大小做动态定义，即数组<strong>定义时</strong>[ ]中<strong>不允许是变量</strong></p><h4 id="一维数组的初始化"><a href="#一维数组的初始化" class="headerlink" title="一维数组的初始化"></a>一维数组的初始化</h4><p>(1)定义时对全部元素赋值<br>全部赋值时可以不指定数组长度，此时数组长度默认与初始化时赋值长度一致</p><pre><code>int a[5]={1,2,3,4,5};int a[]={1,2,3,4,5};//数组长度与上面一致</code></pre><p>(2)定义时部分赋值<br>定义时也可以不赋值<br>凡是未初始化的数组元素系统默认初始化为0（字符型数组初始化为’\0’，指针型数组初始化为NULL，即空指针）</p><hr><h3 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>二维数组定义的一般形式为<br><strong>类型说明符 数组名[常量表达式][常量表达式]</strong></p><h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><p><strong>数组名</strong>[<strong>下标</strong>][<strong>下标</strong>]<br>（1）下标应是<strong>整形表达式</strong>如：a[2-1][2*2-1]<br>（2）下标不可以超过数组的最大范围</p><h4 id="二维数组的初始化"><a href="#二维数组的初始化" class="headerlink" title="二维数组的初始化"></a>二维数组的初始化</h4><pre><code>（1）将所有数据写在一个花括号内int a[3][4]={1,2,3,4,5,6,7,8,9,10,11,12};int a[][4]={1,2,3,4,5,6,7,8,9,10,11,12};//只可以省略行下表，列下标不可省</code></pre><p>（2）分行分括号赋值</p><pre><code>int a[3][4]={ {1,2,3},{4,5,6},{7,8,9},{10,11,12} };int a[][4]={ {1,2,3},{4,5,6},{7,8,9},{10,11,12} ;</code></pre><p>（3）对部分元素赋值</p><pre><code>int a[3][4]={ {1,3},{4,5},{7,8,9},{ } };int a[][4]={ {1,3},{4,5},{7,8,9},{ } };//可以省去第一维的长度但是要分行赋值</code></pre><hr><h3 id="字符数组"><a href="#字符数组" class="headerlink" title="字符数组"></a>字符数组</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><pre><code>char c[]={&#39;h&#39;,&#39;a&#39;,&#39;p&#39;,&#39;p&#39;,&#39;y&#39;};char c[]={&quot;happy&quot;};char c[]=&quot;happy&quot;;</code></pre><hr><h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>在C语言中，是将字符串作为字符数组来处理的。而字符串也没有定义相应变量的关键字，所以C语言对于字符串的定义往往是借助字符数组来实现的。C语言规定字符串的结束标志为’\0’。</p><h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><h4 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h4><p>char str[]=”hello world”;</p><h4 id="2、输入输出"><a href="#2、输入输出" class="headerlink" title="2、输入输出"></a>2、输入输出</h4><p>字符串可以通过格式占位符%s输入、输出</p><pre><code>char str[];scanf (&quot;%s&quot;,&amp;str);printf(&quot;%S&quot;,str);</code></pre><p>还可以使用字符串处理函数 puts() gets().</p><h3 id="字符串处理函数"><a href="#字符串处理函数" class="headerlink" title="字符串处理函数"></a>字符串处理函数</h3><h4 id="输出字符串函数"><a href="#输出字符串函数" class="headerlink" title="输出字符串函数"></a>输出字符串函数</h4><p><strong>1. puts</strong>(<strong>字符数组</strong>)</p><hr><h4 id="2-输入字符串函数"><a href="#2-输入字符串函数" class="headerlink" title="2. 输入字符串函数"></a>2. 输入字符串函数</h4><p><strong>gets</strong>(<strong>字符数组</strong>)</p><hr><h4 id="3-字符串连接函数"><a href="#3-字符串连接函数" class="headerlink" title="3. 字符串连接函数"></a>3. 字符串连接函数</h4><p><strong>strcat</strong>(<strong>字符数组1，字符数组2</strong>)<br>把字符串2连接到字符串1后面，结果放在字符数组1中。</p><hr><h4 id="4-字符串复制函数"><a href="#4-字符串复制函数" class="headerlink" title="4. 字符串复制函数"></a>4. 字符串复制函数</h4><p><strong>strcpy</strong>(<strong>字符数组1，字符串2</strong>)<br>（1）字符数组应该定义的足够大，以便容纳被复制的字符串2<br>（2）“字符数组1”必须写成数组名形式（如：str1），“字符串2”可以是字符数组名也可以是一个字符串常量</p><p><strong>strncpy</strong>(<strong>字符数组1，字符串2，n</strong>)<br>将前面n个字符复制到字符数组1中去。</p><hr><h4 id="5-字符串比较函数"><a href="#5-字符串比较函数" class="headerlink" title="5. 字符串比较函数"></a>5. 字符串比较函数</h4><p><strong>strcmp</strong>(<strong>字符串1，字符串2</strong>)<br>（1）如果全部字符相同，则认为两个字符串相等<br>（2）如果出现不同的字符，则以第一对不同的字符的比较结果为准。</p><ul><li>（1）如果字符串1与字符数串2相同，则函数值为0</li><li>（2）如果字符串1&gt;字符数串2，则函数值为一个正整数</li><li>（3）如果字符串1&lt;字符数串2，则函数值为一个负整数</li></ul><hr><h4 id="6-测字符串长度的函数"><a href="#6-测字符串长度的函数" class="headerlink" title="6. 测字符串长度的函数"></a>6. 测字符串长度的函数</h4><p><strong>strlen</strong>(<strong>字符数组</strong>)</p><hr><h4 id="8-转换为小写的函数"><a href="#8-转换为小写的函数" class="headerlink" title="8. 转换为小写的函数"></a>8. 转换为小写的函数</h4><p><strong>strlwr</strong>(<strong>字符串</strong>)</p><hr><h4 id="7-转换为大写的函数"><a href="#7-转换为大写的函数" class="headerlink" title="7. 转换为大写的函数"></a>7. 转换为大写的函数</h4><p><strong>strlwr</strong>(<strong>字符串</strong>)</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言学习笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>STM32F10x定时器 ——定时时间的确定</title>
+      <link href="/2019/12/14/stm32f10xdingshiqidingshishijiandequeding/"/>
+      <url>/2019/12/14/stm32f10xdingshiqidingshishijiandequeding/</url>
+      
+        <content type="html"><![CDATA[<h1 id="STM32定时器"><a href="#STM32定时器" class="headerlink" title="STM32定时器"></a>STM32定时器</h1><p>STM32F10x系列总共最多有8个定时器，分为三种<br><img src="https://img-blog.csdnimg.cn/20190804180330122.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NzA4MjAy,size_16,color_FFFFFF,t_70#pic_center" alt="定时器"></p><h2 id="三种STM32定时器区别"><a href="#三种STM32定时器区别" class="headerlink" title="三种STM32定时器区别"></a>三种STM32定时器区别</h2><p>定时器种类|位数|计数器模式|产生DMA请求|捕获/比较通道|互补输出|应用场景<br>——-|——-|——-|——|——-|——-|——-|——-<br>高级定时器（TIM1，TIM8）|16|向上，向下，向上/下|可以|4|有|<br>通用定时器（TIM2~TIM5）|16|向上，向下，向上/下|可以|4|无|定时计数，PWM输出，输入捕获，输出比较<br>基本定时器（TIM6，TIM7）|16|向上，向下，向上/下|可以|0|无</p><p>其中TIM2、TIM3、TIM4和TIM5属于通用定时器可以用来作为：输入捕获、输出比较、PWM生成、单脉冲模式输出。这些功能都是以定时器的精准定时作为基础的。</p><h2 id="计数器模式"><a href="#计数器模式" class="headerlink" title="计数器模式"></a>计数器模式</h2><p>通用定时器可以向上计数、向下计数、向上向下计数模式</p><h2 id="通用定时器的工作过程"><a href="#通用定时器的工作过程" class="headerlink" title="通用定时器的工作过程"></a>通用定时器的工作过程</h2><p><img src="https://img-blog.csdnimg.cn/20190804181928438.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NzA4MjAy,size_16,color_FFFFFF,t_70#pic_center" alt="通用定时器的工作过程"></p><h2 id="计算方法："><a href="#计算方法：" class="headerlink" title="计算方法："></a>计算方法：</h2><p>计数器时钟有8种选择，但是无论哪一种，通过对时钟的选择，到达APB1或者APB2的总线时钟，都是已经经过初始化好的（在SystemInit函数中），初学者一般没有能力更改。<br><img src="https://img-blog.csdnimg.cn/20190804182520637.png#pic_center" alt="定时器时钟产生过程"><br>对照上图，此时的时钟频率为：<br>SYSCLK=72Mhz<br>AHB时钟=72Mhz<br>APB1时钟（由AHB分频得到）=36Mhz（低速总线最大36M）<br>所以APB1的分频系数为2（AHB/APB1）<br>则通用定时器时钟（CK_INT）= APB1时钟 x 2 = 32M x 2===72MHZ==</p><h2 id="计算公式：Tout（溢出时间）-（ARR-1）（PSC-1）-Tclk"><a href="#计算公式：Tout（溢出时间）-（ARR-1）（PSC-1）-Tclk" class="headerlink" title="计算公式：Tout（溢出时间）=（ARR+1）（PSC+1）/Tclk"></a>计算公式：Tout（溢出时间）=（ARR+1）（PSC+1）/Tclk</h2><p><strong>ARR：</strong> 自动加载值，自动重装载值<br><strong>PSC：</strong> 预分频系数，将CK_INT分频<br><strong>Tclk：</strong> 通用定时器时钟<br><img src="https://img-blog.csdnimg.cn/20190804210253613.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NzA4MjAy,size_16,color_FFFFFF,t_70" alt="定时器分频"><br><strong>可以这么理解：</strong> 定时器时钟每秒 72,000,000 次，将其分频将为每秒 x 次，相当于每次计数值加一的时间。再乘以自动加载值（溢出值）就得到每次进入定时器中断的时间。</p><p><strong>举例：</strong><br>如果要定时500ms，APB1=36MHZ，分频系数为2，则：<br>    500ms =（==4999==+1）x (==7199==+1) / 72,000,000<br>        ARR = 4999 ； PSC = 7199<br>    当然结果不止一种<br>    500ms =（==499==+1）x （==71999==+1）/ 72,000,000<br>        ARR = 49999 ； PSC = 719</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 单片机 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> STM32单片机 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>博客日记——创建</title>
+      <link href="/2019/12/14/bokerijichuangjian/"/>
+      <url>/2019/12/14/bokerijichuangjian/</url>
+      
+        <content type="html"><![CDATA[<h1 id="我的博客日记"><a href="#我的博客日记" class="headerlink" title="我的博客日记"></a>我的博客日记</h1><p>这篇博客将是记录我对于本博客的创建以及更新美化的一切信息的开始</p><h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>2019年12月11日，因为以前做项目时在腾讯云购买了几个月的云服务器，送了我一年的域名。其中，云服务器已经过期好几个月了，但是，域名还在我的使用期限里，而且腾讯云还送了我一张优惠券，续费域名有着很大的优惠。想着同学和我说的可以在GitHub上搭建博客，不需要服务器的时候，我心动了。<br>花费了一下午的时间，按照网上的视屏，和一些资料，成功的在<strong>win10</strong>上将我的博客搭建到了GitHub并解析了域名。期间遇到了一些问题，也相继解决。</p><hr><p><strong>关于为什么要用HEXO来搭建博客，因为他有很多的用户，因此就有很多的主题去供我们选择。对于我们这些只想有一个自己的博客，而不相去了解更多相关知识的人来说，无疑是一个很好的选择</strong></p><h3 id="开始前环境的准备"><a href="#开始前环境的准备" class="headerlink" title="开始前环境的准备"></a>开始前环境的准备</h3><ul><li>有一个github账号，没有的话去注册一个；</li><li>安装了node.js、npm，并了解相关基础知识；</li><li>安装了git for windows（或者其它git客户端）</li></ul><p>*<em>前面所说到的git其实并不需要手动安装，可以使用命令行进行安装。在这里，我想声明一下，我的博客搭建是在win10系统上完成的。希望可以给大家做一个参考。<br>*</em></p><h4 id="下载node-js"><a href="#下载node-js" class="headerlink" title="下载node.js"></a>下载node.js</h4><p><strong>node.js的下载可以去 <a href="https://nodejs.org" target="_blank" rel="noopener">https://nodejs.org</a> 官网上去下</strong></p><hr><p><img src="https://i.loli.net/2019/12/15/YoSaqlMvu1jH4D3.png" alt=""></p><hr><p>记得下载你系统的对应版本，我这里是下载了Windows版本，其它的版本可以在downloads里找到</p><hr><p><img src="https://i.loli.net/2019/12/15/AZXsOBWx1jGHiNa.png" alt=""></p><hr><p>下载好了后只要不停点击”下一步”安装就可以了，这里不再赘述。<br><strong>node.js 的下载其实包括了两个方面<br>第一个是 Node.js<br>第二个是 npm包管理器</strong></p><h3 id="命令行操作"><a href="#命令行操作" class="headerlink" title="命令行操作"></a>命令行操作</h3><h4 id="1、安装Node-js"><a href="#1、安装Node-js" class="headerlink" title="1、安装Node.js"></a>1、安装Node.js</h4><p><strong>首先打开控制台：快捷键 WIN+r 输入cmd 点击确定进入控制台页面</strong><br><img src="https://i.loli.net/2019/12/15/4NXZ85saJlyHKzj.png" alt=""><br><img src="https://i.loli.net/2019/12/15/rZAXzoMVk6c3U5e.png" alt=""><br><strong>输入cmd 回车，打开管理员权限，这里相当于macOS的root权限。此时我们输入以下命令，可以查看他们的版本。查看不了可以看看是否进入了管理员权限。</strong></p><pre><code>node -vnpm -v</code></pre><h4 id="2、安装hexo博客框架"><a href="#2、安装hexo博客框架" class="headerlink" title="2、安装hexo博客框架"></a>2、安装hexo博客框架</h4><p><strong>由于国内npm镜像源的速度很慢，所以在使用前一般首先安装Cnpm，这是淘宝团队在中国创建的镜像源.输入一下命令，自动安装</strong></p><pre><code>npm install -g cnpm --registry-https://registry.npm.taobao.org</code></pre><p><strong>接下来正式全局安装hexo</strong></p><pre><code>cnpm install -g hexo-cli</code></pre><p><strong>安装好后可以使用 hexo -v 来验证一下</strong></p><h4 id="3、安装git"><a href="#3、安装git" class="headerlink" title="3、安装git"></a>3、安装git</h4><p>在实际搭建的过程中，在对hexo进行初始化时，是需要git组件的。GIT是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。<br><strong>它的官网可以直接下载安装 <a href="https://git-scm.com/" target="_blank" rel="noopener">https://git-scm.com/</a></strong><br><img src="https://i.loli.net/2019/12/15/hHRU64TNnMQBf7a.png" alt=""><br>本地默认安装，安装后设置用户名和邮箱<br>打开安装好的gitcmd<br>查看用户名和邮箱地址</p><pre><code>git config user.namegit config user.email</code></pre><p>修改用户名和邮箱地址</p><pre><code>git config --global user.name  &quot;xxxx&quot;git config --global user.email  &quot;xxxx&quot;</code></pre><hr><h4 id="4、本地博客搭建"><a href="#4、本地博客搭建" class="headerlink" title="4、本地博客搭建"></a>4、本地博客搭建</h4><p><strong>使用以下命令行在D盘根目录中创建一个叫做 myblog 的文件夹，并在其中进行初始化。此后的博客一切内容都是在其中，所以如果出现什么错误，可以删掉重新init。</strong></p><pre><code>d:mkdir myblogcd mybloghexo init</code></pre><h4 id="5、启动博客"><a href="#5、启动博客" class="headerlink" title="5、启动博客"></a>5、启动博客</h4><p>此时博客已经搭建好了，在命令行中输入<strong>hexo s</strong><br>就可以在本地的<strong>localhost4000</strong>端口上打开（在浏览器的地址栏上输入localhost4000）<br>此时是heho默认使用的标题，并且已经生成了一个叫做HelloWorld的文章<br><strong>ctrl+c断开</strong></p><h3 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h3><h4 id="1、创建仓库"><a href="#1、创建仓库" class="headerlink" title="1、创建仓库"></a>1、创建仓库</h4><p><strong>登录GitHub（<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a> ）<br>点击右上角的加号，新建一个仓库</strong><br><img src="/%E5%8D%9A%E5%AE%A2%E6%97%A5%E8%AE%B0/20191215100729072.png" alt=""><br><strong>命名一定是Owner里的内容加上 .github.io<br>描述内容可以自己填，然后create</strong><br><img src="/%E5%8D%9A%E5%AE%A2%E6%97%A5%E8%AE%B0/20191215100923608.png" alt=""></p><hr><h4 id="2、本地操作"><a href="#2、本地操作" class="headerlink" title="2、本地操作"></a>2、本地操作</h4><p>进入命令行安装一个插件</p><pre><code>cnpm install hexo-deployer-git --save</code></pre><p><strong>重要</strong><br><strong>在文件夹中打开_config.myl(</strong>不要用记事本，否则保存后不能用<strong>)<br>可以用notepad++来打开，在最底部找到deploy，并加上如下代码：</strong><br><img src="/%E5%8D%9A%E5%AE%A2%E6%97%A5%E8%AE%B0/20191215102008749.png" alt=""></p><hr><p><strong>repo后面写你刚才创建仓库的地址</strong></p><hr><p><strong>注意：</strong>所有的冒号后面都有空格，theme后面是主题名，将来更换主题时，在这里更改，现在是默认的 landscape。</p><hr><h4 id="3、推送"><a href="#3、推送" class="headerlink" title="3、推送"></a>3、推送</h4><p><strong>进入命令行，输入： hexo d<br>命令行中输入你的用户名和密码登录GitHub</strong></p><hr><h3 id="备注：-hexo命令行"><a href="#备注：-hexo命令行" class="headerlink" title="备注： hexo命令行"></a>备注： hexo命令行</h3><pre><code>hexo n +名字   新建一篇博客文章hexo s         开始本地运行hexo g         重新编译hexo d         上传hexo clean     清除</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客更新 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客更新 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我的博客</title>
+      <link href="/2019/12/14/wodediyipianboke/"/>
+      <url>/2019/12/14/wodediyipianboke/</url>
+      
+        <content type="html"><![CDATA[<h1 id="我的博客"><a href="#我的博客" class="headerlink" title="我的博客"></a>我的博客</h1><p>这篇博客是我创建博客的第一篇<br>此后，我会将我的博客逐渐丰富起来</p><h2 id="创建这篇博客中遇到的第一个问题"><a href="#创建这篇博客中遇到的第一个问题" class="headerlink" title="创建这篇博客中遇到的第一个问题"></a>创建这篇博客中遇到的第一个问题</h2><p>hexo g时报错：<br>ERROR Process failed: _posts/我的第一篇博客.md<br><img src="https://i.loli.net/2019/12/14/ZpdhqEunkVyWGil.png" alt=""><br><strong>原因是冒号后面没有加空格</strong></p><pre class=" language-ini"><code class="language-ini">---title: 我的博客date: 2019-12-14 19:15:47tags: ---</code></pre><p><strong>这个’tags:’是我后来创建时添加的添加时没有加空格，一直报错</strong></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PHPStudy中的MySQL数据库输入中文显示乱码</title>
+      <link href="/2019/12/14/phpstudyzhongdemysqlshujukushuruzhongwenxianshiluanma/"/>
+      <url>/2019/12/14/phpstudyzhongdemysqlshujukushuruzhongwenxianshiluanma/</url>
+      
+        <content type="html"><![CDATA[<p><strong>（1）在安装目录下找到PHP study\PHPTutorial\mysql中的my.ini配置文件用记事本打开</strong></p><p><strong>（2）修改文件中的配置信息</strong></p><p>[mysql]<br>default-character-set=gbk</p><p>[mysqld]<br>character-set-server=utf8</p><hr><p>在以下这段代码中可以找到</p><pre class=" language-ini"><code class="language-ini"><span class="token selector">[client]</span><span class="token constant">port</span><span class="token attr-value"><span class="token punctuation">=</span>3306</span><span class="token selector">[mysql]</span><span class="token constant">default-character-set</span><span class="token attr-value"><span class="token punctuation">=</span>gbk</span><span class="token selector">[mysqld]</span><span class="token constant">port</span><span class="token attr-value"><span class="token punctuation">=</span>3306</span><span class="token constant">basedir</span><span class="token attr-value"><span class="token punctuation">=</span>"D:/ruanjiananzhuang/PHPStudy/PHPTutorial/MySQL/"</span><span class="token constant">datadir</span><span class="token attr-value"><span class="token punctuation">=</span>"D:/ruanjiananzhuang/PHPStudy/PHPTutorial/MySQL/data/"</span><span class="token constant">character-set-server</span><span class="token attr-value"><span class="token punctuation">=</span>utf8</span><span class="token constant">default-storage-engine</span><span class="token attr-value"><span class="token punctuation">=</span>MyISAM</span>#支持 INNODB 引擎模式。修改为　default-storage-engine<span class="token attr-value"><span class="token punctuation">=</span>INNODB　即可。</span>#如果 INNODB 模式如果不能启动，删除data目录下ib开头的日志文件重新启动。</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
