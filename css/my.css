@@ -57,17 +57,17 @@
     }
 }
 @font-face{
-    font-family: 'hl';
-    src: url('../box/font/hl.ttf');
+    font-family: 'myFont';
+    src: url('../font/myFont.ttf');
 }
 
 /** 表示全局使用，如果不想全局使用不要添加该段 */
 body{
-    font-family: 'hl';
+    font-family: 'myFont';
 }
 
 
 /* 可以局部使用，建议添加 */
 .diyFont{
-    font-family: 'hl';
+    font-family: 'myFont';
 }
