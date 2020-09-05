@@ -483,12 +483,32 @@
                 
 
                 
-
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-01-05
+                </div>
                 
 
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    4 分
+                </div>
                 
 				
                 
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
             </div>
             
         </div>
@@ -511,15 +531,15 @@ int a[][4]={1,2,3,4,5,6,7,8,9,10,11,12};//只可以省略行下表，列下标�
 int a[][4]={ {1,2,3},{4,5,6},{7,8,9},{10,11,12} ;</code></pre><p>（3）对部分元素赋值</p>
 <pre><code>int a[3][4]={ {1,3},{4,5},{7,8,9},{ } };
 int a[][4]={ {1,3},{4,5},{7,8,9},{ } };//可以省去第一维的长度但是要分行赋值</code></pre><hr>
-<h3 id="字符数组"><a href="#字符数组" class="headerlink" title="字符数组"></a>字符数组</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><pre><code>char c[]={&#39;h&#39;,&#39;a&#39;,&#39;p&#39;,&#39;p&#39;,&#39;y&#39;};
-char c[]={&quot;happy&quot;};
-char c[]=&quot;happy&quot;;</code></pre><hr>
+<h3 id="字符数组"><a href="#字符数组" class="headerlink" title="字符数组"></a>字符数组</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><pre><code>char c[]={'h','a','p','p','y'};
+char c[]={"happy"};
+char c[]="happy";</code></pre><hr>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>在C语言中，是将字符串作为字符数组来处理的。而字符串也没有定义相应变量的关键字，所以C语言对于字符串的定义往往是借助字符数组来实现的。C语言规定字符串的结束标志为’\0’。</p>
 <h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><h4 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h4><p>char str[]=”hello world”;</p>
 <h4 id="2、输入输出"><a href="#2、输入输出" class="headerlink" title="2、输入输出"></a>2、输入输出</h4><p>字符串可以通过格式占位符%s输入、输出</p>
 <pre><code>char str[];
-scanf (&quot;%s&quot;,&amp;str);
-printf(&quot;%S&quot;,str);</code></pre><p>还可以使用字符串处理函数 puts() gets().</p>
+scanf ("%s",&amp;str);
+printf("%S",str);</code></pre><p>还可以使用字符串处理函数 puts() gets().</p>
 <h3 id="字符串处理函数"><a href="#字符串处理函数" class="headerlink" title="字符串处理函数"></a>字符串处理函数</h3><h4 id="输出字符串函数"><a href="#输出字符串函数" class="headerlink" title="输出字符串函数"></a>输出字符串函数</h4><p><strong>1. puts</strong>(<strong>字符数组</strong>)</p>
 <hr>
 <h4 id="2-输入字符串函数"><a href="#2-输入字符串函数" class="headerlink" title="2. 输入字符串函数"></a>2. 输入字符串函数</h4><p><strong>gets</strong>(<strong>字符数组</strong>)</p>
@@ -542,7 +562,25 @@ printf(&quot;%S&quot;,str);</code></pre><p>还可以使用字符串处理函数 
 <hr>
 <h4 id="7-转换为大写的函数"><a href="#7-转换为大写的函数" class="headerlink" title="7. 转换为大写的函数"></a>7. 转换为大写的函数</h4><p><strong>strlwr</strong>(<strong>字符串</strong>)</p>
 <hr>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1042,6 +1080,9 @@ printf(&quot;%S&quot;,str);</code></pre><p>还可以使用字符串处理函数 
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">24k</span>&nbsp;字
             
             
             

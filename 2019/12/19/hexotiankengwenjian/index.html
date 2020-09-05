@@ -480,12 +480,32 @@
                 
 
                 
-
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-01-07
+                </div>
                 
 
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    476
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    1 分
+                </div>
                 
 				
                 
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
             </div>
             
         </div>
@@ -502,7 +522,7 @@ YAMLException: can not read a block mapping entry; a multiline key may not be an
 <hr>
 <h2 id="2、不要把-和-放在一起写！不要把-和-放在一起写！-不要把-和-放在一起写！"><a href="#2、不要把-和-放在一起写！不要把-和-放在一起写！-不要把-和-放在一起写！" class="headerlink" title="2、不要把{和{放在一起写！不要把{和{放在一起写！ 不要把{和{放在一起写！"></a>2、不要把<code>{和{</code>放在一起写！不要把<code>{和{</code>放在一起写！ 不要把<code>{和{</code>放在一起写！</h2><p>重要的事情说三遍</p>
 <ul>
-<li>报错内容<pre><code>FATAL Something&#39;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html
+<li>报错内容<pre><code>FATAL Something's wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html
 Nunjucks Error:  [Line * * *, Column * * * ] expected variable end
 =====               Context Dump               =====end
   ....</code></pre></li>
@@ -515,7 +535,25 @@ int a[][4]={ {1,3},{4,5},{7,8,9},{ } };</code></p>
 <pre><code>经过查阅后发现， hexo 的文章渲染使用的是 `Nunjucks` ，因为在使用`mathjax`公式，造成了`{ {`重叠，而它会在生成文章时将那几个大括号识别成自己的语法，这样就会报错。。</code></pre><ul>
 <li>解决方法<br>不能一起用就不一起用好了啊！仔细看我的大括号之间都是用空格隔开的✧٩(ˊωˋ*)و✧</li>
 </ul>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1021,6 +1059,9 @@ void main()
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">24k</span>&nbsp;字
             
             
             

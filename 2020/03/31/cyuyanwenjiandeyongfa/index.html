@@ -480,12 +480,32 @@
                 
 
                 
-
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-03-31
+                </div>
                 
 
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    6 分
+                </div>
                 
 				
                 
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
             </div>
             
         </div>
@@ -580,8 +600,8 @@
 <li>size 表示数据块的字节数。</li>
 <li>count 表示要读写的数据块块数。</li>
 <li>fp 表示文件指针。<h3 id="格式化读写函数fscanf-和fprintf"><a href="#格式化读写函数fscanf-和fprintf" class="headerlink" title="格式化读写函数fscanf 和fprintf"></a>格式化读写函数fscanf 和fprintf</h3>fscanf 函数，fprintf 函数与前面使用的 scanf 和 printf 函数的功能相似，都是格式化读写函数。两者的区别在于 fscanf 函数和 fprintf 函数的读写对象不是键盘和显示器，而是磁盘文件。<br>这两个函数的调用格式为：<pre><code>fscanf(文件指针,格式字符串,输入表列);
-fprintf(文件指针,格式字符串,输出表列);</code></pre>例如：<pre><code>fscanf(fp,&quot;%d%s&quot;,&amp;i,s);
-fprintf(fp,&quot;%d%c&quot;,j,ch);</code></pre></li>
+fprintf(文件指针,格式字符串,输出表列);</code></pre>例如：<pre><code>fscanf(fp,"%d%s",&amp;i,s);
+fprintf(fp,"%d%c",j,ch);</code></pre></li>
 </ul>
 <hr>
 <h2 id="文件定位"><a href="#文件定位" class="headerlink" title="文件定位"></a>文件定位</h2><p>移动文件内部位置指针的函数主要有两个，即 rewind 函数和 fseek 函数。</p>
@@ -648,18 +668,36 @@ void main ()
 {
     FILE *fp;
     int i;
-    printf(&quot;please input 10 student&#39;s data:\n&quot;);
+    printf("please input 10 student's data:\n");
     for(i=0;i&lt;Size;i++)
-        scanf(&quot;%s %d %d&quot;,stu[i].name,&amp;stu[i].age,&amp;stu[i].number);
-    if((fp=fopen(&quot;student data.txt&quot;,&quot;wb&quot;))==NULL)
+        scanf("%s %d %d",stu[i].name,&amp;stu[i].age,&amp;stu[i].number);
+    if((fp=fopen("student data.txt","wb"))==NULL)
         exit(0);
     for(i=0;i&lt;Size;i++)
     {
         if(fwrite(&amp;stu[i],sizeof(struct students),1,fp)!=1)
-            puts(&quot;sonething wrong!&quot;);
+            puts("sonething wrong!");
     }
     fclose(fp);
-}</code></pre>
+}</code></pre><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1161,6 +1199,9 @@ public class HelloWorld {
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">24k</span>&nbsp;字
             
             
             

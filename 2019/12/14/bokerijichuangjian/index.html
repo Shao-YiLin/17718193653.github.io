@@ -480,12 +480,32 @@
                 
 
                 
-
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-03-31
+                </div>
                 
 
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    4 分
+                </div>
                 
 				
                 
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
             </div>
             
         </div>
@@ -520,8 +540,8 @@ npm -v</code></pre><h4 id="2、安装hexo博客框架"><a href="#2、安装hexo�
 <pre><code>git config user.name
 
 git config user.email</code></pre><p>修改用户名和邮箱地址</p>
-<pre><code>git config --global user.name  &quot;xxxx&quot;
-git config --global user.email  &quot;xxxx&quot;</code></pre><hr>
+<pre><code>git config --global user.name  "xxxx"
+git config --global user.email  "xxxx"</code></pre><hr>
 <h4 id="4、本地博客搭建"><a href="#4、本地博客搭建" class="headerlink" title="4、本地博客搭建"></a>4、本地博客搭建</h4><p><strong>使用以下命令行在D盘根目录中创建一个叫做 myblog 的文件夹，并在其中进行初始化。此后的博客一切内容都是在其中，所以如果出现什么错误，可以删掉重新init。</strong></p>
 <pre><code>d:
 mkdir myblog
@@ -542,7 +562,25 @@ hexo init</code></pre><h4 id="5、启动博客"><a href="#5、启动博客" clas
 hexo s         开始本地运行
 hexo g         重新编译
 hexo d         上传
-hexo clean     清除</code></pre>
+hexo clean     清除</code></pre><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1033,6 +1071,9 @@ titl
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">24k</span>&nbsp;字
             
             
             

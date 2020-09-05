@@ -480,12 +480,32 @@
                 
 
                 
-
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-06-25
+                </div>
                 
 
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    732
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    3 分
+                </div>
                 
 				
                 
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
             </div>
             
         </div>
@@ -587,14 +607,14 @@
 </tbody></table>
 <ul>
 <li><p>此时可找出规律：每个月总数是前两个月总数之和</p>
-</h4>
+</li></ul></h4>
 ## 方法一
 <p>  从第三个月开始计算。前面两个月兔子数量确定（n1;n2），后面每个月的兔子数量等于前两个月兔子数量之和。前一个月的兔子数n2;前两个月的兔子数n1;所以从第三个月开始(n)，兔子数量为n=n1+n2。此后前两个月的数目进行更新向后移动一月，方便下一个循环。</p>
 ```
 void main ()
 {
   int i,n,n1=1,n2=1;
-  for(i=3;i<=20;i++)
+  for(i=3;i&lt;=20;i++)
   {
       n=n1+n2;//本月兔子的数目（第三月开始）
       n1=n2;//n1指向后移一位
@@ -612,7 +632,7 @@ int main()
 { 
   long f1=1,f2=1,k;
   int i;
-  for(i=1;i<=20;i++ )
+  for(i=1;i&lt;=20;i++ )
   {
       k=f1;//第i个月的兔子个数
       f1=f2;//后面一个月的兔子个数
@@ -629,7 +649,7 @@ int main( )
   long f1=1,f2=1;
   int i;
   //每次循环确定2个月的兔子个数
-  for(i=1;i<=10;i++)
+  for(i=1;i&lt;=10;i++)
   {
       printf("第%2d月有%4ld只兔子；\n第%2d月有%4ld只兔子；\n",2*i-1,f1,2*i,f2);
       f1=f1+f2;//第2n-1个月兔子数
@@ -639,11 +659,29 @@ int main( )
 ```
 ## 运行结果
 ![](/兔子总数/.png)
-</li>
+
 <li><p>规律：每个月总数是前两个月总数之和</p>
 </li>
-</ul>
 
+</stdio.h><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1145,6 +1183,9 @@ int main( )
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">24k</span>&nbsp;字
             
             
             

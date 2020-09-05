@@ -509,12 +509,32 @@ Yes
                 
 
                 
-
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-08-17
+                </div>
                 
 
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    6 分
+                </div>
                 
 				
                 
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
             </div>
             
         </div>
@@ -569,7 +589,7 @@ Yes
 </tr>
 </tbody></table>
 <h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>如果一个事物内部包含另一个事物，那么这就是一个类内部包含另一个类</p>
-<p>例如身体和心脏的关系。又如汽车和发动机的关系。<br/><br>分类：</p>
+<p>例如身体和心脏的关系。又如汽车和发动机的关系。<br><br>分类：</p>
 <ol>
 <li>成员内部类</li>
 <li>局部内部类（包含匿名内部类）</li>
@@ -586,8 +606,8 @@ Yes
     public class Heart { //成员内部类
         //内部类的方法
         public void beat() {
-            System.out.println(&quot;心脏跳动:蹦蹦蹦! &quot;);
-            System.out.println(&quot;我叫：&quot; + name);//正确写法
+            System.out.println("心脏跳动:蹦蹦蹦! ");
+            System.out.println("我叫：" + name);//正确写法
         }
     }
 
@@ -597,15 +617,15 @@ Yes
 
     //外部类的方法
     public void methodBody() {
-        System. out. print1n(&quot;外部类的方法&quot; );
+        System. out. print1n("外部类的方法" );
         new Heart().beat();
 }
 
     }
-}</code></pre><p>如何使用成员内部类?有两种方式:<br/></p>
+}</code></pre><p>如何使用成员内部类?有两种方式:<br></p>
 <ol>
 <li>间接方式：在外部类的方法当中，使用内部类:然后main只是调用外部类的方法。</li>
-<li>直接方式：公式：<br/><pre><code>类名称对象名= new. 类名称();//正常类
+<li>直接方式：公式：<br><pre><code>类名称对象名= new. 类名称();//正常类
 外部类名称.内部类名称对象名= new 外部类名称(). new内部类名称();//内部类</code></pre></li>
 </ol>
 <p><strong>main函数</strong></p>
@@ -615,7 +635,7 @@ Yes
         //通过外部类的对象，调用外部类的方法，里面间接在使用内部类Heart
         body . methodBody();
 
-        System.out.print1n(&quot;=================&quot;);
+        System.out.print1n("=================");
         //按照公式写，
         Body.Heart heart = new Body().new Heart();
         heart.beat();
@@ -655,7 +675,7 @@ public class Outer {
     inner.methodInner();
     }
 }
-</code></pre><p>小节一下类的权限修饰符:<br/><br>public &gt; protected &gt; (default) &gt; private </p>
+</code></pre><p>小节一下类的权限修饰符:<br><br>public &gt; protected &gt; (default) &gt; private </p>
 <p>定义一个类的时候，权限修饰符规则:</p>
 <ol>
 <li>外部类: public / (default)</li>
@@ -698,7 +718,7 @@ public class Outer {
     MyInterface obj = new MyInterface() {
         @Override
         public void method() {
-            System.out.println(&quot;匿名内部类实现了方法！&quot;);
+            System.out.println("匿名内部类实现了方法！");
         };
 
      obj.method();   
@@ -713,9 +733,9 @@ public class Outer {
 </ol>
 <p>另外还要注意几点问题：</p>
 <ol>
-<li><strong>匿名内部类</strong>，在创建对象的时候，只能创建唯一一次。<br/><br>如果希望多次创建对象，而且类的内容一样的话， 那么就必须使用单独定义的实现类了。</li>
-<li><strong>匿名对象</strong>。在【调用方法】的时候，只能调用唯一-次。<br/><br>如果希望同一一个对象，调用多次方法，那么必须給对象起个名字。</li>
-<li>匿名内部类是省略了【实现类/子类名称】，但是匿名对象是省略了【对象名称】<br/><br>强调：匿名内部类和匿名对象不是一回事! ! !</li>
+<li><strong>匿名内部类</strong>，在创建对象的时候，只能创建唯一一次。<br><br>如果希望多次创建对象，而且类的内容一样的话， 那么就必须使用单独定义的实现类了。</li>
+<li><strong>匿名对象</strong>。在【调用方法】的时候，只能调用唯一-次。<br><br>如果希望同一一个对象，调用多次方法，那么必须給对象起个名字。</li>
+<li>匿名内部类是省略了【实现类/子类名称】，但是匿名对象是省略了【对象名称】<br><br>强调：匿名内部类和匿名对象不是一回事! ! !</li>
 </ol>
 <pre><code>public class DemoMain {
     public static void main(String[] args) {
@@ -723,11 +743,11 @@ public class Outer {
          MyInterface objA = new MyInterface() {
             @Override
             public void method1() {
-                System.out.printin(&quot;匿名内部类实现了方法! 111-A&quot;);
+                System.out.printin("匿名内部类实现了方法! 111-A");
             }
             @Override
             public void method2() {
-                System.out.print1n(&quot;匿名内部类实现了方法! 222-A&quot;);
+                System.out.print1n("匿名内部类实现了方法! 222-A");
             }
         };
         objA.method1();
@@ -737,18 +757,36 @@ public class Outer {
         new MyInterface() {
             @Override
             public void method1() {
-            System.out.print1n(&quot;匿名内部类实现了方法! 111-B&quot;);
+            System.out.print1n("匿名内部类实现了方法! 111-B");
             }
             @Override
             public void method2() {
-                System.out.print1n(&quot;匿名内部类实现了方法! 222-8&quot;);
+                System.out.print1n("匿名内部类实现了方法! 222-8");
             }
         }.method1();
         //因为匿名对象无法调用第二次方法，所以如果需要调用其中其他的方法
         //需要再创建一个匿名内部类的匿名对象
 
     }
-}</code></pre>
+}</code></pre><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1279,6 +1317,9 @@ Yes
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">24k</span>&nbsp;字
             
             
             

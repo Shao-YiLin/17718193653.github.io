@@ -481,12 +481,32 @@
                 
 
                 
-
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-01-08
+                </div>
                 
 
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    564
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    2 分
+                </div>
                 
 				
                 
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
             </div>
             
         </div>
@@ -501,7 +521,25 @@
 <h2 id="计算方法："><a href="#计算方法：" class="headerlink" title="计算方法："></a>计算方法：</h2><p>计数器时钟有8种选择，但是无论哪一种，通过对时钟的选择，到达APB1或者APB2的总线时钟，都是已经经过初始化好的（在SystemInit函数中），初学者一般没有能力更改。<br><img src="https://img-blog.csdnimg.cn/20190804182520637.png#pic_center" alt="定时器时钟产生过程"><br>对照上图，此时的时钟频率为：<br>SYSCLK=72Mhz<br>AHB时钟=72Mhz<br>APB1时钟（由AHB分频得到）=36Mhz（低速总线最大36M）<br>所以APB1的分频系数为2（AHB/APB1）<br>则通用定时器时钟（CK_INT）= APB1时钟 x 2 = 32M x 2===72MHZ==</p>
 <h2 id="计算公式：Tout（溢出时间）-（ARR-1）（PSC-1）-Tclk"><a href="#计算公式：Tout（溢出时间）-（ARR-1）（PSC-1）-Tclk" class="headerlink" title="计算公式：Tout（溢出时间）=（ARR+1）（PSC+1）/Tclk"></a>计算公式：Tout（溢出时间）=（ARR+1）（PSC+1）/Tclk</h2><p><strong>ARR：</strong> 自动加载值，自动重装载值<br><strong>PSC：</strong> 预分频系数，将CK_INT分频<br><strong>Tclk：</strong> 通用定时器时钟<br><img src="https://img-blog.csdnimg.cn/20190804210253613.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NzA4MjAy,size_16,color_FFFFFF,t_70" alt="定时器分频"><br><strong>可以这么理解：</strong> 定时器时钟每秒 72,000,000 次，将其分频将为每秒 x 次，相当于每次计数值加一的时间。再乘以自动加载值（溢出值）就得到每次进入定时器中断的时间。</p>
 <p><strong>举例：</strong><br>如果要定时500ms，APB1=36MHZ，分频系数为2，则：<br>    500ms =（==4999==+1）x (==7199==+1) / 72,000,000<br>        ARR = 4999 ； PSC = 7199<br>    当然结果不止一种<br>    500ms =（==499==+1）x （==71999==+1）/ 72,000,000<br>        ARR = 49999 ； PSC = 719</p>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1003,6 +1041,9 @@
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">24k</span>&nbsp;字
             
             
             
