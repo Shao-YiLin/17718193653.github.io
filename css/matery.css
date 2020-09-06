@@ -37,7 +37,7 @@
 /*背景图片*/
 body {
     /* background-color: #eaeaea; */
-    background: linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)) 0% 0% / cover,
+    background: linear-gradient(60deg, rgba(255, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0.35)) 0% 0% / cover,
 		/*url("https://ae01.alicdn.com/kf/H18a4b998752a4ae68b8e85d432a5aef0l.png"),*/
 		url("https://img.zcool.cn/community/01a0db554baf2a000001bf72a20b59.jpg@1280w_1l_2o_100sh.jpg") 0px 0px;
     background-attachment: fixed;
@@ -255,7 +255,7 @@ mark {
 
 /*主题菜单栏颜色（渐变从右至左）红->黑*/
 .bg-color {
-    background-image: linear-gradient(to right, #ff0000 0%, #000000 100%);
+    background-image: linear-gradient(to right, #8b0000 0%, #000000 100%);
 }
 
 .text-color {
@@ -272,7 +272,7 @@ mark {
     position: fixed;
     bottom: 0;
     z-index: 300;
-    background: linear-gradient(to right, #ff0000 0%, #000000 100%);
+    background: linear-gradient(to right, #8b0000 0%, #000000 100%);
     opacity: 0.8;
 }
 
