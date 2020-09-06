@@ -33,9 +33,13 @@
     }
 }
 
+
+/*背景图片*/
 body {
     /* background-color: #eaeaea; */
-    background: linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)) 0% 0% / cover, url("https://ae01.alicdn.com/kf/H18a4b998752a4ae68b8e85d432a5aef0l.png"), url("https://ae01.alicdn.com/kf/H21b5f6b8496141a1979a33666e1074d9x.jpg") 0px 0px;
+    background: linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)) 0% 0% / cover,
+		url("https://ae01.alicdn.com/kf/H18a4b998752a4ae68b8e85d432a5aef0l.png"), 
+		url("https://ae01.alicdn.com/kf/H21b5f6b8496141a1979a33666e1074d9x.jpg") 0px 0px;
     background-attachment: fixed;
     margin: 0;
     color: #7F95D1;
@@ -249,6 +253,7 @@ mark {
     margin-bottom: 0;
 }
 
+/*主题菜单栏颜色（渐变从右至左）红->黑*/
 .bg-color {
     background-image: linear-gradient(to right, #ff0000 0%, #000000 100%);
 }
@@ -261,12 +266,13 @@ mark {
     color: #fff;
 }
 
+/*网站页面下方进度条颜色*/
 .progress-bar {
     height: 4px;
     position: fixed;
     bottom: 0;
     z-index: 300;
-    background: linear-gradient(to right, #ff0080 0%, #8A2BE2 100%);
+    background: linear-gradient(to right, #ff0000 0%, #000000 100%);
     opacity: 0.8;
 }
 
@@ -555,10 +561,12 @@ header .go-back i {
     height: 40vh !important;
 }
 
+/*首页渐变颜色动画
 .bg-cover:after {
     -webkit-animation: rainbow 60s infinite;
     animation: rainbow 60s infinite;
 }
+*/
 
 .bg-cover:before,
 .bg-cover:after {
@@ -597,7 +605,7 @@ header .go-back i {
     font-size: 2.5rem;
     font-weight: 400;
 }
-/*
+
 @-webkit-keyframes rainbow {
 
     0%,
@@ -689,7 +697,7 @@ header .go-back i {
         background: -webkit-linear-gradient(135deg, rgba(2233, 30, 99, 0.75) 0%, rgba(233, 30, 99, 0.65) 100%);
     }
 }
-*/
+
 .index-card {
     margin-top: -10px;
     padding-top: 20px;
@@ -1304,7 +1312,7 @@ thead {
 
 .chip-container .chip:hover {
     color: #fff;
-    background: linear-gradient(to right, #ff0080 0%, #8A2BE2 100%) !important;
+    background: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%) !important;
 }
 
 .chip .tag-length {
@@ -1791,9 +1799,10 @@ thead {
     border: 1px solid #eee;
 }
 
+/*其他技能*/
 .other-skills .chip:hover {
     color: #fff;
-    background: linear-gradient(to right, #ff0000%, #000000 100%);
+    background: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);
     border: 1px solid #4cbf30;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .25)
 }
