@@ -485,7 +485,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-03-31
+                    2020-09-14
                 </div>
                 
 
@@ -552,7 +552,7 @@ cd myblog
 hexo init</code></pre><h4 id="5、启动博客"><a href="#5、启动博客" class="headerlink" title="5、启动博客"></a>5、启动博客</h4><p>此时博客已经搭建好了，在命令行中输入<strong>hexo s</strong><br>就可以在本地的<strong>localhost4000</strong>端口上打开（在浏览器的地址栏上输入localhost4000）<br>此时是heho默认使用的标题，并且已经生成了一个叫做HelloWorld的文章<br><strong>ctrl+c断开</strong></p>
 <h3 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h3><h4 id="1、创建仓库"><a href="#1、创建仓库" class="headerlink" title="1、创建仓库"></a>1、创建仓库</h4><p><strong>登录GitHub（<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a> ）<br>点击右上角的加号，新建一个仓库</strong><br><img src="/%E5%8D%9A%E5%AE%A2%E6%97%A5%E8%AE%B0/20191215100729072.png" alt=""><br><strong>命名一定是Owner里的内容加上 .github.io<br>描述内容可以自己填，然后create</strong><br><img src="/%E5%8D%9A%E5%AE%A2%E6%97%A5%E8%AE%B0/20191215100923608.png" alt=""></p>
 <hr>
-<h4 id="2、本地操作"><a href="#2、本地操作" class="headerlink" title="2、本地操作"></a>2、本地操作</h4><p>进入命令行安装一个插件</p>
+<h4 id="2、本地操作"><a href="#2、本地操作" class="headerlink" title="2、本地操作"></a>2、本地操作</h4><p>进入命令行安装一个插件，这个deployer的插件是用来将博客部署到远端的服务器上的</p>
 <pre><code>cnpm install hexo-deployer-git --save</code></pre><p><strong>重要</strong><br><strong>在文件夹中打开_config.myl(</strong>不要用记事本，否则保存后不能用<strong>)<br>可以用notepad++来打开，在最底部找到deploy，并加上如下代码：</strong><br><img src="/%E5%8D%9A%E5%AE%A2%E6%97%A5%E8%AE%B0/20191215102008749.png" alt=""></p>
 <hr>
 <p><strong>repo后面写你刚才创建仓库的地址</strong></p>
